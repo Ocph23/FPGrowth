@@ -37,12 +37,15 @@ namespace TestApp
 
             
             Helper.PrintDataItem(datas);
+
             var result =Helper.FrekuensiItem(datas);//.OrderBy(X=>X.Name).ToList();
-            Console.WriteLine("Frekuensi");
+           
             Helper.PrintFrequensi(result);
            
             double MinSupport = 15;
 
+            
+            //remove item less then minsuport
             var frRemoveItem = new List<FekuensiItem>();
             foreach (var item in result.ToList())
             {
@@ -276,7 +279,6 @@ namespace TestApp
 
             }
 
-
             Console.WriteLine("");
             Console.WriteLine("NILAI Confidance");
             Console.Write($" X  ");
@@ -340,11 +342,5 @@ namespace TestApp
 
             Console.ReadLine();
         }
-
-       
     }
-
-
-    
-    
 }

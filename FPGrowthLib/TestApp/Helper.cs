@@ -34,6 +34,7 @@ namespace TestApp
 
         public static void PrintFrequensi(List<FekuensiItem> result)
         {
+            Console.WriteLine("Frekuensi");
             foreach (var item in result)
             {
                 Console.WriteLine($"{item.Name} |  {item.Count} | {item.Suport}");

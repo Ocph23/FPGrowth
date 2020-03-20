@@ -1,0 +1,96 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UserSecretsId>0a826a35-cfa3-4262-9436-2a5fd4c139bf</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="wwwroot\assets\vendor\bootstrap-datepicker\**" />
+    <Compile Remove="wwwroot\assets\vendor\datatables.net-bs4\**" />
+    <Compile Remove="wwwroot\assets\vendor\datatables.net-dt\**" />
+    <Compile Remove="wwwroot\assets\vendor\datatables.net\**" />
+    <Content Remove="wwwroot\assets\vendor\bootstrap-datepicker\**" />
+    <Content Remove="wwwroot\assets\vendor\datatables.net-bs4\**" />
+    <Content Remove="wwwroot\assets\vendor\datatables.net-dt\**" />
+    <Content Remove="wwwroot\assets\vendor\datatables.net\**" />
+    <EmbeddedResource Remove="wwwroot\assets\vendor\bootstrap-datepicker\**" />
+    <EmbeddedResource Remove="wwwroot\assets\vendor\datatables.net-bs4\**" />
+    <EmbeddedResource Remove="wwwroot\assets\vendor\datatables.net-dt\**" />
+    <EmbeddedResource Remove="wwwroot\assets\vendor\datatables.net\**" />
+    <None Remove="wwwroot\assets\vendor\bootstrap-datepicker\**" />
+    <None Remove="wwwroot\assets\vendor\datatables.net-bs4\**" />
+    <None Remove="wwwroot\assets\vendor\datatables.net-dt\**" />
+    <None Remove="wwwroot\assets\vendor\datatables.net\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
+    <PackageReference Include="MailKit" Version="2.5.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\DAL\OcphDalMysql\Ocph.DAL.MySql\Ocph.DAL.MySql\Ocph.DAL.MySql.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\assets\vendor\%40uirouter\angularjs\release\angular-ui-router.js" />
+    <None Include="wwwroot\assets\vendor\%40uirouter\angularjs\release\angular-ui-router.js.map" />
+    <None Include="wwwroot\assets\vendor\%40uirouter\angularjs\release\angular-ui-router.min.js" />
+    <None Include="wwwroot\assets\vendor\%40uirouter\angularjs\release\angular-ui-router.min.js.map" />
+    <None Include="wwwroot\assets\vendor\%40uirouter\angularjs\release\resolveService.js" />
+    <None Include="wwwroot\assets\vendor\%40uirouter\angularjs\release\resolveService.js.map" />
+    <None Include="wwwroot\assets\vendor\%40uirouter\angularjs\release\resolveService.min.js" />
+    <None Include="wwwroot\assets\vendor\%40uirouter\angularjs\release\resolveService.min.js.map" />
+    <None Include="wwwroot\assets\vendor\%40uirouter\angularjs\release\stateEvents.js" />
+    <None Include="wwwroot\assets\vendor\%40uirouter\angularjs\release\stateEvents.js.map" />
+    <None Include="wwwroot\assets\vendor\%40uirouter\angularjs\release\stateEvents.min.js" />
+    <None Include="wwwroot\assets\vendor\%40uirouter\angularjs\release\stateEvents.min.js.map" />
+    <None Include="wwwroot\assets\vendor\%40uirouter\angularjs\release\ui-router-angularjs.js" />
+    <None Include="wwwroot\assets\vendor\%40uirouter\angularjs\release\ui-router-angularjs.js.map" />
+    <None Include="wwwroot\assets\vendor\%40uirouter\angularjs\release\ui-router-angularjs.min.js" />
+    <None Include="wwwroot\assets\vendor\%40uirouter\angularjs\release\ui-router-angularjs.min.js.map" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\angular-datatables.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\angular-datatables.min.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\bootstrap\angular-datatables.bootstrap.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\bootstrap\angular-datatables.bootstrap.min.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\buttons\angular-datatables.buttons.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\buttons\angular-datatables.buttons.min.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\colreorder\angular-datatables.colreorder.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\colreorder\angular-datatables.colreorder.min.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\columnfilter\angular-datatables.columnfilter.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\columnfilter\angular-datatables.columnfilter.min.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\colvis\angular-datatables.colvis.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\colvis\angular-datatables.colvis.min.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\fixedcolumns\angular-datatables.fixedcolumns.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\fixedcolumns\angular-datatables.fixedcolumns.min.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\fixedheader\angular-datatables.fixedheader.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\fixedheader\angular-datatables.fixedheader.min.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\light-columnfilter\angular-datatables.light-columnfilter.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\light-columnfilter\angular-datatables.light-columnfilter.min.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\scroller\angular-datatables.scroller.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\scroller\angular-datatables.scroller.min.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\select\angular-datatables.select.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\select\angular-datatables.select.min.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\tabletools\angular-datatables.tabletools.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\dist\plugins\tabletools\angular-datatables.tabletools.min.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\index.js" />
+    <None Include="wwwroot\assets\vendor\angular-datatables\README.md" />
+    <None Include="wwwroot\assets\vendor\angular-local-storage\dist\angular-local-storage.js" />
+    <None Include="wwwroot\assets\vendor\angular-local-storage\dist\angular-local-storage.min.js" />
+    <None Include="wwwroot\assets\vendor\angular-local-storage\dist\angular-local-storage.min.js.map" />
+    <None Include="wwwroot\assets\vendor\angular-route\angular-route.js" />
+    <None Include="wwwroot\assets\vendor\angular-route\angular-route.min.js" />
+    <None Include="wwwroot\assets\vendor\angular-route\angular-route.min.js.map" />
+    <None Include="wwwroot\assets\vendor\angular-route\index.js" />
+    <None Include="wwwroot\assets\vendor\angular-route\LICENSE.md" />
+    <None Include="wwwroot\assets\vendor\angular-route\README.md" />
+    <None Include="wwwroot\assets\vendor\swangular\swangular.js" />
+    <None Include="wwwroot\assets\vendor\sweetalert2\dist\sweetalert2.all.js" />
+    <None Include="wwwroot\assets\vendor\sweetalert2\dist\sweetalert2.all.min.js" />
+    <None Include="wwwroot\assets\vendor\sweetalert2\dist\sweetalert2.common.js" />
+    <None Include="wwwroot\assets\vendor\sweetalert2\dist\sweetalert2.js" />
+    <None Include="wwwroot\assets\vendor\sweetalert2\dist\sweetalert2.min.js" />
+  </ItemGroup>
+</Project>
