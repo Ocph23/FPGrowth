@@ -27,9 +27,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
     <PackageReference Include="MailKit" Version="2.5.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\DAL\OcphDalMysql\Ocph.DAL.MySql\Ocph.DAL.MySql\Ocph.DAL.MySql.csproj" />
+    <PackageReference Include="Ocph.DAL.MySql" Version="1.1.1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />

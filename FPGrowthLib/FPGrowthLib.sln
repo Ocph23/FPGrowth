@@ -7,9 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FPGrowthLib", "FPGrowthLib\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApp", "TestApp\TestApp.csproj", "{59272AC2-F15C-429B-B48C-2CA8BD1936A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainWebApp", "MainWebApp\MainWebApp.csproj", "{B7EDFF92-5936-41AA-BB45-E7FFF751A2F3}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ocph.DAL.MySql", "..\..\DAL\OcphDalMysql\Ocph.DAL.MySql\Ocph.DAL.MySql\Ocph.DAL.MySql.csproj", "{0CCA9A8B-D443-4BA8-88C1-9FE3AD08EB43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MainWebApp", "MainWebApp\MainWebApp.csproj", "{B7EDFF92-5936-41AA-BB45-E7FFF751A2F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{B7EDFF92-5936-41AA-BB45-E7FFF751A2F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7EDFF92-5936-41AA-BB45-E7FFF751A2F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7EDFF92-5936-41AA-BB45-E7FFF751A2F3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0CCA9A8B-D443-4BA8-88C1-9FE3AD08EB43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0CCA9A8B-D443-4BA8-88C1-9FE3AD08EB43}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0CCA9A8B-D443-4BA8-88C1-9FE3AD08EB43}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0CCA9A8B-D443-4BA8-88C1-9FE3AD08EB43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
