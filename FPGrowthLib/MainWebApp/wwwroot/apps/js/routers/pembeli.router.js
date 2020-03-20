@@ -31,4 +31,9 @@ angular.module("pembeli.router", [])
                 parent: "pembeli",
                 templateUrl: 'apps/views/pembeli/order.html'
             })
+            .state("pembeli-tagihan", {
+                url: '/tagihan',
+                parent: "pembeli",
+                templateUrl: 'apps/views/pembeli/tagihan.html'
+            })
     });
