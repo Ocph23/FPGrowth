@@ -3,7 +3,7 @@ angular.module("pembeli.controller", [])
     .controller("pembeliHomeController", pembeliHomeController)
     .controller("pembeliprofilpenjualController", pembeliprofilpenjualController)
     .controller("pembelikeranjangController", pembelikeranjangController)
-
+    .controller("pembeliorderController", pembeliorderController)
 function pembeliController() {
 
 }
@@ -20,7 +20,9 @@ function pembelikeranjangController(){
 
 }
 
-
+function pembeliorderController(){
+    
+}
 
 
 ;

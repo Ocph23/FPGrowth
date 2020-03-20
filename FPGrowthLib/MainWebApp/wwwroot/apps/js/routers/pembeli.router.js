@@ -26,4 +26,9 @@ angular.module("pembeli.router", [])
                 parent: "pembeli",
                 templateUrl: 'apps/views/pembeli/keranjang.html'
             })
+            .state("pembeli-order", {
+                url: '/order',
+                parent: "pembeli",
+                templateUrl: 'apps/views/pembeli/order.html'
+            })
     });
