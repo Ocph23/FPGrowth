@@ -3496,6 +3496,7 @@ btn-link
 /*--------- Popovers ----------------*/
 
 .break-word{width: 25em; word-wrap: break-word;}
+.break-kata{width: flex; word-wrap: break-word; border: 1px solid; position: relative; padding-left: 15px; padding-right: 15px; padding-top: 10px; padding-bottom: 10px;}
 .popover {
     border: 1px solid rgb(230, 230, 242);
 }
@@ -4532,7 +4533,7 @@ Pills vertical
 /*----------------------- 
 5.1.  General
 --------------------*/
-
+.item-tengah{margin-left: auto; margin-right: auto;}
 .table {
     margin-bottom: 0px;
 }
