@@ -3866,7 +3866,7 @@ Pills Regular
 
 .pills-regular .tab-content {
     background-color: #fff;
-    padding: 10px;
+    padding: 20px;
     border-radius: 4px;
 }
 
@@ -4028,7 +4028,7 @@ Pills vertical
 
 .badge {
     display: inline-block;
-    padding: 3px 7px;
+    padding: 4px 6px;
     font-size: 14px;
     font-weight: 400;
     line-height: 1;
