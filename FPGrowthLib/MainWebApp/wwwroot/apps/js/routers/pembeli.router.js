@@ -36,4 +36,9 @@ angular.module("pembeli.router", [])
                 parent: "pembeli",
                 templateUrl: 'apps/views/pembeli/tagihan.html'
             })
+            .state("pembeli-daftartagihan", {
+                url: '/daftartagihan',
+                parent: "pembeli",
+                templateUrl: 'apps/views/pembeli/daftartagihan.html'
+            })
     });
