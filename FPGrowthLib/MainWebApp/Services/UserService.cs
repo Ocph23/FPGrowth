@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using MainWebApp.Models;
+using MainWebApp.Models.Data;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -170,7 +171,7 @@ namespace MainWebApp.Services {
         public static bool AddToRole (this User user, OcphDbContext db, string roleName) {
             var role = db.Roles.Where (item => item.rolename == roleName).FirstOrDefault ();
             if (role != null) {
-                return db.UserInRoles.Insert (new UserInRole { iduser = user.iduser, idrole = role.idrole });
+                return db.UserInRoles.Insert (new Userinrole { iduser = user.iduser, idrole = role.idrole });
             }
             return false;
         }

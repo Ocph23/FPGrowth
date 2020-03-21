@@ -1,22 +1,19 @@
 using System;
- 
- namespace MainWebApp.Models.Data 
-{ 
-     public interface IUser  
-   {
-         int iduser {  get; set;} 
 
-         string username {  get; set;} 
+namespace MainWebApp.Models.Data {
 
-         string password {  get; set;} 
+     public interface IUser {
+          int iduser { get; set; }
 
-         string token {  get; set;} 
+          string username { get; set; }
 
-         string aktif {  get; set;} 
+          string password { get; set; }
 
-         DateTime created {  get; set;} 
+          string token { get; set; }
+
+          bool aktif { get; set; }
+
+          DateTime created { get; set; }
 
      }
 }
-
-
