@@ -11,20 +11,19 @@ angular.module('account.router', [ 'ui.router' ]).config(function($stateProvider
 			controller: 'LoginController',
 			templateUrl: '../apps/views/account/sign-in.html'
 		})
+		.state('reset-password', {
+			url: '/resetpassword',
+			parent: 'account',
+			templateUrl: '../apps/views/account/resetpassword.html'
+		})
+		.state('recover-password', {
+			url: '/recoverpassword',
+			parent: 'account',
+			templateUrl: '../apps/views/account/recoverpassword.html'
+		})
 		.state('register', {
 			url: '/register',
 			parent: 'account',
-			templateUrl: '../apps/views/account/register.html'
-		})
-		.state('home', {
-			url: '/home',
-			controller: 'homeController',
-			templateUrl: '../apps/views/home.html'
-		})
-		.state(
-			'about',
-			{
-				// we'll get to this in a bit
-			}
-		);
+			templateUrl: '../apps/views/account/sign-up.html'
+		});
 });

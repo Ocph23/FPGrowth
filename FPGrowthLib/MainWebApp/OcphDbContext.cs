@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MainWebApp.Models;
+using MainWebApp.Models.Data;
 using Microsoft.Extensions.Options;
 using Ocph.DAL.Provider.MySql;
 using Ocph.DAL.Repository;
@@ -16,7 +17,8 @@ namespace MainWebApp {
 
         public IRepository<User> Users { get { return new Repository<User> (this); } }
         public IRepository<Role> Roles { get { return new Repository<Role> (this); } }
-        public IRepository<UserInRole> UserInRoles { get { return new Repository<UserInRole> (this); } }
+        public IRepository<Userinrole> UserInRoles { get { return new Repository<Userinrole> (this); } }
+        public IRepository<Kategori> Kategori { get { return new Repository<Kategori> (this); } }
 
     }
 }
