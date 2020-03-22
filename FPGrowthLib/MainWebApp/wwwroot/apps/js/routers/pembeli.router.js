@@ -51,4 +51,9 @@ angular.module("pembeli.router", [])
                 parent: "pembeli",
                 templateUrl: 'apps/views/pembeli/pesan.html'
             })
+            .state("pembeli-diskusi", {
+                url: '/diskusi',
+                parent: "pembeli",
+                templateUrl: 'apps/views/pembeli/diskusi.html'
+            })
     });
