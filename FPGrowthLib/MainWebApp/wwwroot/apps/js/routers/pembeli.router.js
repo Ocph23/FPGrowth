@@ -46,4 +46,9 @@ angular.module("pembeli.router", [])
                 parent: "pembeli",
                 templateUrl: 'apps/views/pembeli/konfirbayar.html'
             })
+            .state("pembeli-pesan", {
+                url: '/pesan',
+                parent: "pembeli",
+                templateUrl: 'apps/views/pembeli/pesan.html'
+            })
     });
