@@ -6,6 +6,11 @@ angular.module("pembeli.controller", [])
     .controller("pembeliorderController", pembeliorderController)
     .controller("pembelitagihanController", pembelitagihanController)
     .controller("pembelidaftartagihanController", pembelidaftartagihanController)
+    .controller("pembelikonfirbayarController", pembelikonfirbayarController)
+    .controller("pembelipesanController", pembelipesanController)
+    .controller("pembelidiskusiController", pembelidiskusiController)
+
+
 function pembeliController() {
 
 }
@@ -32,6 +37,18 @@ function pembelitagihanController(){
 
 
 function pembelidaftartagihanController(){
+
+}
+
+function pembelikonfirbayarController(){
+
+}
+
+function pembelipesanController(){
+    
+}
+
+function pembelidiskusiController(){
 
 }
 

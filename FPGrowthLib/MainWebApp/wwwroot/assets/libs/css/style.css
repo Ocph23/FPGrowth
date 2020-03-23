@@ -3940,9 +3940,15 @@ Pills Regular
 }
 
 .pills-regular .tab-content {
+<<<<<<< HEAD
   background-color: #fff;
   padding: 10px;
   border-radius: 4px;
+=======
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+>>>>>>> 8067d498a61481bf26809df890c5a810a2b95dd0
 }
 
 /* ----------------------- 
@@ -4102,6 +4108,7 @@ Pills vertical
 -------------------------*/
 
 .badge {
+<<<<<<< HEAD
   display: inline-block;
   padding: 3px 7px;
   font-size: 14px;
@@ -4111,6 +4118,17 @@ Pills vertical
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: 0.25rem;
+=======
+    display: inline-block;
+    padding: 4px 6px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+>>>>>>> 8067d498a61481bf26809df890c5a810a2b95dd0
 }
 
 .badge-primary {

@@ -41,4 +41,19 @@ angular.module("pembeli.router", [])
                 parent: "pembeli",
                 templateUrl: 'apps/views/pembeli/daftartagihan.html'
             })
+            .state("pembeli-konfirbayar", {
+                url: '/konfirbayar',
+                parent: "pembeli",
+                templateUrl: 'apps/views/pembeli/konfirbayar.html'
+            })
+            .state("pembeli-pesan", {
+                url: '/pesan',
+                parent: "pembeli",
+                templateUrl: 'apps/views/pembeli/pesan.html'
+            })
+            .state("pembeli-diskusi", {
+                url: '/diskusi',
+                parent: "pembeli",
+                templateUrl: 'apps/views/pembeli/diskusi.html'
+            })
     });
