@@ -1,18 +1,32 @@
 using System;
  
- namespace MainWebApp.Models.Data 
+ namespace MainWebApp.Models.Data  
 { 
      public interface IPembeli  
    {
          int idpembeli {  get; set;} 
 
-         int iduser {  get; set;} 
+         string nama_pembeli {  get; set;} 
 
-         string nama {  get; set;} 
+         string email_pembeli {  get; set;} 
+
+         string jenis_kelamin {  get; set;} 
 
          string alamat {  get; set;} 
 
-         string telepon {  get; set;} 
+         DateTime tgl_lahir {  get; set;} 
+
+         string no_tlp {  get; set;} 
+
+         string foto_pembeli {  get; set;} 
+
+         string foto_ktp {  get; set;} 
+
+         DateTime tgl_daftar {  get; set;} 
+
+         string status {  get; set;} 
+
+         int iduser {  get; set;} 
 
      }
 }

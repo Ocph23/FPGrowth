@@ -25,25 +25,25 @@
                         Kategori</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" data-target="#pills-profile"
-                        href="javascript:void(0)" role="tab" aria-controls="profile" aria-selected="false"><i
-                            class="fas fa-plus-circle"></i> Tambah Kategori</a>
+                    <a ng-click="model={}" class="nav-link" id="pills-profile-tab" data-toggle="pill"
+                        data-target="#pills-profile" href="javascript:void(0)" role="tab" aria-controls="profile"
+                        aria-selected="false"><i class="fas fa-plus-circle"></i> Tambah Kategori</a>
                 </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div class="table-responsive">
                         <div id="accordion">
-                            <div class="card">
-                                <div class="card-header" id="headingOne">
+                            <div class="card" ng-repeat="item in Items">
+                                <div class="card-header" id="heading{{item.idkategori}}">
                                     <h5 class="mb-0">
                                         <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
                                             aria-expanded="true" aria-controls="collapseOne">
-                                            Collapsible Group Item #1
+                                            {{item.namakategori}}
                                         </button>
                                     </h5>
                                 </div>
-                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                <div id="heading{{item.idkategori}}" class="collapse show" aria-labelledby="headingOne"
                                     data-parent="#accordion">
                                     <div class="card-body">
                                         <ul class="list-group">
@@ -52,74 +52,11 @@
                                                 Cras justo odio
                                                 <span class="badge  badge-pill">
                                                     <div class="btn-group ml-auto float-lg-right">
-                                                        <button class="btn btn-sm btn-outline-light "><i
-                                                                class="far fa-edit"></i>
-                                                            Edit</button>
-                                                        <button class="btn btn-sm btn-outline-light ">
-                                                            <i class="far fa-trash-alt"></i>
+                                                        <button class="btn btn-sm btn-outline-light"
+                                                            ng-click="SelectedItem(item)"><i class="far fa-edit"></i>
                                                         </button>
-                                                    </div>
-                                                </span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" id="headingTwo">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link collapsed" data-toggle="collapse"
-                                            data-target="#collapseTwo" aria-expanded="false"
-                                            aria-controls="collapseTwo">
-                                            Collapsible Group Item #2
-                                        </button>
-                                    </h5>
-                                </div>
-                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-                                    data-parent="#accordion">
-                                    <div class="card-body">
-                                        <ul class="list-group">
-                                            <li
-                                                class="list-group-item d-flex justify-content-between align-items-center">
-                                                Cras justo odio
-                                                <span class="badge  badge-pill">
-                                                    <div class="btn-group ml-auto float-lg-right">
-                                                        <button class="btn btn-sm btn-outline-light "><i
-                                                                class="far fa-edit"></i>
-                                                            Edit</button>
-                                                        <button class="btn btn-sm btn-outline-light ">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </button>
-                                                    </div>
-                                                </span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" id="headingThree">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link collapsed" data-toggle="collapse"
-                                            data-target="#collapseThree" aria-expanded="false"
-                                            aria-controls="collapseThree">
-                                            Collapsible Group Item #3
-                                        </button>
-                                    </h5>
-                                </div>
-                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-                                    data-parent="#accordion">
-                                    <div class="card-body">
-                                        <ul class="list-group">
-                                            <li
-                                                class="list-group-item d-flex justify-content-between align-items-center">
-                                                Cras justo odio
-                                                <span class="badge  badge-pill">
-                                                    <div class="btn-group ml-auto float-lg-right">
-                                                        <button class="btn btn-sm btn-outline-light "><i
-                                                                class="far fa-edit"></i>
-                                                            Edit</button>
-                                                        <button class="btn btn-sm btn-outline-light ">
+                                                        <button class="btn btn-sm btn-outline-light"
+                                                            ng-click="delete(item)">
                                                             <i class="far fa-trash-alt"></i>
                                                         </button>
                                                     </div>
@@ -133,37 +70,33 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <div class="card">
-                        <h3 class="card-header">Tambah Kategori</h3>
-                        <div class="card-body">
-                            <form>
+                    <form ng-submit="simpan(model)">
+                        <div class="card">
+                            <h3 class="card-header">Tambah Kategori</h3>
+                            <div class="card-body">
                                 <div class="form-group">
-                                    <label for="inputText3" class="col-form-label">Judul Kategori</label>
-                                    <input id="inputText3" type="text" class="form-control"
-                                        placeholder="Judul Kategori">
+                                    <label for="inputText1" class="col-form-label">Kode Kategori</label>
+                                    <input ng-model="model.kode_kategori" id="inputText1" type="text"
+                                        class="form-control" placeholder="Kode">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputText3" class="col-form-label">Kategori</label>
+                                    <input ng-model="model.nama_kategori" id="inputText3" type="text"
+                                        class="form-control" placeholder="Kategori">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Deskripsi Kategori</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                    <textarea ng-model="model.deskripsi" class="form-control"
+                                        id="exampleFormControlTextarea1" rows="3"
                                         placeholder="Deskripsi Kategori"></textarea>
-                                </div>
-                            </form>
-                        </div>
-                        <div class=" card-body border-top">
-                            <h5>Pilih Kategori</h5>
-                            <form>
-                                <div class="form-group">
-                                    <select class="form-control">
-                                        <option placeholder="Pilih Kategori"></option>
-                                    </select>
                                 </div>
                                 <div class="card-footer text-right">
                                     <button type="submit" class="btn btn-success">Simpan</button>
-                                    <button type="submit" class="btn btn-danger">Cancel</button>
+                                    <button type="button" class="btn btn-danger">Cancel</button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

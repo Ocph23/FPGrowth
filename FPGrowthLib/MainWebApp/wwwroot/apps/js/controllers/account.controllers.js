@@ -3,7 +3,7 @@ angular.module('account.controller', []).controller('LoginController', LoginCont
 function LoginController($scope, $state, AuthService) {
 	$scope.login = function(user) {
 		AuthService.login(user).then((x) => {
-			$state.go(x.roles[0] + '-home');
+			$state.go(x.role + '-home');
 		});
 	};
 }

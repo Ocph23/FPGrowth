@@ -1,19 +1,24 @@
 using System;
+ 
+ namespace MainWebApp.Models.Data  
+{ 
+     public interface IUser  
+   {
+         int iduser {  get; set;} 
 
-namespace MainWebApp.Models.Data {
+         string username {  get; set;} 
 
-     public interface IUser {
-          int iduser { get; set; }
+         string password {  get; set;} 
 
-          string username { get; set; }
+         string role {  get; set;} 
 
-          string password { get; set; }
+         string email {  get; set;} 
 
-          string token { get; set; }
+         string no_tlp {  get; set;} 
 
-          bool aktif { get; set; }
-
-          DateTime created { get; set; }
+         int emailconfirm {  get; set;} 
 
      }
 }
+
+

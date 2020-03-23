@@ -2,13 +2,9 @@ using System;
  
  namespace MainWebApp.Models.Data  
 { 
-     public interface ITransaksi  
+     public interface IPengiriman  
    {
-         int idtransaksi {  get; set;} 
-
-         DateTime tgl_order {  get; set;} 
-
-         DateTime tgl_pembayaran {  get; set;} 
+         int idpengiriman {  get; set;} 
 
          DateTime tgl_pengiriman {  get; set;} 
 
@@ -26,21 +22,23 @@ using System;
 
          string alamat_pengiriman {  get; set;} 
 
-         double total_bayar {  get; set;} 
+         string total_bayar {  get; set;} 
 
          string nama_toko {  get; set;} 
 
          string potongan {  get; set;} 
 
-         string bukti_pembayaran {  get; set;} 
+         string bukti_pengiriman {  get; set;} 
 
-         string status_pembayaran {  get; set;} 
+         string verifikasi_pengiriman {  get; set;} 
 
          string status_pengiriman {  get; set;} 
 
-         string status_transaksi {  get; set;} 
+         string status_pengantaran {  get; set;} 
 
-         int idpengiriman {  get; set;} 
+         string keterangan {  get; set;} 
+
+         int idpembayaran {  get; set;} 
 
      }
 }

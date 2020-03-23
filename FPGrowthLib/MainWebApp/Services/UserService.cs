@@ -38,14 +38,13 @@ namespace MainWebApp.Services {
                     throw new SystemException ("Anda Tidak Memiliki Akses");
                 }
 
-                if (!user.aktif)
+                if (user.emailconfirm==0)
                     throw new SystemException ("Menunggu Verifikasi Account");
 
                 if (!Helper.VerifyMd5Hash (password, user.password))
                     throw new SystemException ("Anda Tidak Memiliki Akses");
 
-                user.roles = (from a in db.UserInRoles.Where (x => x.iduser == user.iduser) join b in db.Roles.Select () on a.idrole equals b.idrole select b.rolename).ToList ();
-                user.token = user.GenerateToken (_appSettings.Secret);
+                user.Token = user.GenerateToken (_appSettings.Secret);
                 return user;
             } catch (System.Exception ex) {
 
@@ -59,10 +58,10 @@ namespace MainWebApp.Services {
                 if (user == null)
                     throw new SystemException ("Anda Tidak Memiliki Akses");
 
-                if (user.token != token)
-                    throw new SystemException ("Token Verifikasi akun telah expire");
+                if (user.emailconfirm ==1)
+                    throw new SystemException ("Email telah diverifikasi");
 
-                var aktif = db.Users.Update (x => new { x.aktif }, new User { aktif = true, iduser = userid, token = "" }, x => x.iduser == userid);
+                var aktif = db.Users.Update (x => new { x.emailconfirm }, new User { emailconfirm = 1, iduser = userid}, x => x.iduser == userid);
                 if (!aktif)
                     throw new SystemException ("Terjadi Kesalahan, Silahkan Riset ");
                 return true;
@@ -79,20 +78,11 @@ namespace MainWebApp.Services {
 
                 var users = db.Users.Select ();
                 if (users.Count () <= 0) {
-
-                    string[] roles = { "admin", "customer" };
-                    foreach (var item in roles) {
-                        db.Roles.Insert (new Role () { rolename = item });
-                    }
-
-                    var user = new User { username = "admin", password = Helper.GetMd5Hash ("admin"), created = DateTime.Now, aktif = false };
+                    var user = new User { username = "admin", password = Helper.GetMd5Hash ("admin"),    role="AdminSuper", email ="admin@gmail.com"};
                     user = user.CreateUser (db);
-                    user.AddToRole (db, "admin");
-                    user.roles = (from a in db.UserInRoles.Where (x => x.iduser == user.iduser) join b in db.Roles.Select () on a.idrole equals b.idrole select b.rolename).ToList ();
-                    user.token = user.GenerateToken (_appSettings.Secret);
-                    db.Users.Update (x => new { x.token }, user, x => x.iduser == user.iduser);
+                   var token = user.GenerateToken (_appSettings.Secret);
                     var emailService = new EmailService ();
-                    emailService.SendEmail ("ocph23@gmail.com", $"<a href='https://localhost:5001/user/verifyemail?userid={user.iduser}&token={user.token}'>Verifikasi Accunt</a>");
+                    emailService.SendEmail ("ocph23@gmail.com", $"<a href='https://localhost:5001/user/verifyemail?userid={user.iduser}&token={token}'>Verifikasi Accunt</a>");
                     transaction.Commit ();
                 }
                 return Task.CompletedTask;
@@ -102,78 +92,18 @@ namespace MainWebApp.Services {
                 return Task.CompletedTask;
             }
         }
-        /*
-                public User RegisterPNS(Pegawai model)
-                {
-
-                    using (var db = new OcphDbContext(_appSettings))
-                    {
-                        var transaction = db.BeginTransaction();
-                        try
-                        {
-                            var user = new User { username = model.nip, password = model.password, created = DateTime.Now, aktif = false };
-                            user = user.CreateUser(db);
-                            user.AddToRole(db, "pegawai");
-                            user.Roles = (from a in db.UsersinRole.Where(x => x.iduser == user.iduser) join b in db.Roles.Select() on a.idrole equals b.idrole select b.rolename).ToList();
-                            user.token = user.GenerateToken(_appSettings.Secret);
-                            model.iduser = user.iduser;
-                            var pns = db.Pegawai.InsertAndGetLastID(model);
-                            transaction.Commit();
-                            return user;
-
-                        }
-                        catch (System.Exception ex)
-                        {
-                            transaction.Rollback();
-                            throw new SystemException(ex.Message);
-                        }
-
-                    }
-                }*/
-
     }
 
     public static class UserExtention {
-
         public static User CreateUser (this User user, OcphDbContext db) {
             user.iduser = db.Users.InsertAndGetLastID (user);
             return user;
         }
-
+     
         public static User GetDataUser (this System.Security.Claims.ClaimsPrincipal user, OcphDbContext db) {
             var claim = user.Claims.Where (x => x.Type == ClaimTypes.NameIdentifier).FirstOrDefault ();
             var result = db.Users.Where (x => x.username == claim.Value).FirstOrDefault ();
             return result;
-        }
-
-        /*  public static Pegawai GetProfile(this System.Security.Claims.ClaimsPrincipal user, OcphDbContext db)
-        {
-            var claim = user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).FirstOrDefault();
-            var result = db.User.Where(x => x.username == claim.Value).FirstOrDefault();
-            var pegawai = from a in db.Pegawai.Where(x => x.iduser == result.iduser)
-                          join b in db.Jabatan.Select() on a.idjabatan equals b.idjabatan
-                          select new Pegawai
-                          {
-                              idjabatan = a.idjabatan,
-                              idpegawai = a.idpegawai,
-                              iduser = a.iduser,
-                              jabatan = b,
-                              nama = a.nama,
-                              nip = a.nip,
-                              pangkat = a.pangkat,
-                              status = a.status,
-                              tmt = a.tmt,
-                              unitorganisasi = a.unitorganisasi
-                          };
-            return pegawai.FirstOrDefault();
-        }
-*/
-        public static bool AddToRole (this User user, OcphDbContext db, string roleName) {
-            var role = db.Roles.Where (item => item.rolename == roleName).FirstOrDefault ();
-            if (role != null) {
-                return db.UserInRoles.Insert (new Userinrole { iduser = user.iduser, idrole = role.idrole });
-            }
-            return false;
         }
 
         public static string GenerateToken (this User user, string secretCode) {

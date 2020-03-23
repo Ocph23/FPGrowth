@@ -14,7 +14,6 @@ namespace MainWebApp.Controllers {
 
         public UserController (IUserService service) {
             _service = service;
-
         }
 
         [HttpPost]

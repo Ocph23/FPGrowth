@@ -7,18 +7,12 @@ using Ocph.DAL;
  
  namespace MainWebApp.Models.Data  
 { 
-     [TableName("Transaksi")] 
-     public class Transaksi :ITransaksi  
+     [TableName("Pengiriman")] 
+     public class Pengiriman :IPengiriman  
    {
-          [PrimaryKey("idtransaksi")] 
-          [DbColumn("idtransaksi")] 
-          public int idtransaksi {  get; set;} 
-
-          [DbColumn("tgl_order")] 
-          public DateTime tgl_order {  get; set;} 
-
-          [DbColumn("tgl_pembayaran")] 
-          public DateTime tgl_pembayaran {  get; set;} 
+          [PrimaryKey("idpengiriman")] 
+          [DbColumn("idpengiriman")] 
+          public int idpengiriman {  get; set;} 
 
           [DbColumn("tgl_pengiriman")] 
           public DateTime tgl_pengiriman {  get; set;} 
@@ -45,7 +39,7 @@ using Ocph.DAL;
           public string alamat_pengiriman {  get; set;} 
 
           [DbColumn("total_bayar")] 
-          public double total_bayar {  get; set;} 
+          public string total_bayar {  get; set;} 
 
           [DbColumn("nama_toko")] 
           public string nama_toko {  get; set;} 
@@ -53,20 +47,23 @@ using Ocph.DAL;
           [DbColumn("potongan")] 
           public string potongan {  get; set;} 
 
-          [DbColumn("bukti_pembayaran")] 
-          public string bukti_pembayaran {  get; set;} 
+          [DbColumn("bukti_pengiriman")] 
+          public string bukti_pengiriman {  get; set;} 
 
-          [DbColumn("status_pembayaran")] 
-          public string status_pembayaran {  get; set;} 
+          [DbColumn("verifikasi_pengiriman")] 
+          public string verifikasi_pengiriman {  get; set;} 
 
           [DbColumn("status_pengiriman")] 
           public string status_pengiriman {  get; set;} 
 
-          [DbColumn("status_transaksi")] 
-          public string status_transaksi {  get; set;} 
+          [DbColumn("status_pengantaran")] 
+          public string status_pengantaran {  get; set;} 
 
-          [DbColumn("idpengiriman")] 
-          public int idpengiriman {  get; set;} 
+          [DbColumn("keterangan")] 
+          public string keterangan {  get; set;} 
+
+          [DbColumn("idpembayaran")] 
+          public int idpembayaran {  get; set;} 
 
      }
 }
