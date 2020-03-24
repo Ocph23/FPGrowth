@@ -3,7 +3,7 @@ angular.module("penjual.controller", [])
     .controller("penjualpHomeController", penjualpHomeController)
     .controller("penjualprofilpController", penjualprofilpController)
     .controller("penjualeditprofilController", penjualeditprofilController)
-
+    .controller("penjualdaftarbarangController", penjualdaftarbarangController)
 
 function penjualController() {
 
@@ -21,4 +21,6 @@ function penjualeditprofilController() {
 
 }
 
-;
+function penjualdaftarbarangController() {
+
+};

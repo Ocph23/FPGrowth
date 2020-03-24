@@ -21,4 +21,9 @@ angular.module("penjual.router", [])
                 parent: "penjual",
                 templateUrl: 'apps/views/penjual/editprofil.html'
             })
+            .state("penjual-daftarbarang", {
+                url: '/daftarbarang',
+                parent: "penjual",
+                templateUrl: 'apps/views/penjual/daftarbarang.html'
+            })
     });
