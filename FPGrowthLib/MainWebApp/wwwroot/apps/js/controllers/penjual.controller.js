@@ -1,7 +1,7 @@
 angular.module("penjual.controller", [])
     .controller("penjualController", penjualController)
     .controller("penjualpHomeController", penjualpHomeController)
-    .controller("penjualprofilpenjualController", penjualprofilpenjualController)
+    .controller("penjualprofilpController", penjualprofilpController)
 
 function penjualController() {
 
@@ -11,6 +11,6 @@ function penjualpHomeController() {
 
 }
 
-function penjualprofilpenjualController() {
+function penjualprofilpController() {
 
 };
