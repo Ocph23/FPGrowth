@@ -30,77 +30,23 @@
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="index.html">Website Penjualan Kayu Somel</a>
+                <a class="navbar-brand font-18" href="index.html">Website Penjualan Kayu Somel</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse float-left" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto navbar-right-top">
-                        <li class="nav-item dropdown connection">
-                            <a class="nav-link text-primary" href="" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" data-target="#kategori" aria-haspopup="true"
-                                aria-expanded="false"> Kategori </a>
-                            <ul id="kategori" class="dropdown-menu dropdown-menu-right connection-dropdown">
-                                <li class="connection-list">
-                                    <div class="row">
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="/assets/images/github.png"
-                                                    alt=""> <span>Kayu 1</span></a>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="/assets/images/dribbble.png"
-                                                    alt=""> <span>Kayu 2</span></a>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="/assets/images/dropbox.png"
-                                                    alt=""> <span>Kayu 3</span></a>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="/assets/images/bitbucket.png"
-                                                    alt=""> <span>Kayu 4</span></a>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="/assets/images/mail_chimp.png"
-                                                    alt=""><span>Kayu 5</span></a>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="/assets/images/slack.png"
-                                                    alt=""> <span>Kayu 6</span></a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="conntection-footer"><a href="#">More</a></div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <div id="custom-search" class="top-search-bar">
-                                <input class="form-search" type="text" placeholder="Cari Kayu">
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown notification">
-                            <a class="nav-link nav-icons" ui-sref="pembeli-keranjang"><i class="fas fa-shopping-cart"
-                                    title="Keranjang"></i> <span class="indicator"></span></a>
-                        </li>
-
+                <div class="collapse navbar-collapse mr-5" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mr-5 navbar-right-top">
                         <li class="nav-item dropdown nav-user">
                             <a class="nav-link nav-user-img" href="" id="navbarDropdownMenuLink2" data-toggle="dropdown"
-                                data-target="#profile" aria-haspopup="true" aria-expanded="false"><img
-                                    src="/assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"
-                                    title="Profile"></a>
+                                data-target="#profile" aria-haspopup="true" aria-expanded="false"><i
+                                    class="fas fa-envelope-square font-24"></i><span class="indicator"></span>
+                            </a>
                             <div id="profile" class="dropdown-menu dropdown-menu-right nav-user-dropdown"
                                 aria-labelledby="navbarDropdownMenuLink2">
-                                <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name">John Abraham </h5>
-                                </div>
-                                <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                                <a class="dropdown-item" href="#">Pesan</a>
+                                <a class="dropdown-item" href="#">Diskusi Barang</a>
                             </div>
                         </li>
                     </ul>
@@ -121,10 +67,33 @@
         <!-- ============================================================== -->
         <div class="dashboard-wrapper-pembeli">
             <div class="dashboard-ecommerce">
+                <div class="row mt-3" style="border-bottom: 1px solid;">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="text-center">
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-primary">
+                                    <input type="radio" name="options" id="option1">Profil
+                                </label>
+                                <label class="btn btn-primary">
+                                    <input type="radio" name="options" id="option2"> Barang
+                                </label>
+                                <label class="btn btn-primary">
+                                    <input type="radio" name="options" id="option4"> Order
+                                </label>
+                                <label class="btn btn-primary">
+                                    <input type="radio" name="options" id="option5"> Pengiriman
+                                </label>
+                                <label class="btn btn-primary">
+                                    <input type="radio" name="options" id="option6"> Transaksi
+                                </label>
+                                <span class="btn btn-primary dropdown-toggle">Akun</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="container-fluid dashboard-content ">
                     <ui-view></ui-view>
                 </div>
-
                 <div class="footer">
                     <div class="container-fluid">
                         <div class="row">
