@@ -16,4 +16,9 @@ angular.module("penjual.router", [])
                 parent: "penjual",
                 templateUrl: 'apps/views/penjual/profilp.html'
             })
+            .state("penjual-editprofil", {
+                url: '/editprofil',
+                parent: "penjual",
+                templateUrl: 'apps/views/penjual/editprofil.html'
+            })
     });
