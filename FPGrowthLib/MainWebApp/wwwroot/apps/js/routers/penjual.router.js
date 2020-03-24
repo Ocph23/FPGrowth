@@ -11,4 +11,9 @@ angular.module("penjual.router", [])
                 parent: "penjual",
                 templateUrl: 'apps/views/penjual/phome.html'
             })
+            .state("penjual-profilpenjual", {
+                url: '/profilpenjual',
+                parent: "penjual",
+                templateUrl: 'apps/views/penjual/profilpenjual.html'
+            })
     });
