@@ -4,11 +4,11 @@ angular.module("penjual.router", [])
         $stateProvider
             .state("penjual", {
                 url: '/penjual',
-                templateUrl: ''
+                templateUrl: 'apps/views/penjual/index.html'
             })
             .state("penjual-home", {
                 url: '/home',
                 parent: "penjual",
-                templateUrl: ''
+                templateUrl: 'apps/views/pembeli/home.html'
             })
     });
