@@ -9,6 +9,6 @@ angular.module("penjual.router", [])
             .state("penjual-home", {
                 url: '/home',
                 parent: "penjual",
-                templateUrl: 'apps/views/pembeli/home.html'
+                templateUrl: 'apps/views/penjual/home.html'
             })
     });
