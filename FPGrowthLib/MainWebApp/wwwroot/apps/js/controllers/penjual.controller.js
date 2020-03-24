@@ -1,13 +1,13 @@
 angular.module("penjual.controller", [])
     .controller("penjualController", penjualController)
-    .controller("penjualHomeController", penjualHomeController)
+    .controller("penjualpHomeController", penjualpHomeController)
 
 
 function penjualController() {
 
 }
 
-function penjualHomeController() {
+function penjualpHomeController() {
 
 }
 

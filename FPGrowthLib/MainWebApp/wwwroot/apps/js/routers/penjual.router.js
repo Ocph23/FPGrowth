@@ -7,8 +7,8 @@ angular.module("penjual.router", [])
                 templateUrl: 'apps/views/penjual/index.html'
             })
             .state("penjual-home", {
-                url: '/home',
+                url: '/phome',
                 parent: "penjual",
-                templateUrl: 'apps/views/penjual/home.html'
+                templateUrl: 'apps/views/penjual/phome.html'
             })
     });
