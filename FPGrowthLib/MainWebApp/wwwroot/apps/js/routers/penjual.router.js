@@ -4,11 +4,26 @@ angular.module("penjual.router", [])
         $stateProvider
             .state("penjual", {
                 url: '/penjual',
-                templateUrl: ''
+                templateUrl: 'apps/views/penjual/index.html'
             })
             .state("penjual-home", {
-                url: '/home',
+                url: '/phome',
                 parent: "penjual",
-                templateUrl: ''
+                templateUrl: 'apps/views/penjual/phome.html'
+            })
+            .state("penjual-profilp", {
+                url: '/profilp',
+                parent: "penjual",
+                templateUrl: 'apps/views/penjual/profilp.html'
+            })
+            .state("penjual-editprofil", {
+                url: '/editprofil',
+                parent: "penjual",
+                templateUrl: 'apps/views/penjual/editprofil.html'
+            })
+            .state("penjual-daftarbarang", {
+                url: '/daftarbarang',
+                parent: "penjual",
+                templateUrl: 'apps/views/penjual/daftarbarang.html'
             })
     });

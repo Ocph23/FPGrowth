@@ -1,0 +1,125 @@
+<div class="row">
+    <div class="m-auto col-xl-8">
+        <div class="card">
+            <h3 class="card-header text-center mt-1 ">Ubah Profil Penjual</h3>
+            <div class="card-body">
+                <form id="validationform" data-parsley-validate="" novalidate="">
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Nama Penjual</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <input type="text" required="" placeholder="Nama Penerima" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Alamat Penjual</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <textarea required="" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">No. Kontak</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <input data-parsley-type="number" type="text" required="" placeholder="Enter only numbers"
+                                class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label text-sm-right">Jenis Kelamin</label>
+                        <div class="col-sm-6">
+                            <div class="custom-controls-stacked">
+                                <label class="custom-control custom-checkbox">
+                                    <input id="ck1" name="ck1" type="checkbox" data-parsley-multiple="groups"
+                                        value="bar" data-parsley-mincheck="1"
+                                        data-parsley-errors-container="#error-container1"
+                                        class="custom-control-input"><span class="custom-control-label">Pria</span>
+                                </label>
+                                <label class="custom-control custom-checkbox">
+                                    <input id="ck2" name="ck2" type="checkbox" data-parsley-multiple="groups"
+                                        value="bar2" data-parsley-mincheck="1"
+                                        data-parsley-errors-container="#error-container1"
+                                        class="custom-control-input"><span class="custom-control-label">Wanita</span>
+                                </label>
+                                <div id="error-container1"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Alamat</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <textarea required="" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Tanggal Lahir</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <input type="date" required="" placeholder="Nama Penerima" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Nama Toko</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <input type="text" required="" placeholder="Nama Toko" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Foto KTP</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <input type="file" required="" accept="image/*" name="files" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Foto Penjual</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <input type="file" required="" accept="image/*" name="files" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Foto Toko</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <input type="file" required="" accept="image/*" name="files" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Keterangan</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <textarea required="" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-12 col-md-6 text-right">
+                        <button class="btn btn-outline-danger" type="">Tutup</button></div>
+                    <button class="btn btn-primary" type="submit">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script>
+    $('#form').parsley();
+</script>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
