@@ -37,24 +37,26 @@
                             <div class="card" ng-repeat="item in Items">
                                 <div class="card-header" id="heading{{item.idkategori}}">
                                     <h5 class="mb-0">
-                                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
-                                            aria-expanded="true" aria-controls="collapseOne">
-                                            {{item.namakategori}}
+                                        <button class="btn btn-link" data-toggle="collapse"
+                                            data-target="#collapse{{item.idkategori}}" aria-expanded="true"
+                                            aria-controls="collapseOne">
+                                            {{item.kode_kategori}} - {{item.nama_kategori}}
                                         </button>
                                     </h5>
                                 </div>
-                                <div id="heading{{item.idkategori}}" class="collapse show" aria-labelledby="headingOne"
-                                    data-parent="#accordion">
+                                <div id="collapse{{item.idkategori}}" class="collapse"
+                                    aria-labelledby="heading{{item.idkategori}}" data-parent="#accordion">
                                     <div class="card-body">
                                         <ul class="list-group">
                                             <li
                                                 class="list-group-item d-flex justify-content-between align-items-center">
-                                                Cras justo odio
+                                                {{item.deskripsi}}
                                                 <span class="badge  badge-pill">
                                                     <div class="btn-group ml-auto float-lg-right">
-                                                        <button class="btn btn-sm btn-outline-light"
-                                                            ng-click="SelectedItem(item)"><i class="far fa-edit"></i>
-                                                        </button>
+                                                        <a class="btn btn-sm btn-outline-light" data-toggle="pill"
+                                                            data-target="#pills-profile" href="javascript:void(0)"
+                                                            ng-click="selectedItem(item)"><i class="far fa-edit"></i>
+                                                        </a>
                                                         <button class="btn btn-sm btn-outline-light"
                                                             ng-click="delete(item)">
                                                             <i class="far fa-trash-alt"></i>

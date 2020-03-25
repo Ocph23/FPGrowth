@@ -25,7 +25,7 @@ function adminsuperDaftarKategoriController($scope, KategoriService) {
 	});
 
 	$scope.selectedItem = (param) => {
-		$scope.model = angular.compy(param);
+		$scope.model = angular.copy(param);
 	};
 
 	$scope.simpan = (param) => {

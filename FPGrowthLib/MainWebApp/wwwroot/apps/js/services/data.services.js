@@ -1,18 +1,18 @@
-angular.module('data.service', []).factory('KategoriService', KategoriService);
+angular.module('data.service', []).factory('KategoriService', KategoriServices);
 
-function KategoriService($http, $, message, helperService, AuthService) {
-	var url = helperService.url + '/api/kategori';
+function KategoriServices($http, $q, message, helperServices, AuthService) {
+	var url = helperServices.url + '/api/kategori';
 	var service = { Items: [] };
 
-	service.get = () => {
-		var def = $.defer();
+	service.get = function() {
+		var def = $q.defer();
 		if (service.instance) {
 			def.resolve(service.Items);
 		} else {
 			$http({
-				methode: 'Get',
+				method: 'Get',
 				url: url,
-				headers: AuthService.getheader()
+				headers: AuthService.getHeader()
 			}).then(
 				(response) => {
 					service.instance = true;
@@ -29,16 +29,16 @@ function KategoriService($http, $, message, helperService, AuthService) {
 		return def.promise;
 	};
 
-	service.getById = (id) => {
-		var def = $.defer();
+	service.getById = function(id) {
+		var def = $q.defer();
 		if (service.instance) {
 			var data = service.Items.find((x) => x.idkategori == id);
 			def.resolve(data);
 		} else {
 			$http({
-				methode: 'Get',
+				method: 'Get',
 				url: url + '/' + id,
-				headers: AuthService.getheader()
+				headers: AuthService.getHeader()
 			}).then(
 				(response) => {
 					service.Items.push(response.data);
@@ -54,12 +54,12 @@ function KategoriService($http, $, message, helperService, AuthService) {
 		return def.promise;
 	};
 
-	service.post = (param) => {
-		var def = $.defer();
+	service.post = function(param) {
+		var def = $q.defer();
 		$http({
-			methode: 'Post',
+			method: 'Post',
 			url: url,
-			headers: AuthService.getheader(),
+			headers: AuthService.getHeader(),
 			data: param
 		}).then(
 			(response) => {
@@ -75,12 +75,12 @@ function KategoriService($http, $, message, helperService, AuthService) {
 		return def.promise;
 	};
 
-	service.put = (param) => {
-		var def = $.defer();
+	service.put = function(param) {
+		var def = $q.defer();
 		$http({
-			methode: 'Put',
+			method: 'Put',
 			url: url,
-			headers: AuthService.getheader(),
+			headers: AuthService.getHeader(),
 			data: param
 		}).then(
 			(response) => {
@@ -94,12 +94,12 @@ function KategoriService($http, $, message, helperService, AuthService) {
 		return def.promise;
 	};
 
-	service.delete = (param) => {
-		var def = $.defer();
+	service.delete = function(param) {
+		var def = $q.defer();
 		$http({
-			methode: 'Delete',
+			method: 'Delete',
 			url: url + '/' + param.idkategori,
-			headers: AuthService.getheader(),
+			headers: AuthService.getHeader(),
 			data: param
 		}).then(
 			(response) => {

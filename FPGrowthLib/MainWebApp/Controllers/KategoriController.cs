@@ -60,8 +60,8 @@ namespace MainWebApp.Controllers {
         public IActionResult Put (Models.Data.Kategori data) {
             try {
                 using (var db = new OcphDbContext (_setting)) {
-                    var updated = db.Kategori.Update (x => new { x.idkategori }, data, x => x.idkategori == data.idkategori);
-                    if (updated) {
+                    var updated = db.Kategori.Update (x => new { x.kode_kategori, x.nama_kategori, x.deskripsi }, data, x => x.idkategori == data.idkategori);
+                    if (!updated) {
                         throw new System.Exception ("Data tidak tersimpan");
                     }
                     return Ok (data);
