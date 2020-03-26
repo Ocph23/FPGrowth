@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ocph.DAL;
  
- namespace MainWebApp.Models.Data  
+ namespace MainWebApp.Models.Data 
 { 
      [TableName("Order")] 
      public class Order :IOrder  
@@ -23,14 +23,11 @@ using Ocph.DAL;
           [DbColumn("idpembeli")] 
           public int idpembeli {  get; set;} 
 
-          [DbColumn("jumlah_barang")] 
-          public int jumlah_barang {  get; set;} 
-
           [DbColumn("idmanajemen")] 
           public int idmanajemen {  get; set;} 
 
-          [DbColumn("idbarang")] 
-          public int idbarang {  get; set;} 
+          [DbColumn("alamatpengiriman")] 
+          public string alamatpengiriman {  get; set;} 
 
      }
 }

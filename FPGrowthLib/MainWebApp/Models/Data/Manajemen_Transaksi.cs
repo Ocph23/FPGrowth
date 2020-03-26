@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ocph.DAL;
  
- namespace MainWebApp.Models.Data  
+ namespace MainWebApp.Models.Data 
 { 
      [TableName("Manajemen_Transaksi")] 
      public class Manajemen_Transaksi :IManajemen_Transaksi  

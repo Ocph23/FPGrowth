@@ -1,6 +1,6 @@
 using System;
  
- namespace MainWebApp.Models.Data  
+ namespace MainWebApp.Models.Data 
 { 
      public interface IPenjual  
    {

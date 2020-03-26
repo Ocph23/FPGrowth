@@ -5,13 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Ocph.DAL;
  
- namespace MainWebApp.Models.Data  
+ namespace MainWebApp.Models.Data 
 { 
      [TableName("User")] 
      public class User :IUser  
    {
-
-            [PrimaryKey("iduser")] 
+          [PrimaryKey("iduser")] 
           [DbColumn("iduser")] 
           public int iduser {  get; set;} 
 
@@ -31,11 +30,9 @@ using Ocph.DAL;
           public string no_tlp {  get; set;} 
 
           [DbColumn("emailconfirm")] 
-          public int emailconfirm {  get; set;}
+          public int emailconfirm {  get; set;} 
 
-        public string Token { get; set; }
-
-    }
+     }
 }
 
 

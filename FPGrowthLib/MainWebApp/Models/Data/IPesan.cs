@@ -1,6 +1,6 @@
 using System;
  
- namespace MainWebApp.Models.Data  
+ namespace MainWebApp.Models.Data 
 { 
      public interface IPesan  
    {
@@ -10,7 +10,9 @@ using System;
 
          string isi_pesan {  get; set;} 
 
-         int idpembeli {  get; set;} 
+         int idpengirim {  get; set;} 
+
+         int idpenerima {  get; set;} 
 
      }
 }

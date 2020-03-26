@@ -1,6 +1,6 @@
 using System;
  
- namespace MainWebApp.Models.Data  
+ namespace MainWebApp.Models.Data 
 { 
      public interface IOrder  
    {
@@ -12,11 +12,9 @@ using System;
 
          int idpembeli {  get; set;} 
 
-         int jumlah_barang {  get; set;} 
-
          int idmanajemen {  get; set;} 
 
-         int idbarang {  get; set;} 
+         string alamatpengiriman {  get; set;} 
 
      }
 }
