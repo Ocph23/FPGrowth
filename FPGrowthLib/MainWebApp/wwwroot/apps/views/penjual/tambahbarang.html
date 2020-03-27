@@ -1,0 +1,127 @@
+<div class="row">
+    <div class="m-auto col-xl-8">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-inline-block font-18 mt-2">Daftar Barang</div>
+                <div class="d-inline-block float-right">
+                    <button class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Barang</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <form id="validationform" data-parsley-validate="" novalidate="">
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Nama Barang</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <input type="text" required="" placeholder="Nama Barang" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Gambar</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <input type="file" required="" accept="image/*" name="files" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Stock</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <input data-parsley-type="number" type="text" required="" placeholder="Enter only numbers"
+                                class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Harga</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <input data-parsley-type="number" type="text" required="" placeholder="Enter only numbers"
+                                class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Alamat Penjual</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <textarea required="" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Kategori</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <select class="form-control">
+                                <option>Mustard</option>
+                                <option>Ketchup</option>
+                                <option>Relish</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Sub Kategori</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <select class="form-control">
+                                <option>Mustard</option>
+                                <option>Ketchup</option>
+                                <option>Relish</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Panjang</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <input data-parsley-type="number" type="text" required="" placeholder="Enter only numbers"
+                                class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Lebar</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <input data-parsley-type="number" type="text" required="" placeholder="Enter only numbers"
+                                class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Tinggi</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <input data-parsley-type="number" type="text" required="" placeholder="Enter only numbers"
+                                class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-3 col-form-label text-right">Keterangan</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <textarea required="" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-12 col-md-6 text-right">
+                        <button class="btn btn-outline-danger" type="">Tutup</button></div>
+                    <button class="btn btn-primary" type="submit">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script>
+    $('#form').parsley();
+</script>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
