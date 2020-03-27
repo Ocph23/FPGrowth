@@ -11,178 +11,91 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-sm-12 col-md-4 mb-3">
-                        <div class="mt-1 font-16 d-inline-block">Show</div>
-                        <span class="d-inline-block col-sm-3">
+                    <div class="col-md-4">
+                        <div class="d-inline-block col-auto">Show</div>
+                        <span class="d-inline-block col-auto">
                             <select class="form-control-sm form-control custom-select custom-select-sm">
                                 <option>10</option>
                             </select>
                         </span>
-                        <div class="mt-1 font-16 d-inline-block">Entries</div>
                     </div>
-                    <div class="col-sm-12 col-md-4 mt-1">
+                    <div class="col-md-4">
                         <input class="form-search text-center" placeholder="Cari Produk" />
                     </div>
-                    <div class="col-sm-12 col-md-4 text-center">
-                        <button class="btn btn-outline-primary">Kategori</button>
+                    <div class="col-md-4">
+                        <select class="col-md-6 offset-md-6 form-control">
+                            <option>Kategori</option>
+                        </select>
                     </div>
                 </div>
-                <div class="email-list-item email-list-item--unread" style="padding: 0; margin-bottom: 10px;">
+
+                <div class="email-list-item email-list-item--unread" ng-repeat="item in [1,2,3,4,5]">
                     <div class="row align-items-center">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="col-md-12 item-barang">
                             <div class="mb-2 font-16 text-dark">Kode Barang :<a
                                     class="text-light font-16 badge badge-success ml-2">11-22-33-44</a>
+                            </div>
+                            <div class="mb-2 font-16 text-dark">
+                                <p class="text-dark font-18 mr-3">Kayu Sengon Lapis Baja</p>
                             </div>
                             <div class="user-avatar float-xl-left pr-2 float-none mb-0">
                                 <img src="assets/images/avatar-1.jpg" alt="User Avatar" class="rounded user-avatar-xl">
                             </div>
                             <div class="pl-xl-3">
                                 <div class="m-b-0">
-                                    <div class="user-avatar-name d-inline-block">
-                                        <p class="text-dark font-18 mr-3">Kayu Sengon Lapis Baja</p>
-                                    </div>
-                                </div>
-                                <div class="user-avatar-name d-inline-block">
-                                    <div class="m-b-0">
-                                        <a class="text-dark font-16">Nama Kategori :<a class="font-16 mr-4">Kayu
-                                                Paling
-                                                Bagus</a></a>
-                                        <span class="font-16 mr-5 text-dark">Stock :<a
-                                                class="text-secondary">50</a></span>
-                                        <span class="font-16 mr-1 text-dark">Panjang : <a
-                                                class="text-secondary">500cm</a></span>
-                                        <span class="font-16 mr-1 text-dark">Tinggi : <a
-                                                class="text-secondary">500cm</a></span>
-                                        <span class="font-16 mr-5 text-dark">Lebar : <a
-                                                class="text-secondary">500cm</a></span>
-                                        <span class="font-16 mr-4 text-dark">Harga : <a class="text-primary">Rp
-                                                100.000.000</a></span>
-                                        <span>
-                                            <button class="btn btn-rounded btn-outline-warning">Edit</button>
-                                        </span>
-                                        <span class="mr-0">
-                                            <button class="btn btn-rounded btn-outline-dark">Hapus</button>
-                                        </span>
-                                    </div>
-
-                                </div>
-                                <div class="m-b-0">
-                                    <div class="user-avatar-name d-inline-block">
-                                        <a class="text-dark font-16">Sub Kategori &nbsp;&nbsp;&nbsp;&nbsp;:</a>
+                                    <div class="d-inline-block">
+                                        <a class="text-dark font-16">Sub Kategori :</a>
                                         <span class="font-16">Apa Saja</span>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="mt-2 font-16 text-dark">Tanggal Publish :<a class="text-muted font-16 ml-2">31
-                                    Desember
-                                    2020</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="email-list-item email-list-item--unread" style="padding: 0; margin-bottom: 10px;">
-                    <div class="row align-items-center">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="mb-2 font-16 text-dark">Kode Barang :<a
-                                    class="text-light font-16 badge badge-success ml-2">11-22-33-44</a>
-                            </div>
-                            <div class="user-avatar float-xl-left pr-2 float-none mb-0">
-                                <img src="assets/images/avatar-1.jpg" alt="User Avatar" class="rounded user-avatar-xl">
-                            </div>
-                            <div class="pl-xl-3">
-                                <div class="m-b-0">
-                                    <div class="user-avatar-name d-inline-block">
-                                        <p class="text-dark font-18 mr-3">Kayu Sengon Lapis Baja</p>
-                                    </div>
-                                </div>
-                                <div class="user-avatar-name d-inline-block">
+                                <div class="d-inline-block">
                                     <div class="m-b-0">
-                                        <a class="text-dark font-16">Nama Kategori :<a class="font-16 mr-4">Kayu
+                                        <a class="text-dark font-16">Kategori :<a class="font-16 mr-4">Kayu
                                                 Paling
                                                 Bagus</a></a>
-                                        <span class="font-16 mr-5 text-dark">Stock :<a
-                                                class="text-secondary">50</a></span>
-                                        <span class="font-16 mr-1 text-dark">Panjang : <a
-                                                class="text-secondary">500cm</a></span>
-                                        <span class="font-16 mr-1 text-dark">Tinggi : <a
-                                                class="text-secondary">500cm</a></span>
-                                        <span class="font-16 mr-5 text-dark">Lebar : <a
-                                                class="text-secondary">500cm</a></span>
-                                        <span class="font-16 mr-4 text-dark">Harga : <a class="text-primary">Rp
-                                                100.000.000</a></span>
-                                        <span>
-                                            <button class="btn btn-rounded btn-outline-warning">Edit</button>
-                                        </span>
-                                        <span class="mr-0">
-                                            <button class="btn btn-rounded btn-outline-dark">Hapus</button>
-                                        </span>
-                                    </div>
 
-                                </div>
-                                <div class="m-b-0">
-                                    <div class="user-avatar-name d-inline-block">
-                                        <a class="text-dark font-16">Sub Kategori &nbsp;&nbsp;&nbsp;&nbsp;:</a>
-                                        <span class="font-16">Apa Saja</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-2 font-16 text-dark">Tanggal Publish :<a class="text-muted font-16 ml-2">31
-                                    Desember
-                                    2020</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="email-list-item email-list-item--unread" style="padding: 0; margin-bottom: 10px;">
-                    <div class="row align-items-center">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="mb-2 font-16 text-dark">Kode Barang :<a
-                                    class="text-light font-16 badge badge-success ml-2">11-22-33-44</a>
-                            </div>
-                            <div class="user-avatar float-xl-left pr-2 float-none mb-0">
-                                <img src="assets/images/avatar-1.jpg" alt="User Avatar" class="rounded user-avatar-xl">
-                            </div>
-                            <div class="pl-xl-3">
-                                <div class="m-b-0">
-                                    <div class="user-avatar-name d-inline-block">
-                                        <p class="text-dark font-18 mr-3">Kayu Sengon Lapis Baja</p>
-                                    </div>
-                                </div>
-                                <div class="user-avatar-name d-inline-block">
-                                    <div class="m-b-0">
-                                        <a class="text-dark font-16">Nama Kategori :<a class="font-16 mr-4">Kayu
-                                                Paling
-                                                Bagus</a></a>
-                                        <span class="font-16 mr-5 text-dark">Stock :<a
-                                                class="text-secondary">50</a></span>
-                                        <span class="font-16 mr-1 text-dark">Panjang : <a
-                                                class="text-secondary">500cm</a></span>
-                                        <span class="font-16 mr-1 text-dark">Tinggi : <a
-                                                class="text-secondary">500cm</a></span>
-                                        <span class="font-16 mr-5 text-dark">Lebar : <a
-                                                class="text-secondary">500cm</a></span>
-                                        <span class="font-16 mr-4 text-dark">Harga : <a class="text-primary">Rp
-                                                100.000.000</a></span>
-                                        <span>
-                                            <button class="btn btn-rounded btn-outline-warning">Edit</button>
-                                        </span>
-                                        <span class="mr-0">
-                                            <button class="btn btn-rounded btn-outline-dark">Hapus</button>
-                                        </span>
-                                    </div>
+                                        <div class="d-inline-block">
+                                            <span class="font-16 mr-5 text-dark">Stock :<a
+                                                    class="text-secondary">50</a></span>
+                                        </div>
 
-                                </div>
-                                <div class="m-b-0">
-                                    <div class="user-avatar-name d-inline-block">
-                                        <a class="text-dark font-16">Sub Kategori &nbsp;&nbsp;&nbsp;&nbsp;:</a>
-                                        <span class="font-16">Apa Saja</span>
+                                        <div class="d-inline-block">
+                                            <span class="font-16 mr-1 text-dark">Panjang : <a
+                                                    class="text-secondary">500cm</a></span>
+                                            <span class="font-16 mr-1 text-dark">Tinggi : <a
+                                                    class="text-secondary">500cm</a></span>
+                                            <span class="font-16 mr-5 text-dark">Lebar : <a
+                                                    class="text-secondary">500cm</a></span>
+                                        </div>
+                                        <div class="d-inline-block">
+                                            <span class="font-16 mr-4 text-dark">Harga : <a class="text-primary">Rp
+                                                    100.000.000</a></span>
+                                        </div>
+
+
+
+                                        <div class="d-inline-block">
+                                            <span>
+                                                <button class="btn btn-rounded btn-outline-warning">Edit</button>
+                                            </span>
+                                            <span class="mr-0">
+                                                <button class="btn btn-rounded btn-outline-dark">Hapus</button>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="font-16 mr-4 text-dark">Tanggal Publish : <a
+                                                    class="text-primary">Rp
+                                                    31
+                                                    Desember
+                                                    2020</a></span>
+                                        </div>
+
                                     </div>
                                 </div>
+
+
                             </div>
-                            <div class="mt-2 font-16 text-dark">Tanggal Publish :<a class="text-muted font-16 ml-2">31
-                                    Desember
-                                    2020</a>
-                            </div>
+
                         </div>
                     </div>
                 </div>

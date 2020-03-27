@@ -1,68 +1,62 @@
 <div class="dashboard-main-wrapper">
-    <!-- ============================================================== -->
-    <!-- navbar -->
-    <!-- ============================================================== -->
     <div class="dashboard-header">
-        <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand font-18" href="index.html">Website Penjualan Kayu Somel</a>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+            <a class="navbar-brand font-18" href="#">Website Kayu Somel</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse mr-5" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto mr-5 navbar-right-top">
-                    <li class="nav-item dropdown nav-user">
-                        <a class="nav-link nav-user-img" href="" id="navbarDropdownMenuLink2" data-toggle="dropdown"
-                            data-target="#profile" aria-haspopup="true" aria-expanded="false"><i
-                                class="fas fa-envelope-square font-24"></i><span class="indicator"></span>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto text-white">
+                    <li class="nav-item" ui-sref-active="active">
+                        <a class="nav-link" ui-sref="penjual-home">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item" ui-sref-active="active">
+                        <a class="nav-link" ui-sref="penjual-profile">Profile</a>
+                    </li>
+                    <li class="nav-item" ui-sref-active="active">
+                        <a class="nav-link" ui-sref="penjual-daftarbarang">Barang</a>
+                    </li>
+                    <li class="nav-item" ui-sref-active="active">
+                        <a class="nav-link" href="#">Order</a>
+                    </li>
+                    <li class="nav-item" ui-sref-active="active">
+                        <a class="nav-link" href="#">Pengiriman</a>
+                    </li>
+                    <li class="nav-item" ui-sref-active="active">
+                        <a class="nav-link" href="#">Transaksi</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Akun
                         </a>
-                        <div id="profile" class="dropdown-menu dropdown-menu-right nav-user-dropdown"
-                            aria-labelledby="navbarDropdownMenuLink2">
-                            <a class="dropdown-item" href="#">Pesan</a>
-                            <a class="dropdown-item" href="#">Diskusi Barang</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                     </li>
                 </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <a class="nav-link nav-user-img" href="" id="navbarDropdownMenuLink2" data-toggle="dropdown"
+                        data-target="#profile" aria-haspopup="true" aria-expanded="false"><i
+                            class="fas fa-envelope-square font-24 text-white"></i><span class="indicator"></span>
+                    </a>
+                    <div id="profile" class="dropdown-menu dropdown-menu-right nav-user-dropdown"
+                        aria-labelledby="navbarDropdownMenuLink2">
+                        <a class="dropdown-item" href="#">Pesan</a>
+                        <a class="dropdown-item" href="#">Diskusi Barang</a>
+                    </div>
+                </form>
             </div>
         </nav>
+
     </div>
-    <!-- ============================================================== -->
-    <!-- end navbar -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- left sidebar -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- end left sidebar -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- wrapper  -->
-    <!-- ============================================================== -->
+
     <div class="dashboard-wrapper-pembeli">
         <div class="dashboard-ecommerce">
-            <div class="col">
-                <div class="text-center">
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-primary">
-                            <input type="radio" name="options" id="option1">Profil
-                        </label>
-                        <label class="btn btn-primary">
-                            <input type="radio" name="options" id="option2"> Barang
-                        </label>
-                        <label class="btn btn-primary">
-                            <input type="radio" name="options" id="option4"> Order
-                        </label>
-                        <label class="btn btn-primary">
-                            <input type="radio" name="options" id="option5"> Pengiriman
-                        </label>
-                        <label class="btn btn-primary">
-                            <input type="radio" name="options" id="option6"> Transaksi
-                        </label>
-                        <span class="btn btn-primary dropdown-toggle">Akun</span>
-                    </div>
-                </div>
-            </div>
-
             <div class="container-fluid dashboard-content ">
                 <ui-view></ui-view>
             </div>
@@ -82,12 +76,7 @@
                     </div>
                 </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- end footer -->
-            <!-- ============================================================== -->
+
         </div>
-        <!-- ============================================================== -->
-        <!-- end wrapper  -->
-        <!-- ============================================================== -->
     </div>
 </div>
