@@ -8,7 +8,6 @@ angular.module("penjual.controller", [])
 
 
 
-
 function penjualController() {
 
 }
