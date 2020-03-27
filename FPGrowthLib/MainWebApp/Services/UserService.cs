@@ -38,7 +38,7 @@ namespace MainWebApp.Services {
                     throw new SystemException ("Anda Tidak Memiliki Akses");
                 }
 
-                if (user.emailconfirm==0)
+                if (user.emailconfirm == 0)
                     throw new SystemException ("Menunggu Verifikasi Account");
 
                 if (!Helper.VerifyMd5Hash (password, user.password))
@@ -58,10 +58,10 @@ namespace MainWebApp.Services {
                 if (user == null)
                     throw new SystemException ("Anda Tidak Memiliki Akses");
 
-                if (user.emailconfirm ==1)
+                if (user.emailconfirm == 1)
                     throw new SystemException ("Email telah diverifikasi");
 
-                var aktif = db.Users.Update (x => new { x.emailconfirm }, new User { emailconfirm = 1, iduser = userid}, x => x.iduser == userid);
+                var aktif = db.Users.Update (x => new { x.emailconfirm }, new User { emailconfirm = 1, iduser = userid }, x => x.iduser == userid);
                 if (!aktif)
                     throw new SystemException ("Terjadi Kesalahan, Silahkan Riset ");
                 return true;
@@ -78,9 +78,9 @@ namespace MainWebApp.Services {
 
                 var users = db.Users.Select ();
                 if (users.Count () <= 0) {
-                    var user = new User { username = "admin", password = Helper.GetMd5Hash ("admin"),    role="AdminSuper", email ="admin@gmail.com"};
+                    var user = new User { username = "admin", password = Helper.GetMd5Hash ("admin"), role = "adminsuper", email = "admin@gmail.com" };
                     user = user.CreateUser (db);
-                   var token = user.GenerateToken (_appSettings.Secret);
+                    var token = user.GenerateToken (_appSettings.Secret);
                     var emailService = new EmailService ();
                     emailService.SendEmail ("ocph23@gmail.com", $"<a href='https://localhost:5001/user/verifyemail?userid={user.iduser}&token={token}'>Verifikasi Accunt</a>");
                     transaction.Commit ();
@@ -99,7 +99,7 @@ namespace MainWebApp.Services {
             user.iduser = db.Users.InsertAndGetLastID (user);
             return user;
         }
-     
+
         public static User GetDataUser (this System.Security.Claims.ClaimsPrincipal user, OcphDbContext db) {
             var claim = user.Claims.Where (x => x.Type == ClaimTypes.NameIdentifier).FirstOrDefault ();
             var result = db.Users.Where (x => x.username == claim.Value).FirstOrDefault ();

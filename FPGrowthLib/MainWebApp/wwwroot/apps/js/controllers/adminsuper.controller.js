@@ -45,11 +45,43 @@ function adminsuperDaftarKategoriController($scope, KategoriService) {
 	};
 }
 
-function adminsuperTambahKategoriController() {}
 function adminsuperDataParameterController() {}
+function adminsuperTambahKategoriController() {}
 function adminsuperDataTransaksiController() {}
 function adminsuperAnalisaController() {}
-function adminsuperManagemenTransaksiController() {}
+function adminsuperManagemenTransaksiController($scope, ManagemenTransaksiService) {
+	$scope.model = {};
+	$scope.tambahTitle = 'Tambah Data Parameter';
+	ManagemenTransaksiService.get().then((data) => {
+		$scope.Items = data;
+	});
+
+	$scope.new = () => {
+		$scope.tambahTitle = 'Tambah Data Parameter';
+		$scope.model = {};
+	};
+
+	$scope.selectedItem = (param) => {
+		$scope.tambahTitle = 'Edit';
+		$scope.model = angular.copy(param);
+	};
+
+	$scope.simpan = (param) => {
+		if (param.idkategori == undefined) {
+			ManagemenTransaksiService.post(param).then((res) => {
+				$scope.model = {};
+			});
+		} else {
+			ManagemenTransaksiService.put(param).then((res) => {
+				$scope.model = {};
+			});
+		}
+	};
+
+	$scope.delete = (param) => {
+		ManagemenTransaksiService.delete(param).then((data) => {});
+	};
+}
 function adminsuperDataPenjualController() {}
 function adminsuperDataPembeliController() {}
 function adminsuperDataOrderController() {}

@@ -26,7 +26,7 @@
                 <li class="nav-item">
                     <a class="nav-link" id="pills-profile-tab" data-toggle="pill" data-target="#pills-profile"
                         href="javascript:void(0)" role="tab" aria-controls="profile" aria-selected="false"><i
-                            class="fas fa-plus-circle"></i> Tambah Data Parameter</a>
+                            class="fas fa-plus-circle"></i>Tambah Data Parameter</a>
                 </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
@@ -35,51 +35,41 @@
                         <table class="table">
                             <thead class="bg-light">
                                 <tr class="border-0">
-                                    <th class="border-0">ID Managemen</th>
-                                    <th class="border-0">Nama Bank Pembayaran</th>
-                                    <th class="border-0">Nama Rekening Pembayaran</th>
-                                    <th class="border-0">No Rekening Pembayaran</th>
-                                    <th class="border-0">Batas Jumlah Pengiriman</th>
+                                    <th class="border-0">#</th>
+                                    <th class="border-0">Bank Pembayaran</th>
+                                    <th class="border-0">Nomor Rekening</th>
+                                    <th class="border-0">Batas Pengiriman</th>
                                     <th class="border-0">Potongan</th>
                                     <th class="border-0">Status</th>
                                     <th class="border-0">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Sub Kategori</td>
-                                    <td>Sub Kategori</td>
-                                    <td>Sub Kategori</td>
-                                    <td>Sub Kategori</td>
-                                    <td>Sub Kategori</td>
-                                    <td>Sub Kategori</td>
+                                <tr ng-repeat="item in Items">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{item.nama_bank_pembayaran}}</td>
+                                    <td>{{item.no_rek_pembayaran}}</td>
+                                    <td>{{item.bts_jumlah_pengiriman}}</td>
+                                    <td>{{item.potongan}}</td>
+                                    <td>{{item.status}}</td>
                                     <td>
-                                        <div class="btn-group ml-auto float-lg-right">
-                                            <button class="btn btn-sm btn-outline-light"> <i class="far fa-edit"></i>
-                                                Edit</button>
-                                            <button class="btn btn-sm btn-outline-light ">
-                                                <i class="far fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Sub Kategori</td>
-                                    <td>Sub Kategori</td>
-                                    <td>Sub Kategori</td>
-                                    <td>Sub Kategori</td>
-                                    <td>Sub Kategori</td>
-                                    <td>Sub Kategori</td>
-                                    <td>
-                                        <div class="btn-group ml-auto float-lg-right">
-                                            <button class="btn btn-sm btn-outline-light"> <i class="far fa-edit"></i>
-                                                Edit</button>
-                                            <button class="btn btn-sm btn-outline-light ">
-                                                <i class="far fa-trash-alt"></i>
-                                            </button>
-                                        </div>
+                                        <ul class="list-group">
+                                            <li class="d-flex justify-content-between align-items-center">
+                                                <span class="badge  badge-pill">
+                                                    <div class="btn-group ml-auto float-lg-right">
+                                                        <a class="btn btn-sm btn-outline-light" data-toggle="pill"
+                                                            data-target="#pills-profile" href="javascript:void(0)"
+                                                            ng-click="selectedItem(item)"><i class="far fa-edit"></i>
+                                                        </a>
+                                                        <button class="btn btn-sm btn-outline-light"
+                                                            ng-click="delete(item)">
+                                                            <i class="far fa-trash-alt"></i>
+                                                        </button>
+                                                    </div>
+                                                </span>
+                                            </li>
+                                        </ul>
+
                                     </td>
                                 </tr>
                             </tbody>
@@ -105,69 +95,63 @@
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                     <div class="card">
-                        <h3 class="card-header">Tambah Data Parameter</h3>
+                        <h3 class="card-header">{{tambahTitle}}</h3>
                         <div class="card-body">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <form id="validationform" data-parsley-validate="" novalidate="">
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-left">Id Managemen</label>
-                                        <div class="col-12 col-sm-8 col-lg-7">
-                                            <input type="text" required="" placeholder="Id Managemen"
-                                                class="form-control">
-                                        </div>
-                                    </div>
+                                <form ng-submit="simpan(model)" id="validationform" data-parsley-validate=""
+                                    novalidate="">
                                     <div class="form-group row">
                                         <label class="col-12 col-sm-3 col-form-label text-sm-left">Nama Bank
                                             Pembayaran</label>
                                         <div class="col-12 col-sm-8 col-lg-7">
-                                            <input type="text" required="" data-parsley-minlength="6"
-                                                placeholder="Nama Bank Pembayaran" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-left">Nama Rekening
-                                            Pembayaran</label>
-                                        <div class="col-12 col-sm-8 col-lg-7">
-                                            <input type="text" required="" data-parsley-minlength="6"
-                                                placeholder="Nama Rekening Pembayaran" class="form-control">
+                                            <input ng-model="model.nama_bank_pembayaran" type="text" required=""
+                                                data-parsley-minlength="6" placeholder="Nama Bank Pembayaran"
+                                                class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-12 col-sm-3 col-form-label text-sm-left">No Rekening
                                             Pembayaran</label>
                                         <div class="col-12 col-sm-8 col-lg-7">
-                                            <input type="text" required="" data-parsley-minlength="6"
-                                                placeholder="No Rekening Pembayaran" class="form-control">
+                                            <input ng-model="model.no_rek_pembayaran" type="text" required=""
+                                                data-parsley-minlength="6" placeholder="Nomor Rekening Pembayaran"
+                                                class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-12 col-sm-3 col-form-label text-sm-left">Batas Jumlah
                                             Pengiriman</label>
                                         <div class="col-12 col-sm-8 col-lg-2">
-                                            <input type="text" required="" data-parsley-minlength="6" placeholder=""
-                                                class="form-control">
+                                            <input ng-model="model.bts_jumlah_pengiriman" type="text" required=""
+                                                data-parsley-minlength="6" placeholder="" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-12 col-sm-3 col-form-label text-sm-left">Potongan</label>
                                         <div class="col-12 col-sm-8 col-lg-2">
-                                            <input type="text" required="" data-parsley-minlength="6" placeholder=""
-                                                class="form-control">
+                                            <input ng-model="model.potongan" type="text" required=""
+                                                data-parsley-minlength="6" placeholder="" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-12 col-sm-3 col-form-label text-sm-left">Status</label>
                                         <div class="col-12 col-sm-8 col-lg-2">
-                                            <input type="text" required="" data-parsley-minlength="6" placeholder=""
-                                                class="form-control">
+                                            <input ng-model="model.status" type="text" required=""
+                                                data-parsley-minlength="6" placeholder="" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-12 col-sm-3 col-form-label text-sm-left"></label>
                                         <div class="col-12 col-sm-8 col-lg-7 ">
                                             <div class="float-right">
-                                                <button type="submit" class="btn btn-danger ">Cancel</button>
-                                                <button type="submit" class="btn btn-success ">Tambah</button>
+                                                <ul class="list-group">
+                                                    <li class="d-flex justify-content-between align-items-center">
+                                                        <button ng-click="new()" type="button"
+                                                            class="btn btn-danger ">Cancel</button>
+                                                        <button type="submit" class="btn btn-success ">Simpan</button>
+                                                    </li>
+                                                </ul>
+
                                             </div>
                                         </div>
                                     </div>

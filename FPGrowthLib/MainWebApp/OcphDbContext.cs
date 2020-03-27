@@ -17,6 +17,7 @@ namespace MainWebApp {
 
         public IRepository<User> Users { get { return new Repository<User> (this); } }
         public IRepository<Kategori> Kategori { get { return new Repository<Kategori> (this); } }
+        public IRepository<Manajemen_Transaksi> ManagementTransaksi { get { return new Repository<Manajemen_Transaksi> (this); } }
 
     }
 }
