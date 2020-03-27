@@ -28,5 +28,10 @@ angular.module('penjual.router', []).config(function ($stateProvider, $urlRouter
 			url: '/detailbarang',
 			parent: 'penjual',
 			templateUrl: 'apps/views/penjual/detailbarang.html'
+		})
+		.state('penjual-tambahbarang', {
+			url: '/tambahbarang',
+			parent: 'penjual',
+			templateUrl: 'apps/views/penjual/tambahbarang.html'
 		});
 });
