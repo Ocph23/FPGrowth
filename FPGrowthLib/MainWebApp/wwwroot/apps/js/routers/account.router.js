@@ -1,5 +1,5 @@
 angular.module('account.router', [ 'ui.router' ]).config(function($stateProvider, $urlRouterProvider) {
-	$urlRouterProvider.otherwise('/account/login');
+	$urlRouterProvider.otherwise('/pembeli/home');
 	$stateProvider
 		.state('account', {
 			url: '/account',

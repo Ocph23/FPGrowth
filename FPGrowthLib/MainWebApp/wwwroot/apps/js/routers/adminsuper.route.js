@@ -1,5 +1,4 @@
 angular.module('adminsuper.router', []).config(function($stateProvider, $urlRouterProvider) {
-	$urlRouterProvider.otherwise('/account/login');
 	$stateProvider
 		.state('adminsuper', {
 			url: '/adminsuper',
