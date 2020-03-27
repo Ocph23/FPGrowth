@@ -26,9 +26,9 @@ angular.module("penjual.router", [])
                 parent: "penjual",
                 templateUrl: 'apps/views/penjual/daftarbarang.html'
             })
-            .state("penjual-detailbarang", {
-                url: '/detailbarang',
+            .state("penjual-dbarang", {
+                url: '/dbarang',
                 parent: "penjual",
-                templateUrl: 'apps/views/penjual/detailbarang.html'
+                templateUrl: 'apps/views/penjual/dbarang.html'
             })
     });
