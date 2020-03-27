@@ -33,5 +33,10 @@ angular.module('penjual.router', []).config(function ($stateProvider, $urlRouter
 			url: '/tambahbarang',
 			parent: 'penjual',
 			templateUrl: 'apps/views/penjual/tambahbarang.html'
+		})
+		.state('penjual-daftarorder', {
+			url: '/daftarorder',
+			parent: 'penjual',
+			templateUrl: 'apps/views/penjual/daftarorder.html'
 		});
 });
