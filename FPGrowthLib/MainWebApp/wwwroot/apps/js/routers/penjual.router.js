@@ -1,4 +1,4 @@
-angular.module('penjual.router', []).config(function($stateProvider, $urlRouterProvider) {
+angular.module('penjual.router', []).config(function ($stateProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise('/account/login');
 	$stateProvider
 		.state('penjual', {
@@ -24,5 +24,10 @@ angular.module('penjual.router', []).config(function($stateProvider, $urlRouterP
 			url: '/daftarbarang',
 			parent: 'penjual',
 			templateUrl: 'apps/views/penjual/daftarbarang.html'
+		})
+		.state('penjual-detailbarang', {
+			url: '/detailbarang',
+			parent: 'penjual',
+			templateUrl: 'apps/views/penjual/detailbarang.html'
 		});
 });
