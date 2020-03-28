@@ -14,6 +14,7 @@ namespace MainWebApp.Services {
     public interface IUserService {
         User Authenticate (string username, string password);
         bool verifyemail (int userid, string token);
+        object profile (int userid);
     }
 
     public class UserService : IUserService {
@@ -50,6 +51,11 @@ namespace MainWebApp.Services {
 
                 throw new SystemException (ex.Message);
             }
+        }
+
+        public object profile (int userid) {
+            var user = db.Users.Where (x => x.iduser == userid).FirstOrDefault ();
+            return user.profile (db);
         }
 
         public bool verifyemail (int userid, string token) {
@@ -98,6 +104,11 @@ namespace MainWebApp.Services {
         public static User CreateUser (this User user, OcphDbContext db) {
             user.iduser = db.Users.InsertAndGetLastID (user);
             return user;
+        }
+
+        public static object profile (this User user, OcphDbContext db) {
+            var data = db.Penjual.Where (x => x.iduser == user.iduser).FirstOrDefault ();
+            return data;
         }
 
         public static User GetDataUser (this System.Security.Claims.ClaimsPrincipal user, OcphDbContext db) {

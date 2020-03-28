@@ -1,7 +1,8 @@
-angular.module('penjual.router', []).config(function ($stateProvider, $urlRouterProvider) {
+angular.module('penjual.router', []).config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('penjual', {
 			url: '/penjual',
+			controller: 'penjualController',
 			templateUrl: 'apps/views/penjual/index.html'
 		})
 		.state('penjual-home', {

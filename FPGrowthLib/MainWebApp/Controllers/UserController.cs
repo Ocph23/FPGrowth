@@ -25,6 +25,17 @@ namespace MainWebApp.Controllers {
             }
         }
 
+        [HttpGet]
+        [Authorize]
+        public IActionResult profile () {
+            try {
+                var name = User.Identity.Name;
+                return Ok (_service.profile (1));
+            } catch (System.Exception ex) {
+                return Unauthorized (ex.Message);
+            }
+        }
+
         public IActionResult verifyemail (int userid, string token) {
             try {
                 return Ok (_service.verifyemail (userid, token));
