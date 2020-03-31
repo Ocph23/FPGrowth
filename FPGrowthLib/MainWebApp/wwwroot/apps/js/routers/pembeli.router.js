@@ -9,6 +9,11 @@ angular.module('pembeli.router', []).config(function($stateProvider, $urlRouterP
 			parent: 'pembeli',
 			templateUrl: 'apps/views/pembeli/home.html'
 		})
+		.state('pembeli-homemenu', {
+			url: '/homemenu',
+			parent: 'pembeli',
+			templateUrl: 'apps/views/pembeli/homemenu.html'
+		})
 		.state('pembeli-detailproduk', {
 			url: '/detailproduk',
 			parent: 'pembeli',

@@ -9,6 +9,7 @@ angular.module("pembeli.controller", [])
     .controller("pembelikonfirbayarController", pembelikonfirbayarController)
     .controller("pembelipesanController", pembelipesanController)
     .controller("pembelidiskusiController", pembelidiskusiController)
+    .controller("pembelihomemenuController", pembelihomemenuController)
 
 
 function pembeliController() {
@@ -49,6 +50,9 @@ function pembelipesanController(){
 }
 
 function pembelidiskusiController(){
+
+}
+function pembelihomemenuController(){
 
 }
 
