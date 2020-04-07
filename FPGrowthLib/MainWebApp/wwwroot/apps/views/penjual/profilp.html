@@ -5,62 +5,53 @@
             <div class="card-body pt-0">
                 <div class="form-group row pb-0 mb-0 mt-3 pt-0">
                     <div class="offset-xl-1 col-form-label col-sm-3 font-14">Nama Penjual</div>
-                    <div class="offset-xl-1 col-6 text-dark font-16">Chandra Poetra Wijaksana</div>
-                </div>
-                <div class="form-group row pb-3 mb-0 mt-0 pt-0">
-                    <div class="offset-xl-1 col-form-label col-sm-3 font-14">Alamat Penjual</div>
-                    <div class="offset-xl-1 col-6 text-dark font-16 text-justify">Lorem Ipsum is simply dummy text of
-                        the printing
-                        and typesetting
-                        industry.</div>
-                </div>
-                <div class="form-group row pb-0 mb-0 mt-0 pt-0">
-                    <div class="offset-xl-1 col-form-label col-sm-3 font-14">No. Telepon</div>
-                    <div class="offset-xl-1 col-sm-3 font-16 text-dark">0812-1212-1212</div>
-                </div>
-                <div class="form-group row pb-0 mb-0 mt-0 pt-0">
-                    <div class="offset-xl-1 col-form-label col-sm-3 font-14">Jenis Kelamin</div>
-                    <div class="offset-xl-1 col-sm-3 font-16 text-dark">Perempuan</div>
-                </div>
-                <div class="form-group row pb-3 mb-0 mt-0 pt-0">
-                    <div class="offset-xl-1 col-form-label col-sm-3 font-14">Alamat</div>
-                    <div class="offset-xl-1 col-6 text-dark font-16 text-justify">Lorem Ipsum is simply dummy text of
-                        the printing
-                        and typesetting
-                        industry.</div>
+                    <div class="offset-xl-1 col-6 text-dark font-16">{{profile.nama_penjual}}</div>
                 </div>
                 <div class="form-group row pb-0 mb-0 mt-0 pt-0">
                     <div class="offset-xl-1 col-form-label col-sm-3 font-14">Tanggal Lahir</div>
-                    <div class="offset-xl-1 col-sm-3 font-16 text-dark">31 November 2020</div>
+                    <div class="offset-xl-1 col-sm-3 font-16 text-dark">{{profile.tgll_lahir |date:'dd MMM yyyy'}}</div>
+                </div>
+
+                <div class="form-group row pb-0 mb-0 mt-0 pt-0">
+                    <div class="offset-xl-1 col-form-label col-sm-3 font-14">No. Telepon</div>
+                    <div class="offset-xl-1 col-sm-3 font-16 text-dark">{{profile.no_tlp}}</div>
+                </div>
+                <div class="form-group row pb-0 mb-0 mt-0 pt-0">
+                    <div class="offset-xl-1 col-form-label col-sm-3 font-14">Jenis Kelamin</div>
+                    <div class="offset-xl-1 col-sm-3 font-16 text-dark">{{profile.jenis_kelamin}}</div>
                 </div>
                 <div class="form-group row pb-0 mb-0 mt-0 pt-0">
                     <div class="offset-xl-1 col-form-label col-sm-3 font-14">Nama Toko</div>
                     <div class="offset-xl-1 col-sm-3 font-16 text-dark">Toko Apa Saja</div>
                 </div>
+                <div class="form-group row pb-3 mb-0 mt-0 pt-0">
+                    <div class="offset-xl-1 col-form-label col-sm-3 font-14">Alamat</div>
+                    <div class="offset-xl-1 col-6 text-dark font-16 text-justify">{{profile.alamat}}</div>
+                </div>
                 <div class="form-group row pb-0 mb-0 mt-0 pt-0">
                     <div class="offset-xl-1 col-form-label col-sm-3 font-14">Foto KTP</div>
-                    <div class="offset-xl-1 col-sm-3"><img src="/assets/images/avatar-1.jpg"
+                    <div class="offset-xl-1 col-sm-3"><img src="/images/penjual/ktp-1.jpg"
+                            onerror="this.onerror=null;this.src='/assets/images/avatar-1.jpg';"
                             class="rounded img-responsive" />
                     </div>
                 </div>
                 <div class="form-group row pb-0 mb-0 mt-2 pt-0">
                     <div class="offset-xl-1 col-form-label col-sm-3 font-14">Foto Penjual</div>
-                    <div class="offset-xl-1 col-sm-3"><img src="/assets/images/avatar-1.jpg"
+                    <div class="offset-xl-1 col-sm-3"><img src="/assets/images/penjual-1.jpg"
+                            onerror="this.onerror=null;this.src='/assets/images/avatar-1.jpg';"
                             class="rounded img-responsive" />
                     </div>
                 </div>
                 <div class="form-group row pb-0 mb-0 mt-2 pt-0">
                     <div class="offset-xl-1 col-form-label col-sm-3 font-14">Foto Toko</div>
-                    <div class="offset-xl-1 col-sm-3"><img src="/assets/images/avatar-1.jpg"
+                    <div class="offset-xl-1 col-sm-3"><img src="/assets/images/toko-1.jpg"
+                            onerror="this.onerror=null;this.src='/assets/images/avatar-1.jpg';"
                             class="rounded img-responsive" />
                     </div>
                 </div>
                 <div class="form-group row pb-0 mb-0 mt-3 pt-0">
                     <div class="offset-xl-1 col-form-label col-sm-3 font-14">Keterangan</div>
-                    <div class="offset-xl-1 col-6 font-16 text-dark text-justify">Lorem Ipsum is simply dummy text of
-                        the printing
-                        and typesetting
-                        industry.</div>
+                    <div class="offset-xl-1 col-6 font-16 text-dark text-justify">{{profile.keterangan}}</div>
                 </div>
             </div>
             <div class="card-footer text-center">

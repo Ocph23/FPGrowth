@@ -63,21 +63,24 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-12 col-sm-3 col-form-label text-right">Foto KTP</label>
-                        <div class="col-12 col-sm-8 col-lg-6">
-                            <input type="file" required="" accept="image/*" name="files" class="form-control">
-                        </div>
+                        <choose-file class="col-12 col-sm-8 col-lg-6">
+                            <input id="fileInput" ng-model="model.ktpData" type="file" accept="image/*" name="files"
+                                class="form-control">
+                        </choose-file>
                     </div>
                     <div class="form-group row">
                         <label class="col-12 col-sm-3 col-form-label text-right">Foto Penjual</label>
-                        <div class="col-12 col-sm-8 col-lg-6">
-                            <input type="file" required="" accept="image/*" name="files" class="form-control">
-                        </div>
+                        <choose-file class="col-12 col-sm-8 col-lg-6">
+                            <input id="fileInput" ng-model="model.penjualData" type="file" accept="image/*" name="files"
+                                class="form-control">
+                        </choose-file>
                     </div>
                     <div class="form-group row">
                         <label class="col-12 col-sm-3 col-form-label text-right">Foto Toko</label>
-                        <div class="col-12 col-sm-8 col-lg-6">
-                            <input type="file" required="" accept="image/*" name="files" class="form-control">
-                        </div>
+                        <choose-file class="col-12 col-sm-8 col-lg-6">
+                            <input id="fileInput" ng-model="model.tokoData" type="file" accept="image/*" name="files"
+                                class="form-control">
+                        </choose-file>
                     </div>
                     <div class="form-group row">
                         <label class="col-12 col-sm-3 col-form-label text-right">Keterangan</label>

@@ -5,7 +5,7 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 	var service = {};
 
 	return {
-		Init: Init,
+		Init: InitLoad,
 		login: login,
 		logOff: logoff,
 		userIsLogin: userIsLogin,
@@ -17,7 +17,7 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 		profile: profile
 	};
 
-	function Init(params) {
+	function InitLoad(params) {
 		var isFound = false;
 		params.forEach((x) => {
 			if (userInRole(x)) isFound = true;
@@ -27,20 +27,26 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 
 	function profile() {
 		var def = $q.defer();
-		$http({
-			method: 'get',
-			url: helperServices.url + controller + '/profile',
-			headers: getHeader()
-		}).then(
-			(res) => {
-				StorageService.addObject('user', res.data);
-				def.resolve(res.data);
-			},
-			(err) => {
-				message.error(err.data);
-				def.reject();
-			}
-		);
+		var result = StorageService.getObject('profile');
+		if (result) {
+			def.resolve(result);
+		} else {
+			$http({
+				method: 'get',
+				url: helperServices.url + controller + '/profile',
+				headers: getHeader()
+			}).then(
+				(res) => {
+					StorageService.addObject('profile', res.data);
+					def.resolve(res.data);
+				},
+				(err) => {
+					message.error(err);
+					def.reject();
+				}
+			);
+		}
+
 		return def.promise;
 	}
 
@@ -57,7 +63,7 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 				def.resolve(res.data);
 			},
 			(err) => {
-				message.error(err.data);
+				message.error(err);
 				def.reject();
 			}
 		);
@@ -67,9 +73,10 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 	function getHeader() {
 		try {
 			if (userIsLogin()) {
+				var token = getToken();
 				return {
 					'Content-Type': 'application/json',
-					Authorization: 'Bearer ' + getToken()
+					Authorization: 'Bearer ' + token
 				};
 			}
 			throw new Error('Not Found Token');

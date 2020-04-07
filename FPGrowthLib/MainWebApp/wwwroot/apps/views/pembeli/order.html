@@ -35,24 +35,25 @@
                         </div>
                     </div>
                     <h3 class="text-left m-b-0 pt-3">Detail Belanja</h3>
-                    <div class="row">
+                    <div class="row" ng-repeat="item in datas">
                         <div class="col-12 col-sm-3 text-sm-right align-items-center mt-0">
                             <img src="assets/images/slack.png" alt="User Avatar" class="user-avatar-xl">
                         </div>
                         <div class="col-12 col-sm-8 col-lg-6">
                             <div class="influencer-profile-data">
-                                <a class="mt-0 text-dark strong font-22">Nama Toko</a>
+                                <a class="mt-0 text-dark strong font-22">{{item.penjual.nama_toko}}</a>
                                 <br>
-                                <span class="m-r-20 strong font-18 d-inline-block">Nama Barang</span>
-                                <span class="float-right d-inline-block mt-1">Total Rp.
-                                    <span class="m-l-5 text-primary font-18">100.000.000</span>
+                                <span class="m-r-20 strong font-18 d-inline-block">{{item.nama_barang}}</span>
+                                <span class="float-right col-3 d-inline-block mt-1"> Total Rp.
+                                    <span class="m-l-5 text-muted">{{item.harga * item.jumlah}}</span>
                                 </span>
                                 <span class="float-right col-3 d-inline-block mt-1"> Jumlah :
-                                    <span class="m-l-5 text-secondary">30</span>
+                                    <span class="m-l-5 text-secondary">{{item.jumlah}}</span>
                                 </span>
+
                                 <br>
                                 <span class="m-r-20 strong font-16 d-inline-block">Status Pengantaran</span>
-                                <span class="badge badge-success">Diterima</span>
+                                <span class="badge badge-success">Tidak Tidak Diantar</span>
                             </div>
                         </div>
                     </div>
@@ -63,7 +64,8 @@
                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Total Bayar</label>
                     <div class="col-12 col-sm-8 col-lg-2 mt-1 strong font-18 text-primary">
                         Rp 100.000.000</div>
-                        <span class="float-right"><button class="d-inline-block btn btn-primary" type="submit">Pesan Sekarang</button></span>
+                    <span class="float-right"><button class="d-inline-block btn btn-primary" type="submit">Pesan
+                            Sekarang</button></span>
                 </div>
             </div>
         </div>

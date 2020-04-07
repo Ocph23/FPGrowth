@@ -93,7 +93,7 @@ namespace MainWebApp.Services {
                 }
                 return Task.CompletedTask;
 
-            } catch (System.Exception ex) {
+            } catch (System.Exception) {
                 transaction.Rollback ();
                 return Task.CompletedTask;
             }
@@ -107,7 +107,9 @@ namespace MainWebApp.Services {
         }
 
         public static object profile (this User user, OcphDbContext db) {
-            var data = db.Penjual.Where (x => x.iduser == user.iduser).FirstOrDefault ();
+            object data = null;
+            if (user.role == "penjual")
+                data = db.Penjual.Where (x => x.iduser == user.iduser).FirstOrDefault ();
             return data;
         }
 
@@ -119,9 +121,10 @@ namespace MainWebApp.Services {
 
         public static string GenerateToken (this User user, string secretCode) {
             var claims = new List<Claim> {
+                new Claim (JwtRegisteredClaimNames.Sub, user.iduser.ToString ()),
+                new Claim (JwtRegisteredClaimNames.Sub, user.email),
                 new Claim (JwtRegisteredClaimNames.Sub, user.username),
                 new Claim (JwtRegisteredClaimNames.Jti, Guid.NewGuid ().ToString ()),
-                new Claim (JwtRegisteredClaimNames.NameId, user.iduser.ToString ()),
                 new Claim (ClaimTypes.NameIdentifier, user.iduser.ToString ())
             };
 

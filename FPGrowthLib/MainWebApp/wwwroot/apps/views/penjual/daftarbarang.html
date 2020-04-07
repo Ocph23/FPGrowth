@@ -29,17 +29,18 @@
                     </div>
                 </div>
 
-                <div class="email-list-item email-list-item--unread" ng-repeat="item in [1,2,3,4,5]">
+                <div class="email-list-item email-list-item--unread" ng-repeat="item in Items">
                     <div class="row align-items-center">
                         <div class="col-md-12 item-barang">
                             <div class="mb-2 font-16 text-dark">Kode Barang :<a
-                                    class="text-light font-16 badge badge-success ml-2">11-22-33-44</a>
+                                    class="text-light font-16 badge badge-success ml-2">{{item.idbarang}}</a>
                             </div>
                             <div class="mb-2 font-16 text-dark">
-                                <p class="text-dark font-18 mr-3">Kayu Sengon Lapis Baja</p>
+                                <p class="text-dark font-18 mr-3">{{item.nama_barang}}</p>
                             </div>
                             <div class="user-avatar float-xl-left pr-2 float-none mb-0">
-                                <img src="assets/images/avatar-1.jpg" alt="User Avatar" class="rounded user-avatar-xl">
+                                <img src="images/barang/{{item.idbarang}}.png" alt="User Avatar"
+                                    class="rounded user-avatar-xl">
                             </div>
                             <div class="pl-xl-3">
                                 <div class="m-b-0">
@@ -50,33 +51,28 @@
                                 </div>
                                 <div class="d-inline-block">
                                     <div class="m-b-0">
-                                        <a class="text-dark font-16">Kategori :<a class="font-16 mr-4">Kayu
-                                                Paling
-                                                Bagus</a></a>
-
+                                        <span class="text-dark font-16">Kategori :<a
+                                                class="font-16 mr-4">{{item.kategori.nama_kategori}}</a></span>
                                         <div class="d-inline-block">
                                             <span class="font-16 mr-5 text-dark">Stock :<a
-                                                    class="text-secondary">50</a></span>
+                                                    class="text-secondary">{{item.stock}}</a></span>
                                         </div>
-
                                         <div class="d-inline-block">
                                             <span class="font-16 mr-1 text-dark">Panjang : <a
-                                                    class="text-secondary">500cm</a></span>
+                                                    class="text-secondary">{{item.panjang}} cm</a></span>
                                             <span class="font-16 mr-1 text-dark">Tinggi : <a
-                                                    class="text-secondary">500cm</a></span>
+                                                    class="text-secondary">{{item.tinggi}} cm</a></span>
                                             <span class="font-16 mr-5 text-dark">Lebar : <a
-                                                    class="text-secondary">500cm</a></span>
+                                                    class="text-secondary">{{item.lebar}} cm</a></span>
                                         </div>
                                         <div class="d-inline-block">
                                             <span class="font-16 mr-4 text-dark">Harga : <a class="text-primary">Rp
-                                                    100.000.000</a></span>
+                                                    {{item.harga}}</a></span>
                                         </div>
-
-
-
                                         <div class="d-inline-block">
                                             <span>
-                                                <button class="btn btn-rounded btn-outline-warning">Edit</button>
+                                                <button ui-sref="penjual-editbarang({id:item.idbarang})"
+                                                    class="btn btn-rounded btn-outline-warning">Edit</button>
                                             </span>
                                             <span class="mr-0">
                                                 <button class="btn btn-rounded btn-outline-dark">Hapus</button>
@@ -84,10 +80,7 @@
                                         </div>
                                         <div>
                                             <span class="font-16 mr-4 text-dark">Tanggal Publish : <a
-                                                    class="text-primary">Rp
-                                                    31
-                                                    Desember
-                                                    2020</a></span>
+                                                    class="text-primary">{{item.tgl_publish}}</a></span>
                                         </div>
 
                                     </div>

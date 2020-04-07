@@ -7,15 +7,18 @@ angular.module('pembeli.router', []).config(function($stateProvider, $urlRouterP
 		.state('pembeli-home', {
 			url: '/home',
 			parent: 'pembeli',
+			controller: 'pembeliHomeController',
 			templateUrl: 'apps/views/pembeli/home.html'
 		})
 		.state('pembeli-detailproduk', {
-			url: '/detailproduk',
+			url: '/detailproduk/:id',
 			parent: 'pembeli',
+			controller: 'pembeliDetailProdukController',
 			templateUrl: 'apps/views/pembeli/detailproduk.html'
 		})
 		.state('pembeli-profilpenjual', {
 			url: '/profilpenjual',
+			controller: 'pembeliHomeController',
 			parent: 'pembeli',
 			templateUrl: 'apps/views/pembeli/profilpenjual.html'
 		})
@@ -27,6 +30,10 @@ angular.module('pembeli.router', []).config(function($stateProvider, $urlRouterP
 		.state('pembeli-order', {
 			url: '/order',
 			parent: 'pembeli',
+			params: {
+				data: null
+			},
+			controller: 'pembeliorderController',
 			templateUrl: 'apps/views/pembeli/order.html'
 		})
 		.state('pembeli-tagihan', {

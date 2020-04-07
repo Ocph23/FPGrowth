@@ -24,6 +24,7 @@ angular.module('account.router', [ 'ui.router' ]).config(function($stateProvider
 		.state('register', {
 			url: '/register',
 			parent: 'account',
+			controller: 'RegisterPembeliController',
 			templateUrl: '../apps/views/account/sign-up.html'
 		});
 });

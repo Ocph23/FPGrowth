@@ -1,5 +1,8 @@
+using System;
+using System.Linq;
 using System.Net;
 using System.Security;
+using System.Security.Claims;
 using MainWebApp.Models;
 using MainWebApp.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -29,8 +32,12 @@ namespace MainWebApp.Controllers {
         [Authorize]
         public IActionResult profile () {
             try {
-                var name = User.Identity.Name;
-                return Ok (_service.profile (1));
+                string userId = User.FindFirst (ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty (userId))
+                    throw new System.Exception ("Anda Tidak Memiliki Akses");
+
+                int Id = Convert.ToInt32 (userId);
+                return Ok (_service.profile (Id));
             } catch (System.Exception ex) {
                 return Unauthorized (ex.Message);
             }

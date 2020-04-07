@@ -1,34 +1,36 @@
 using System;
- 
- namespace MainWebApp.Models.Data 
-{ 
-     public interface IBarang  
-   {
-         int idbarang {  get; set;} 
 
-         DateTime tgl_publish {  get; set;} 
+namespace MainWebApp.Models.Data {
 
-         string nama_barang {  get; set;} 
+     public interface IBarang {
+          int idbarang { get; set; }
 
-         string gambar {  get; set;} 
+          DateTime tgl_publish { get; set; }
 
-         string stock {  get; set;} 
+          string nama_barang { get; set; }
 
-         double harga {  get; set;} 
+          string gambar { get; set; }
 
-         string keterangan {  get; set;} 
+          int stock { get; set; }
 
-         string panjang {  get; set;} 
+          double harga { get; set; }
 
-         string lebar {  get; set;} 
+          string keterangan { get; set; }
 
-         string tinggi {  get; set;} 
+          double panjang { get; set; }
 
-         int idkategori {  get; set;} 
+          double lebar { get; set; }
 
-         int idpenjual {  get; set;} 
+          double tinggi { get; set; }
+
+          int idkategori { get; set; }
+
+          int idpenjual { get; set; }
+
+          byte[] GambarData { get; set; }
+
+          Kategori kategori { get; set; }
+          Penjual penjual { get; set; }
 
      }
 }
-
-

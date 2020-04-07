@@ -1,3 +1,4 @@
+using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -17,8 +18,16 @@ namespace MainWebApp.Controllers {
             try {
 
                 using (var db = new OcphDbContext (_setting)) {
-                    var result = db.Barang.Select ();
-                    return Ok (result);
+                    var result = from a in db.Barang.Select ()
+                    join b in db.Kategori.Select () on a.idkategori equals b.idkategori
+                    join c in db.Penjual.Select () on a.idpenjual equals c.idpenjual
+                    select new Models.Data.Barang {
+                    gambar = a.gambar, harga = a.harga, idbarang = a.idbarang,
+                    idkategori = a.idkategori, idpenjual = a.idpenjual, keterangan = a.keterangan, lebar = a.lebar,
+                    nama_barang = a.nama_barang, panjang = a.panjang, stock = a.stock, tgl_publish = a.tgl_publish, tinggi = a.tinggi, kategori = b,
+                    penjual = c
+                    };
+                    return Ok (result.ToList ());
                 }
 
             } catch (System.Exception ex) {
@@ -30,9 +39,18 @@ namespace MainWebApp.Controllers {
         [Route ("{id}")]
         public IActionResult GetById (int id) {
             try {
+
                 using (var db = new OcphDbContext (_setting)) {
-                    var result = db.Barang.Where (x => x.idbarang == id).FirstOrDefault ();
-                    return Ok (result);
+                    var result = from a in db.Barang.Where (x => x.idbarang == id)
+                    join b in db.Kategori.Select () on a.idkategori equals b.idkategori
+                    join c in db.Penjual.Select () on a.idpenjual equals c.idpenjual
+                    select new Models.Data.Barang {
+                    gambar = a.gambar, harga = a.harga, idbarang = a.idbarang,
+                    idkategori = a.idkategori, idpenjual = a.idpenjual, keterangan = a.keterangan, lebar = a.lebar,
+                    nama_barang = a.nama_barang, panjang = a.panjang, stock = a.stock, tgl_publish = a.tgl_publish, tinggi = a.tinggi, kategori = b,
+                    penjual = c
+                    };
+                    return Ok (result.FirstOrDefault ());
                 }
             } catch (System.Exception ex) {
                 return BadRequest (ex.Message);
@@ -47,6 +65,13 @@ namespace MainWebApp.Controllers {
                     if (data.idbarang <= 0) {
                         throw new System.Exception ("Data tidak tersimpan");
                     }
+                    if (data.GambarData != null) {
+                        var path = Path.Combine (
+                            Directory.GetCurrentDirectory (), "wwwroot/images/barang",
+                            data.idbarang.ToString () + ".png");
+
+                        System.IO.File.WriteAllBytes (path, data.GambarData);
+                    }
                     return Ok (data);
 
                 }
@@ -59,6 +84,15 @@ namespace MainWebApp.Controllers {
         [HttpPut]
         public IActionResult Put (Models.Data.Barang data) {
             try {
+
+                if (data.GambarData != null) {
+                    var path = Path.Combine (
+                        Directory.GetCurrentDirectory (), "wwwroot/images/barang",
+                        data.idbarang.ToString () + ".png");
+
+                    System.IO.File.WriteAllBytes (path, data.GambarData);
+                }
+
                 using (var db = new OcphDbContext (_setting)) {
                     var updated = db.Barang.Update (x => new { x.gambar, x.harga, x.idbarang, x.idkategori, x.keterangan, x.lebar, x.tinggi, x.panjang, x.stock }, data, x => x.idbarang == data.idbarang);
                     if (!updated) {
