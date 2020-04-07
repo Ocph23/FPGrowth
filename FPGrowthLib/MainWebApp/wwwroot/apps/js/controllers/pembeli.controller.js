@@ -2,7 +2,6 @@ angular
 	.module('pembeli.controller', [])
 	.controller('pembeliController', pembeliController)
 	.controller('pembeliHomeController', pembeliHomeController)
-	.controller('pembeliDetailProdukController', pembeliDetailProdukController)
 	.controller('pembeliprofilpenjualController', pembeliprofilpenjualController)
 	.controller('pembelikeranjangController', pembelikeranjangController)
 	.controller('pembeliorderController', pembeliorderController)
@@ -10,7 +9,8 @@ angular
 	.controller('pembelidaftartagihanController', pembelidaftartagihanController)
 	.controller('pembelikonfirbayarController', pembelikonfirbayarController)
 	.controller('pembelipesanController', pembelipesanController)
-	.controller('pembelidiskusiController', pembelidiskusiController);
+	.controller('pembelidiskusiController', pembelidiskusiController)
+	.controller('pembelihomemenuController', pembelihomemenuController);
 
 function pembeliController() {}
 
@@ -44,6 +44,8 @@ function pembelitagihanController() {}
 function pembelidaftartagihanController() {}
 
 function pembelikonfirbayarController() {}
+
+function pembelihomemenuController() {}
 
 function pembelipesanController() {}
 
