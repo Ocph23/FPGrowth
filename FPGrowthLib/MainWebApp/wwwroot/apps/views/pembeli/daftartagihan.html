@@ -1,5 +1,6 @@
 <div class="col-xl col-lg-12 col-md-12 col-sm-12 col-12">
     <div class="section-title font-24 strong text-dark">Transaksi</div>
+
     <div class="pills-regular">
         <ul class="nav nav-pills mb-1 border-bottom" id="pills-tab" role="tablist">
             <li class="nav-item">
@@ -16,98 +17,78 @@
                 <div class="col-4 mb-3">
                     <input class="form-search mt-0" type="text" placeholder="Cari Tagihan">
                 </div>
-                <div class="row">
+
+
+                <div class="row" ng-repeat="item in Source | filter : FilterNotPembayaran">
                     <div class="col">
                         <div class="card">
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-2 mr-3 text-dark mb-4 font-16">No. Order</div>
-                                    <span class="col-2 mr-3 font-16"><a class="text-dark"> Total Pembayaran</a></span>
-                                    <span class="col-2 mr-4 font-16"><a class="text-dark"> Batas Pembayaran</a></span>
-                                    <span class="col-2 mr-5 font-16"><a class="text-dark"> Status Order</a></span>
-                                    <span class="col-2 font-16"><a class="text-dark"> Waktu Order</a></span>
-                                    <span><button class="btn btn-outline-dark">Detail</button></span>
-                                </div>
-                                <div class="row mb-4 border-bottom pb-4">
-                                    <div class="col-2 mr-3 font-16"><a class="text-light badge badge-success font-16">1111-2222-3333-4444</a></div>
-                                    <span class="col-2 mr-3 font-16"><a class="text-primary font-20"> Rp 100.000.000</a></span>
-                                    <span class="col-2 mr-4 font-16"><a class="text-light badge badge-danger font-16"> 20 November 2020</a></span>
-                                    <span class="col-2 mr-5 font-16"><a class="text-dark badge badge-warning font-16"> Menunggu Pembayaran</a></span>
-                                    <span class="col-2 font-16"><a class="text-dark font-18"> 31 November 2020</a></span>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="user-avatar float-xl-left text-center col-2  mr-4 float-none">
-                                            <img src="assets/images/avatar-3.jpg" alt="User Avatar" class="rounded user-avatar-xl">
-                                                </div>
-                                            <div class="pl-xl-3 ml-3">
-                                                <div class="mb-4">
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 font-16 d-inline-block">Barang</div>
-                                                    <div class="user-avatar-name col-1 pl-0 mr-3 pl-1 font-16 text-center d-inline-block">Jumlah</div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 text-center d-inline-block">Status Pengantaran</div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 d-inline-block">Nama Toko</div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 d-inline-block">
-                                                        <button class="ml-3 btn btn-outline-success">Konfirmasi Pembayaran</button>
-                                                    </div>
-                                                </div>
-                                                <div class="user-avatar-address">
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 font-16 text-dark d-inline-block">Kayu Sengon Lapis Baja</div>
-                                                    <div class="user-avatar-name col-1 pl-0 mr-3 pl-1 font-16 text-secondary text-center d-inline-block">1000</div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 text-center d-inline-block"><a class="text-light badge badge-success font-16">Dalam Pengantaran</a></div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 d-inline-block">Jual Kayu Apa Saja</div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 d-inline-block">
-                                                        <button class="ml-3 btn btn-outline-danger">Batalkan Pembelian</button>
-                                                    </div>
-                                                </div>
-                                            </div>
+
+                                <table class="table">
+                                    <tr>
+                                        <th>No Order</th>
+                                        <th>Tgl Order</th>
+                                        <th>Waktu Expire</th>
+                                        <th>Status</th>
+                                        <th>Total</th>
+                                        <th>Detail</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-16"><span
+                                                class="badge badge-success">{{padLeft(item.idorder,5)}}</span>
+                                        </td>
+                                        <td class="font-16"><span>{{item.tgl_order|date:'dd-MM-yyyy hh:mm'}}</span>
+                                        </td>
+                                        <td class="font-16"><span>{{item.wkt_exp_order|date:'dd-MM-yyyy hh:mm'}}</span>
+                                        </td>
+                                        <td class="font-16"><span class="badge"
+                                                ng-class="item.expire?'badge-danger':'badge-warning'">{{item.status}}</span>
+                                        </td>
+                                        <td class="font-16"><span>Rp.{{total(item)|number}}</span>
+                                        </td>
+                                        <td class="font-16"><span><button type="button" data-toggle="collapse"
+                                                    data-target="#collapseExample{{item.idorder}}" aria-expanded="false"
+                                                    aria-controls="collapseExample" ng-click="setBarang(item)"
+                                                    class="btn btn-outline-dark">Detail</button></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="collapse" id="collapseExample{{item.idorder}}">
+                                    <div class="card card-body">
+                                        <table class="table">
+                                            <tr>
+                                                <th>ID Barang</th>
+                                                <th>Nama Barang</th>
+                                                <th>Jumlah</th>
+                                                <th>Harga</th>
+                                                <th>Total</th>
+                                            </tr>
+                                            <tr ng-repeat="data in item.data">
+                                                <td class="font-16"><span
+                                                        class="badge badge-warning">{{padLeft(data.idbarang,3)}}</span>
+                                                </td>
+                                                <td class="font-16">
+                                                    <span>{{data.barang.nama_barang}}</span>
+                                                </td>
+                                                <td class="font-16">
+                                                    <span>{{data.jumlah}}</span>
+                                                </td>
+
+                                                <td class="font-16">
+                                                    <span>Rp. {{data.harga|number}}</span>
+                                                </td>
+
+                                                <td class="font-16"><span>Rp.{{data.harga * data.jumlah|number}}</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div class="card-footer text-center">
+                                            <a class="btn btn-outline-success font-16" ng-show="!item.expire"
+                                                ui-sref="pembeli-konfirbayar({data:item})">Konfirmasi
+                                                Pembayaran</a>
                                         </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-2 mr-3 text-dark mb-4 font-16">No. Order</div>
-                                    <span class="col-2 mr-3 font-16"><a class="text-dark"> Total Pembayaran</a></span>
-                                    <span class="col-2 mr-4 font-16"><a class="text-dark"> Batas Pembayaran</a></span>
-                                    <span class="col-2 mr-5 font-16"><a class="text-dark"> Status Order</a></span>
-                                    <span class="col-2 font-16"><a class="text-dark"> Waktu Order</a></span>
-                                    <span><button class="btn btn-outline-dark">Detail</button></span>
-                                </div>
-                                <div class="row mb-4 border-bottom pb-4">
-                                    <div class="col-2 mr-3 font-16"><a class="text-light badge badge-success font-16">1111-2222-3333-4444</a></div>
-                                    <span class="col-2 mr-3 font-16"><a class="text-primary font-20"> Rp 100.000.000</a></span>
-                                    <span class="col-2 mr-4 font-16"><a class="text-light badge badge-danger font-16"> 20 November 2020</a></span>
-                                    <span class="col-2 mr-5 font-16"><a class="text-dark badge badge-warning font-16"> Menunggu Pembayaran</a></span>
-                                    <span class="col-2 font-16"><a class="text-dark font-18"> 31 November 2020</a></span>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="user-avatar float-xl-left text-center col-2  mr-4 float-none">
-                                            <img src="assets/images/avatar-3.jpg" alt="User Avatar" class="rounded user-avatar-xl">
-                                                </div>
-                                            <div class="pl-xl-3 ml-3 ">
-                                                <div class="mb-4 ">
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 font-16 d-inline-block">Barang</div>
-                                                    <div class="user-avatar-name col-1 pl-0 mr-3 pl-1 font-16 text-center d-inline-block">Jumlah</div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 text-center d-inline-block">Status Pengantaran</div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 d-inline-block">Nama Toko</div>
-                                                    <div class="user-avatar-name col-2 pl-0 font-16 text-right d-inline-block">
-                                                        <button class="ml-3 btn btn-outline-success">Beli Lagi</button>
-                                                    </div>
-                                                </div>
-                                                <div class="user-avatar-address">
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 font-16 text-dark d-inline-block">Kayu Sengon Lapis Baja</div>
-                                                    <div class="user-avatar-name col-1 pl-0 mr-3 pl-1 font-16 text-secondary text-center d-inline-block">1000</div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 text-center d-inline-block"><a class="text-light badge badge-success font-16">Dalam Pengantaran</a></div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 d-inline-block">Jual Kayu Apa Saja</div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -118,92 +99,70 @@
                 <div class="col-4 mb-3">
                     <input class="form-search mt-0" type="text" placeholder="Cari Tagihan">
                 </div>
-                <div class="row">
+                <div class="row" ng-repeat="item in Source | filter : FilterPembayaran">
                     <div class="col">
                         <div class="card">
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-2  text-dark mb-4 font-16">No. Order</div>
-                                    <span class="col-2 font-16"><a class="text-dark"> Total Pembayaran</a></span>
-                                    <span class="col-2 mr-4 font-16"><a class="text-dark"> Status Pembayaran</a></span>
-                                    <span class="col-2 mr-5 font-16"><a class="text-dark"> Status Pengiriman</a></span>
-                                    <span class="col-2 font-16"><a class="text-dark"> Status Transaksi</a></span>
-                                    <span><button class="btn btn-outline-dark">Detail</button></span>
-                                </div>
-                                <div class="row mb-4 border-bottom pb-4">
-                                    <div class="col-2  font-16"><a class="text-light badge badge-success font-16">1111-2222-3333-4444</a></div>
-                                    <span class="col-2 font-16"><a class="text-primary font-20"> Rp 100.000.000</a></span>
-                                    <span class="col-2 mr-4 font-16"><a class="text-light badge badge-success font-16">Dibayar (20 November 2020)</a></span>
-                                    <span class="col-2 mr-5 font-16"><a class="text-dark badge badge-warning font-16"> Menunggu Pembayaran</a></span>
-                                    <span class="col-2 font-16"><a class="text-danger font-18"> Belum Selesai</a></span>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="user-avatar float-xl-left text-center col-2  mr-4 float-none">
-                                            <img src="assets/images/avatar-3.jpg" alt="User Avatar" class="rounded user-avatar-xl">
-                                                </div>
-                                            <div class="pl-xl-3 ml-3">
-                                                <div class="mb-4">
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 font-16 d-inline-block">Barang</div>
-                                                    <div class="user-avatar-name col-1 pl-0 mr-3 pl-1 font-16 text-center d-inline-block">Jumlah</div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 text-center d-inline-block">Status Pengantaran</div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 d-inline-block">Nama Toko</div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 d-inline-block">
-                                                        <button class="ml-3 btn btn-outline-success">Verifikasi Pengiriman</button>
-                                                    </div>
-                                                </div>
-                                                <div class="user-avatar-address">
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 font-16 text-dark d-inline-block">Kayu Sengon Lapis Baja</div>
-                                                    <div class="user-avatar-name col-1 pl-0 mr-3 pl-1 font-16 text-secondary text-center d-inline-block">1000</div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 text-center d-inline-block"><a class="text-light badge badge-success font-16">Dalam Pengantaran</a></div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 d-inline-block">Jual Kayu Apa Saja</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-2 text-dark mb-4 font-16">No. Order</div>
-                                    <span class="col-2 font-16"><a class="text-dark"> Total Pembayaran</a></span>
-                                    <span class="col-2 mr-4 font-16"><a class="text-dark"> Status Pembayaran</a></span>
-                                    <span class="col-2 mr-5 font-16"><a class="text-dark"> Status Pengiriman</a></span>
-                                    <span class="col-2 font-16"><a class="text-dark"> Status Transaksi</a></span>
-                                    <span><button class="btn btn-outline-dark">Detail</button></span>
-                                </div>
-                                <div class="row mb-4 border-bottom pb-4">
-                                    <div class="col-2  font-16"><a class="text-light badge badge-success font-16">1111-2222-3333-4444</a></div>
-                                    <span class="col-2 font-16"><a class="text-primary font-20"> Rp 100.000.000</a></span>
-                                    <span class="col-2 mr-4 font-16"><a class="text-light badge badge-success font-16">Dibayar (20 November 2020)</a></span>
-                                    <span class="col-2 mr-5 font-16"><a class="text-dark badge badge-warning font-16"> Menunggu Pembayaran</a></span>
-                                    <span class="col-2 font-16"><a class="text-success font-18">Selesai</a></span>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="user-avatar float-xl-left text-center col-2  mr-4 float-none">
-                                            <img src="assets/images/avatar-3.jpg" alt="User Avatar" class="rounded user-avatar-xl">
-                                                </div>
-                                            <div class="pl-xl-3 ml-3 ">
-                                                <div class="mb-4 ">
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 font-16 d-inline-block">Barang</div>
-                                                    <div class="user-avatar-name col-1 pl-0 mr-3 pl-1 font-16 text-center d-inline-block">Jumlah</div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 text-center d-inline-block">Status Pengantaran</div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 d-inline-block">Nama Toko</div>
-                                                </div>
-                                                <div class="user-avatar-address">
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 font-16 text-dark d-inline-block">Kayu Sengon Lapis Baja</div>
-                                                    <div class="user-avatar-name col-1 pl-0 mr-3 pl-1 font-16 text-secondary text-center d-inline-block">1000</div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 text-center d-inline-block"><a class="text-light badge badge-success font-16">Dalam Pengantaran</a></div>
-                                                    <div class="user-avatar-name col-2 pl-0 mr-3 pl-1 font-16 d-inline-block">Jual Kayu Apa Saja</div>
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                <table class="table">
+                                    <tr>
+                                        <th>No Order</th>
+                                        <th>Tgl Order</th>
+                                        <th>Waktu Expire</th>
+                                        <th>Status</th>
+                                        <th>Total</th>
+                                        <th>Detail</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-16"><span
+                                                class="badge badge-success">{{padLeft(item.idorder,5)}}</span>
+                                        </td>
+                                        <td class="font-16"><span>{{item.tgl_order|date:'dd-MM-yyyy hh:mm'}}</span>
+                                        </td>
+                                        <td class="font-16"><span>{{item.wkt_exp_order|date:'dd-MM-yyyy hh:mm'}}</span>
+                                        </td>
+                                        <td class="font-16"><span class="badge"
+                                                ng-class="item.expire?'badge-danger':'badge-warning'">{{item.status}}</span>
+                                        </td>
+                                        <td class="font-16"><span>Rp.{{total(item)|number}}</span>
+                                        </td>
+                                        <td class="font-16"><span><button type="button" data-toggle="collapse"
+                                                    data-target="#collapseExample{{item.idorder}}" aria-expanded="false"
+                                                    aria-controls="collapseExample" ng-click="setBarang(item)"
+                                                    class="btn btn-outline-dark">Detail</button></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="collapse" id="collapseExample{{item.idorder}}">
+                                    <div class="card card-body">
+                                        <table class="table">
+                                            <tr>
+                                                <th>ID Barang</th>
+                                                <th>Nama Barang</th>
+                                                <th>Jumlah</th>
+                                                <th>Harga</th>
+                                                <th>Total</th>
+                                            </tr>
+                                            <tr ng-repeat="data in item.data">
+                                                <td class="font-16"><span
+                                                        class="badge badge-warning">{{padLeft(data.idbarang,3)}}</span>
+                                                </td>
+                                                <td class="font-16">
+                                                    <span>{{data.barang.nama_barang}}</span>
+                                                </td>
+                                                <td class="font-16">
+                                                    <span>{{data.jumlah}}</span>
+                                                </td>
+
+                                                <td class="font-16">
+                                                    <span>Rp. {{data.harga|number}}</span>
+                                                </td>
+
+                                                <td class="font-16"><span>Rp.{{data.harga * data.jumlah|number}}</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -1,202 +1,152 @@
-<!doctype html>
-<html lang="en">
-
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link href="/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/libs/css/style.css">
-    <link rel="stylesheet" href="/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
-    <link rel="stylesheet" href="/assets/vendor/bootstrap-select/css/bootstrap-select.css">
-    <title>WPKS-DASHBOARD</title>
-</head>
-
-<body>
+<div class="dashboard-main-wrapper">
     <!-- ============================================================== -->
-    <!-- main wrapper -->
+    <!-- navbar -->
     <!-- ============================================================== -->
-    <div class="dashboard-main-wrapper">
-        <!-- ============================================================== -->
-        <!-- navbar -->
-        <!-- ============================================================== -->
-        <div class="dashboard-header">
-            <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="index.html">WPKS</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse float-left" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto navbar-right-top">
-                        <li class="nav-item dropdown connection">
-                            <a class="nav-link text-primary" href="" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" data-target="#kategori" aria-haspopup="true"
-                                aria-expanded="false"> Kategori </a>
-                            <ul id="kategori" class="dropdown-menu dropdown-menu-right connection-dropdown">
-                                <li class="connection-list">
-                                    <div class="row">
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="/assets/images/github.png"
-                                                    alt=""> <span>Kayu 1</span></a>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="/assets/images/dribbble.png"
-                                                    alt=""> <span>Kayu 2</span></a>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="/assets/images/dropbox.png"
-                                                    alt=""> <span>Kayu 3</span></a>
-                                        </div>
+    <div class="dashboard-header">
+        <nav class="navbar navbar-expand-lg bg-white fixed-top">
+            <a class="navbar-brand" href="index.html">WPKS</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse float-left" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto navbar-right-top">
+                    <li class="nav-item dropdown connection">
+                        <a class="nav-link text-primary" href="" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" data-target="#kategori" aria-haspopup="true" aria-expanded="false">
+                            Kategori </a>
+                        <ul id="kategori" class="dropdown-menu dropdown-menu-right connection-dropdown">
+                            <li class="connection-list">
+                                <div class="row">
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                        <a href="#" class="connection-item"><img src="/assets/images/github.png" alt="">
+                                            <span>Kayu 1</span></a>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="/assets/images/bitbucket.png"
-                                                    alt=""> <span>Kayu 4</span></a>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="/assets/images/mail_chimp.png"
-                                                    alt=""><span>Kayu 5</span></a>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="/assets/images/slack.png"
-                                                    alt=""> <span>Kayu 6</span></a>
-                                        </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                        <a href="#" class="connection-item"><img src="/assets/images/dribbble.png"
+                                                alt=""> <span>Kayu 2</span></a>
                                     </div>
-                                </li>
-                                <li>
-                                    <div class="conntection-footer"><a href="#">More</a></div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <div id="custom-search" class="top-search-bar">
-                                <input class="form-search" type="text" placeholder="Cari Kayu">
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown notification">
-                            <a class="nav-link nav-icons" ui-sref="pembeli-keranjang"><i class="fas fa-shopping-cart"
-                                    title="Keranjang"></i> <span class="indicator"></span></a>
-                        </li>
-
-                        <li class="nav-item dropdown nav-user">
-                            <a class="nav-link nav-user-img" href="" id="navbarDropdownMenuLink2" data-toggle="dropdown"
-                                data-target="#profile" aria-haspopup="true" aria-expanded="false"><img
-                                    src="/assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"
-                                    title="Profile"></a>
-                            <div id="profile" class="dropdown-menu dropdown-menu-right nav-user-dropdown"
-                                aria-labelledby="navbarDropdownMenuLink2">
-                                <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name">John Abraham </h5>
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                        <a href="#" class="connection-item"><img src="/assets/images/dropbox.png"
+                                                alt=""> <span>Kayu 3</span></a>
+                                    </div>
                                 </div>
-                                <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-        <!-- ============================================================== -->
-        <!-- end navbar -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- left sidebar -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- end left sidebar -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- wrapper  -->
-        <!-- ============================================================== -->
-        <div class="dashboard-wrapper-pembeli">
-            <div class="dashboard-ecommerce">
-                <div class="container-fluid dashboard-content ">
-                    <ui-view></ui-view>
-                </div>
-
-                <div class="footer">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                Copyright © <a></a>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                <div class="text-md-right footer-links d-none d-sm-block">
-                                    <a href="$javascript();">About</a>
-                                    <a href="$javascript();">Support</a>
-                                    <a href="$javascript();">Contact Us</a>
+                                <div class="row">
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                        <a href="#" class="connection-item"><img src="/assets/images/bitbucket.png"
+                                                alt=""> <span>Kayu 4</span></a>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                        <a href="#" class="connection-item"><img src="/assets/images/mail_chimp.png"
+                                                alt=""><span>Kayu 5</span></a>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                        <a href="#" class="connection-item"><img src="/assets/images/slack.png" alt="">
+                                            <span>Kayu 6</span></a>
+                                    </div>
                                 </div>
+                            </li>
+                            <li>
+                                <div class="conntection-footer"><a href="#">More</a></div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <div id="custom-search" class="top-search-bar">
+                            <input class="form-search" type="text" placeholder="Cari Kayu">
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown notification">
+                        <a class="nav-link nav-icons" ui-sref="pembeli-keranjang"><i class="fas fa-shopping-cart"
+                                title="Keranjang"></i> <span class="indicator"></span></a>
+                    </li>
+
+                    <li class="nav-item dropdown nav-user">
+                        <userlogin></userlogin>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="dashboard-wrapper-pembeli">
+        <div class="dashboard-ecommerce">
+            <div class="container-fluid dashboard-content ">
+                <ui-view></ui-view>
+            </div>
+
+            <div class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                            Copyright © <a></a>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="text-md-right footer-links d-none d-sm-block">
+                                <a href="$javascript();">About</a>
+                                <a href="$javascript();">Support</a>
+                                <a href="$javascript();">Contact Us</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- ============================================================== -->
-                <!-- end footer -->
-                <!-- ============================================================== -->
             </div>
             <!-- ============================================================== -->
-            <!-- end wrapper  -->
+            <!-- end footer -->
             <!-- ============================================================== -->
         </div>
+        <!-- ============================================================== -->
+        <!-- end wrapper  -->
+        <!-- ============================================================== -->
     </div>
-    <!-- ============================================================== -->
-    <!-- end main wrapper  -->
-    <!-- ============================================================== -->
-    <!-- Optional JavaScript -->
-    <!-- jquery 3.3.1 -->
-    <script src="/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <!-- bootstap bundle js -->
-    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <!-- slimscroll js -->
-    <script src="/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
-    <!-- main js -->
-    <script src="/assets/libs/js/main-js.js"></script>
-    <script src="/assets/vendor/bootstrap-select/js/bootstrap-select.js"></script>
-    <script src="/assets/vendor/parsley/parsley.js"></script>
-    <script>
-        jQuery(
-                '<div class="quantity-nav"><div class="quantity-button quantity-up">+</div><div class="quantity-button quantity-down">-</div></div>'
-            )
-            .insertAfter('.quantity input');
-        jQuery('.quantity').each(function () {
-            var spinner = jQuery(this),
-                input = spinner.find('input[type="number"]'),
-                btnUp = spinner.find('.quantity-up'),
-                btnDown = spinner.find('.quantity-down'),
-                min = input.attr('min'),
-                max = input.attr('max');
+</div>
+<!-- ============================================================== -->
+<!-- end main wrapper  -->
+<!-- ============================================================== -->
+<!-- Optional JavaScript -->
+<!-- jquery 3.3.1 -->
+<script src="/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+<!-- bootstap bundle js -->
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<!-- slimscroll js -->
+<script src="/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+<!-- main js -->
+<script src="/assets/libs/js/main-js.js"></script>
+<script src="/assets/vendor/bootstrap-select/js/bootstrap-select.js"></script>
+<script src="/assets/vendor/parsley/parsley.js"></script>
+<script>
+    jQuery(
+        '<div class="quantity-nav"><div class="quantity-button quantity-up">+</div><div class="quantity-button quantity-down">-</div></div>'
+    )
+        .insertAfter('.quantity input');
+    jQuery('.quantity').each(function () {
+        var spinner = jQuery(this),
+            input = spinner.find('input[type="number"]'),
+            btnUp = spinner.find('.quantity-up'),
+            btnDown = spinner.find('.quantity-down'),
+            min = input.attr('min'),
+            max = input.attr('max');
 
-            btnUp.click(function () {
-                var oldValue = parseFloat(input.val());
-                if (oldValue >= max) {
-                    var newVal = oldValue;
-                } else {
-                    var newVal = oldValue + 1;
-                }
-                spinner.find("input").val(newVal);
-                spinner.find("input").trigger("change");
-            });
-
-            btnDown.click(function () {
-                var oldValue = parseFloat(input.val());
-                if (oldValue <= min) {
-                    var newVal = oldValue;
-                } else {
-                    var newVal = oldValue - 1;
-                }
-                spinner.find("input").val(newVal);
-                spinner.find("input").trigger("change");
-            });
-
+        btnUp.click(function () {
+            var oldValue = parseFloat(input.val());
+            if (oldValue >= max) {
+                var newVal = oldValue;
+            } else {
+                var newVal = oldValue + 1;
+            }
+            spinner.find("input").val(newVal);
+            spinner.find("input").trigger("change");
         });
-    </script>
-</body>
 
+        btnDown.click(function () {
+            var oldValue = parseFloat(input.val());
+            if (oldValue <= min) {
+                var newVal = oldValue;
+            } else {
+                var newVal = oldValue - 1;
+            }
+            spinner.find("input").val(newVal);
+            spinner.find("input").trigger("change");
+        });
 
-</html>
+    });
+</script>

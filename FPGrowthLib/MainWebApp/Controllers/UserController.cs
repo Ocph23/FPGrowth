@@ -3,7 +3,9 @@ using System.Linq;
 using System.Net;
 using System.Security;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using MainWebApp.Models;
+using MainWebApp.Models.Data;
 using MainWebApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +51,26 @@ namespace MainWebApp.Controllers {
             } catch (System.Exception ex) {
 
                 return Unauthorized (ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterPembeli (Pembeli model) {
+            try {
+                var data = await _service.RegisterPembeli (model);
+                return Ok ();
+            } catch (System.Exception ex) {
+                return BadRequest (ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterPenjual (Penjual model) {
+            try {
+                var data = await _service.RegisterPenjual (model);
+                return Ok ();
+            } catch (System.Exception ex) {
+                return BadRequest (ex.Message);
             }
         }
 

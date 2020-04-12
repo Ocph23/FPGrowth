@@ -16,12 +16,19 @@ function MessageServices(swangular, $q, $state) {
 		var title = 'Error';
 		if (params.status) {
 			switch (params.status) {
+				case 400:
+					message = params.data;
+					break;
 				case 401:
 					title = 'Unauthorize';
 					message = 'Anda Tidak Memiliki Akses';
 					setTimeout(() => {
 						$state.go('login');
 					}, 500);
+					break;
+				case 404:
+					title = 'Link Not Found';
+					message = 'URL Not Found';
 					break;
 
 				default:

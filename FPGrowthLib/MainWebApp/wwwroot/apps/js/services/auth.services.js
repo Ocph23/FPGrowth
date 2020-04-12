@@ -14,7 +14,9 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 		userInRole: userInRole,
 		getHeader: getHeader,
 		url: service.url,
-		profile: profile
+		profile: profile,
+		registerPembeli: registerPembeli,
+		registerPenjual: registerPenjual
 	};
 
 	function InitLoad(params) {
@@ -60,6 +62,46 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 		}).then(
 			(res) => {
 				StorageService.addObject('user', res.data);
+				def.resolve(res.data);
+			},
+			(err) => {
+				message.error(err);
+				def.reject();
+			}
+		);
+		return def.promise;
+	}
+
+	function registerPenjual(data) {
+		var def = $q.defer();
+		$http({
+			method: 'post',
+			url: helperServices.url + controller + '/RegisterPenjual',
+			headers: getHeader(),
+			data: data
+		}).then(
+			(res) => {
+				message.info('Registrasi Berhasil, Periksa Email Anda Untuk Konfirmasi Email');
+				def.resolve(res.data);
+			},
+			(err) => {
+				message.error(err);
+				def.reject();
+			}
+		);
+		return def.promise;
+	}
+
+	function registerPembeli(data) {
+		var def = $q.defer();
+		$http({
+			method: 'post',
+			url: helperServices.url + controller + '/RegisterPembeli',
+			headers: getHeader(),
+			data: data
+		}).then(
+			(res) => {
+				message.info('Registrasi Berhasil, Periksa Email Anda Untuk Konfirmasi Email');
 				def.resolve(res.data);
 			},
 			(err) => {

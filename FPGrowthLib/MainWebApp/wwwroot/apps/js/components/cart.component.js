@@ -1,5 +1,5 @@
 angular.module('app.cart.conponent', []).component('cart', {
-	controller: function($scope, $state, AuthService, PembeliCartService) {
+	controller: function($scope, $state, AuthService, PembeliCartService, message) {
 		$scope.source = PembeliCartService.get();
 
 		$scope.add = (item) => {
@@ -15,6 +15,7 @@ angular.module('app.cart.conponent', []).component('cart', {
 				var datas = $scope.source.filter((x) => x.checked);
 				$state.go('pembeli-order', { data: datas });
 			} else {
+				message.error('Anda Belum Login !');
 				$state.go('login');
 			}
 		};

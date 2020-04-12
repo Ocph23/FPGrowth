@@ -18,67 +18,98 @@
     <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
         <div class="card">
             <div class="card-header">
-            <h5 class="card-header">Data Order </h5> 
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table datatable="ng" class="table table-head-fixed text-nowrap" id="table">
-                        <thead class="bg-light">
-                            <tr class="border-0">
-                                <th class="border-0">No</th>
-                                <th class="border-0">Id Order</th>
-                                <th class="border-0">Tanggal Order</th>
-                                <th class="border-0">Nama Pembeli </th>
-                                <th class="border-0">Nama Barang</th>
-                                <th class="border-0">Jumlah Barang</th>
-                                <th class="border-0">Total Bayar</th>
-                                <th class="border-0">Status Pengantaran</th>
-                                <th class="border-0">Waktu Expire Order</th>
-                                <th class="border-0">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Product #1 </td>
-                                <td>id000001 </td>
-                                <td>20</td>
-                                <td>$80.00</td>
-                                <td>27-08-2018 01:22:12</td>
-                                <td>Patricia J. King </td>
-                                <td>Patricia J. King </td>
-                                <td><span class="badge-dot badge-success mr-1"></span>Aktif </td>
-                                <td>
-                                    <div class="btn-group ml-auto float-lg-right">
-                                        <button class="btn btn-sm btn-outline-light"> <i class="far fa-edit"></i>
-                                            Edit</button>
-                                        <button class="btn btn-sm btn-outline-light ">
-                                            <i class="far fa-trash-alt"></i>
-                                        </button>
+                <h5 class="card-header">Data Order </h5>
+                <div class="row" ng-repeat="item in source">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <table class="table">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>No Order</th>
+                                        <th>Tgl Order</th>
+                                        <th>Nama Pembeli</th>
+                                        <th>Waktu Expire</th>
+                                        <th>Diantar</th>
+                                        <th>Jumlah Bayar</th>
+                                        <th class="text-right">Aksi</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-16"><span>{{$index+1}}</span>
+                                        </td>
+                                        <td class="font-16"><span
+                                                class="badge badge-success">{{orderService.padLeft(item.idorder,5)}}</span>
+                                        </td>
+                                        <td class="font-16"><span>{{item.tgl_order|date:'dd-MM-yyyy hh:mm'}}</span>
+                                        </td>
+                                        <td class="font-16">
+                                            <span>{{item.wkt_exp_order|date:'dd-MM-yyyy hh:mm'}}</span>
+                                        </td>
+
+                                        <td class="font-16"><span class="badge"
+                                                ng-class="item.expire?'badge-danger':'badge-warning'">{{item.status}}</span>
+                                        </td>
+                                        <td class="font-16"><span>Ya</span>
+
+                                        <td class="font-16"><span>Rp.{{orderService.total(item)|number}}</span>
+                                        </td>
+
+
+                                        <td>
+                                            <div class="btn-group ml-auto float-lg-right">
+                                                <button type="button" data-toggle="collapse"
+                                                    data-target="#collapseExample{{item.idorder}}" aria-expanded="false"
+                                                    aria-controls="collapseExample" ng-click="setBarang(item)"
+                                                    class="btn btn-sm btn-outline-light"><i
+                                                        class="far fa-list"></i></button>
+                                                <button class="btn btn-sm btn-outline-light"> <i
+                                                        class="far fa-edit"></i>
+                                                    Edit</button>
+                                                <button class="btn btn-sm btn-outline-light ">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="collapse" id="collapseExample{{item.idorder}}">
+                                    <div class="card card-body">
+                                        <table class="table">
+                                            <tr>
+                                                <th>ID Barang</th>
+                                                <th>Nama Barang</th>
+                                                <th>Jumlah</th>
+                                                <th>Harga</th>
+                                                <th>Total</th>
+                                            </tr>
+                                            <tr ng-repeat="data in item.data">
+                                                <td class="font-16"><span
+                                                        class="badge badge-warning">{{orderService.padLeft(data.idbarang,3)}}</span>
+                                                </td>
+                                                <td class="font-16">
+                                                    <span>{{data.barang.nama_barang}}</span>
+                                                </td>
+                                                <td class="font-16">
+                                                    <span>{{data.jumlah}}</span>
+                                                </td>
+
+                                                <td class="font-16">
+                                                    <span>Rp. {{data.harga|number}}</span>
+                                                </td>
+
+                                                <td class="font-16">
+                                                    <span>Rp.{{data.harga * data.jumlah|number}}</span>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table><br><br><br>
-                    <div class="card-header"></div><br>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination float-lg-right">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span>
-                                </a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span></a>
-                            </li>
-                        </ul>
-                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 </div>

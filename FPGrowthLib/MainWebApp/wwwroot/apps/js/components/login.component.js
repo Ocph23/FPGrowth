@@ -1,11 +1,15 @@
 angular.module('app.account.conponent', []).component('userlogin', {
 	controller: function($scope, AuthService) {
-		this.userName = AuthService.getUserName();
+		$scope.isLogin = AuthService.userIsLogin();
+		if ($scope.isLogin) {
+			AuthService.profile().then((profile) => {
+				$scope.profile = profile;
+			});
+		}
+
 		$scope.logoff = function() {
-			AuthService.logoff();
+			AuthService.logOff();
 		};
 	},
-	template: `{{$ctrl.userName}}
-    <span>| <a ng-click="logoff()">Log Off</a></span>
-    `
+	templateUrl: 'apps/js/components/templates/userlogin.html'
 });

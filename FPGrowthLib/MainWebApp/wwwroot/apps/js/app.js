@@ -1,5 +1,11 @@
 angular
 	.module('app', [ 'swangular', 'app.router', 'app.conponent', 'app.controller', 'app.service' ])
+	.config(() => {
+		//or as a Number prototype method:
+		Number.prototype.padLeft = function(n, str) {
+			return Array(n - String(this).length + 1).join(str || '0') + this;
+		};
+	})
 	.controller('homeController', homeController)
 	.directive('chooseFile', function() {
 		return {

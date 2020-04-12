@@ -1,34 +1,33 @@
 using System;
- 
- namespace MainWebApp.Models.Data 
-{ 
-     public interface IPembeli  
-   {
-         int idpembeli {  get; set;} 
 
-         string nama_pembeli {  get; set;} 
+namespace MainWebApp.Models.Data {
 
-         string email_pembeli {  get; set;} 
+     public interface IPembeli {
+          int idpembeli { get; set; }
 
-         string jenis_kelamin {  get; set;} 
+          string nama_pembeli { get; set; }
 
-         string alamat {  get; set;} 
+          string email_pembeli { get; set; }
 
-         DateTime tgl_lahir {  get; set;} 
+          string jenis_kelamin { get; set; }
 
-         string no_tlp {  get; set;} 
+          string alamat { get; set; }
 
-         string foto_pembeli {  get; set;} 
+          DateTime tgl_lahir { get; set; }
 
-         string foto_ktp {  get; set;} 
+          string no_tlp { get; set; }
 
-         DateTime tgl_daftar {  get; set;} 
+          string foto_pembeli { get; set; }
 
-         string status {  get; set;} 
+          string foto_ktp { get; set; }
 
-         int iduser {  get; set;} 
+          DateTime tgl_daftar { get; set; }
+
+          string status { get; set; }
+
+          int iduser { get; set; }
+
+          string nama { get; set; }
 
      }
 }
-
-

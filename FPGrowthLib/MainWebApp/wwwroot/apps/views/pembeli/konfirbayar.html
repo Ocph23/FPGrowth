@@ -9,77 +9,91 @@
                 <div class="form-group row pb-0 mb-0">
                     <div class="offset-xl-1 col-form-label col-sm-3 font-14">No. Order</div>
                     <div class="offset-xl-1 col-sm-3 "><a
-                            class="badge badge-success text-light font-16">1111-2222-3333-4444</a></div>
+                            class="badge badge-success text-light font-16">{{padLeft(order.idorder,5)}}</a></div>
                 </div>
                 <div class="form-group row pb-0 mb-0 mt-0 pt-0">
                     <div class="offset-xl-1 col-form-label col-sm-3 font-14">Atas Nama</div>
-                    <div class="offset-xl-1 col-6 text-dark font-16">Chandra Poetra Wijaksana</div>
+                    <div class="offset-xl-1 col-6 text-dark font-16">{{profile.nama_pembeli}}</div>
                 </div>
                 <div class="form-group row pb-0 mb-0 mt-0 pt-0">
                     <div class="offset-xl-1 col-form-label col-sm-3 font-14">E-Mail</div>
                     <div class="offset-xl-1 col-sm-3"><a class="text-primary font-16"
-                            href="#">example@mail.com</a></div>
+                            href="#">{{profile.email_pembeli}}</a>
+                    </div>
                 </div>
                 <div class="form-group row pb-0 mb-0 mt-0 pt-0">
                     <div class="offset-xl-1 col-form-label col-sm-3 font-14">No. Telepon</div>
-                    <div class="offset-xl-1 col-sm-3 font-16 text-dark">0812-1212-1212</div>
+                    <div class="offset-xl-1 col-sm-3 font-16 text-dark">{{profile.no_tlp}}</div>
                 </div>
                 <div class="form-group row pb-3 mb-0 mt-0 pt-0 border-bottom">
                     <div class="offset-xl-1 col-form-label col-sm-3 font-14">Alamat Pengiriman</div>
-                    <div class="offset-xl-1 col-6 text-dark font-16">Lorem Ipsum is simply dummy text of the printing and typesetting
-                        industry.</div>
+                    <div class="offset-xl-1 col-6 text-dark font-16">{{order.alamatpengiriman}}</div>
                 </div>
                 <div class="form-group row pb-0 mb-0">
                     <div class="col font-18 text-dark">Transfer Ke</div>
                 </div>
                 <div class="form-group row pb-0 mb-0">
                     <div class="offset-xl-1 col-sm-3 mb-3 font-14">Nama Bank</div>
-                    <div class="offset-xl-1 col-sm-3 font-16 text-dark">Muamalat Syariah</div>
+                    <div class="offset-xl-1 col-sm-3 font-16 text-dark">{{manajemen.nama_bank_pembayaran}}</div>
                 </div>
                 <div class="form-group row pb-0 mb-0 mt-0 pt-0">
                     <div class="offset-xl-1 col-sm-3 mb-3 font-14">No. Rekening</div>
-                    <div class="offset-xl-1 col-6 text-dark font-16">1234567890123456</div>
+                    <div class="offset-xl-1 col-6 text-dark font-16">{{manajemen.no_rek_pembayaran}}</div>
                 </div>
                 <div class="form-group row pb-0 mb-0 mt-0 pt-0">
                     <div class="offset-xl-1 col-sm-3 mb-3 font-14">Jumlah Bayar</div>
-                    <div class="offset-xl-1 col-sm-3 font-16 text-primary">Rp 100.000.000</div>
+                    <div class="offset-xl-1 col-sm-3 font-16 text-primary">Rp. {{total(order)|number}}</div>
                 </div>
                 <div class="form-group row pb-3 mb-0 mt-0 pt-0 border-bottom">
                     <div class="offset-xl-1 col-sm-3 font-14">Status Pegantaran</div>
-                    <div class="offset-xl-1 col-sm-3"><a class="font-16 text-dark badge badge-warning">Menunggu Pembayaran</a></div>
+                    <div class="offset-xl-1 col-sm-3"><a
+                            class="font-16 text-dark badge badge-warning">{{order.status}}</a></div>
                 </div>
                 <div class="form-group row pb-0 mb-0">
                     <div class="col font-18 text-dark">Nama Bank Pembeli</div>
                 </div>
                 <div class="form-group row pb-0 mb-0">
-                    <div class="offset-xl-1 col-sm-3 mb-4 pb-1 font-14">Pilih Bank</div>
+                    <div class="offset-xl-1 col-sm-3 mb-4 font-14">Pilih Bank</div>
                     <div class="offset-xl-1 col-sm-3">
-                        <select class="selectpicker show-tick">
-                            <option>Muamalat Syariah</option>
+                        <select class="form-control" ng-model="model.bank" class="selectpicker show-tick">
+                            <option>Bank Mandiri</option>
+                            <option>Bank BNI</option>
+                            <option>Bank BRI</option>
+                            <option>Bank BCA</option>
+                            <option>Bank Lain</option>
                         </select>
                     </div>
+
                 </div>
-                <div class="form-group row pb-0 mb-0 mt-0 pt-0">
-                    <div class="offset-xl-1 col-sm-3 mb-4 font-14">No. Rekening</div>
+                <div ng-if="model.nama_bank=='Bank Lain'" class="form-group row pb-0 mb-0 mt-0 pt-0">
+                    <div class="offset-xl-1 col-sm-3 mb-4 font-14">Nama Bank</div>
                     <div class="offset-xl-1 col-5">
-                        <input class="form-control" placeholder="No. Rekening"/>
+                        <input class="form-control" ng-model="model.nama_bank_lain" placeholder="Nama Bank" />
                     </div>
                 </div>
                 <div class="form-group row pb-0 mb-0 mt-0 pt-0">
                     <div class="offset-xl-1 col-sm-3 mb-4 font-14">No. Rekening</div>
                     <div class="offset-xl-1 col-5">
-                        <input class="form-control" placeholder="No. Rekening"/>
+                        <input class="form-control" placeholder="No. Rekening" />
+                    </div>
+                </div>
+                <div class="form-group row pb-0 mb-0 mt-0 pt-0">
+                    <div class="offset-xl-1 col-sm-3 mb-4 font-14">Nama Pemilik Rekening</div>
+                    <div class="offset-xl-1 col-5">
+                        <input class="form-control" placeholder="Nama" />
                     </div>
                 </div>
                 <div class="form-group row pb-0 mb-0 mt-0 pt-0">
                     <div class="offset-xl-1 col-sm-3 mb-3 font-14">Bukti Pengiriman</div>
                     <div class="offset-xl-1 col-5">
-                        <input class="btn btn-outline-primary pb-0 pt-0 pl-0 form-control" type="file" multiple="multiple"/>
+                        <fileinput model="model.data_bukti" src="'images/bukti/'+model.bukti_pembayaran" showview="true"
+                            width="200" height="200" idname="'bukti'">
+                        </fileinput>
                     </div>
                 </div>
             </div>
             <div class="card-footer text-center">
-                <button class="btn btn-outline-success font-16">Konfirmasi Pembayaran</button>
+                <button class="btn btn-outline-success font-16" ng-click="save(model)">Konfirmasi Pembayaran</button>
             </div>
         </div>
     </div>

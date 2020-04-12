@@ -65,11 +65,12 @@ namespace MainWebApp.Controllers {
                     if (data.idbarang <= 0) {
                         throw new System.Exception ("Data tidak tersimpan");
                     }
+
                     if (data.GambarData != null) {
+                        data.gambar = data.idbarang.ToString () + ".png";
                         var path = Path.Combine (
                             Directory.GetCurrentDirectory (), "wwwroot/images/barang",
-                            data.idbarang.ToString () + ".png");
-
+                            data.gambar);
                         System.IO.File.WriteAllBytes (path, data.GambarData);
                     }
                     return Ok (data);
@@ -86,9 +87,14 @@ namespace MainWebApp.Controllers {
             try {
 
                 if (data.GambarData != null) {
+                    data.gambar = data.idbarang.ToString () + ".png";
                     var path = Path.Combine (
                         Directory.GetCurrentDirectory (), "wwwroot/images/barang",
-                        data.idbarang.ToString () + ".png");
+                        data.gambar);
+
+                    if (System.IO.File.Exists (path)) {
+                        System.IO.File.Delete (path);
+                    }
 
                     System.IO.File.WriteAllBytes (path, data.GambarData);
                 }

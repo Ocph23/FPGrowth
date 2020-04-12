@@ -15,6 +15,8 @@ namespace MainWebApp.Services {
         User Authenticate (string username, string password);
         bool verifyemail (int userid, string token);
         object profile (int userid);
+        Task<Pembeli> RegisterPembeli (Pembeli pembeli);
+        Task<Penjual> RegisterPenjual (Penjual pembeli);
     }
 
     public class UserService : IUserService {
@@ -29,7 +31,7 @@ namespace MainWebApp.Services {
 
         public User Authenticate (string username, string password) {
             try {
-                var user = db.Users.Where (x => x.username == username).FirstOrDefault ();
+                var user = db.Users.Where (x => x.username == username || x.email == username).FirstOrDefault ();
 
                 //var user = _users.SingleOrDefault(x => x.Username == username && x.Password == password);
 
@@ -98,6 +100,54 @@ namespace MainWebApp.Services {
                 return Task.CompletedTask;
             }
         }
+
+        public Task<Pembeli> RegisterPembeli (Pembeli pembeli) {
+            var transaction = db.BeginTransaction ();
+            try {
+                var user = new User { username = pembeli.email_pembeli, password = Helper.GetMd5Hash (pembeli.Password), role = "pembeli", email = pembeli.email_pembeli };
+                user = user.CreateUser (db);
+                pembeli.iduser = user.iduser;
+                pembeli.tgl_daftar = DateTime.Now;
+                pembeli.status = "aktif";
+                pembeli.idpembeli = db.Pembeli.InsertAndGetLastID (pembeli);
+                if (pembeli.idpembeli <= 0)
+                    throw new SystemException ("Registrasi Gagal");
+                var token = user.GenerateToken (_appSettings.Secret);
+                var emailService = new EmailService ();
+                emailService.SendEmail (pembeli.email_pembeli, $"<a href='https://localhost:5001/user/verifyemail?userid={user.iduser}&token={token}'>Verifikasi Accunt</a>");
+                transaction.Commit ();
+                return Task.FromResult (pembeli);
+
+            } catch (System.Exception ex) {
+                transaction.Rollback ();
+                throw new SystemException (ex.Message);
+            }
+        }
+
+        public Task<Penjual> RegisterPenjual (Penjual penjual) {
+            var transaction = db.BeginTransaction ();
+            try {
+                var user = new User {
+                    username = penjual.email, password = Helper.GetMd5Hash (penjual.Password),
+                    role = "penjual", email = penjual.email
+                };
+                user = user.CreateUser (db);
+                penjual.iduser = user.iduser;
+                penjual.status = "aktif";
+                penjual.idpenjual = db.Penjual.InsertAndGetLastID (penjual);
+                if (penjual.idpenjual <= 0)
+                    throw new SystemException ("Registrasi Gagal");
+                var token = user.GenerateToken (_appSettings.Secret);
+                var emailService = new EmailService ();
+                emailService.SendEmail (penjual.email, $"<a href='https://localhost:5001/user/verifyemail?userid={user.iduser}&token={token}'>Verifikasi Accunt</a>");
+                transaction.Commit ();
+                return Task.FromResult (penjual);
+
+            } catch (System.Exception ex) {
+                transaction.Rollback ();
+                throw new SystemException (ex.Message);
+            }
+        }
     }
 
     public static class UserExtention {
@@ -108,8 +158,23 @@ namespace MainWebApp.Services {
 
         public static object profile (this User user, OcphDbContext db) {
             object data = null;
-            if (user.role == "penjual")
-                data = db.Penjual.Where (x => x.iduser == user.iduser).FirstOrDefault ();
+            if (user.role == "penjual") {
+                var vdata = db.Penjual.Where (x => x.iduser == user.iduser).FirstOrDefault ();
+                vdata.nama = vdata.nama_penjual;
+                vdata.role = user.role;
+                vdata.photo = vdata.foto_penjual;
+                data = vdata;
+
+            } else
+            if (user.role == "pembeli") {
+                var vdata = db.Pembeli.Where (x => x.iduser == user.iduser).FirstOrDefault ();
+                vdata.nama = vdata.nama_pembeli;
+                vdata.role = user.role;
+                vdata.photo = user.photo;
+                data = vdata;
+            } else {
+                data = user;
+            }
             return data;
         }
 

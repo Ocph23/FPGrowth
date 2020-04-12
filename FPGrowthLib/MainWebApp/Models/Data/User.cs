@@ -29,6 +29,10 @@ namespace MainWebApp.Models.Data {
 
           [DbColumn ("emailconfirm")]
           public int emailconfirm { get; set; }
+
+          [DbColumn ("photo")]
+          public string photo { get; set; }
+
           public string Token { get; set; }
      }
 }

@@ -3,7 +3,7 @@ angular
 	.factory('PembeliService', PembeliService)
 	.factory('PembeliCartService', PembeliCartService);
 
-function PembeliCartService($http, $state, $q, message, AuthService, StorageService) {
+function PembeliCartService($http, $q, message, helperServices, AuthService, StorageService) {
 	var service = {};
 	service.data = StorageService.getObject('cart');
 	if (!service.data) {
@@ -14,8 +14,7 @@ function PembeliCartService($http, $state, $q, message, AuthService, StorageServ
 		get: get,
 		add: add,
 		delete: remove,
-		saveCart: saveCart,
-		order: order
+		saveCart: saveCart
 	};
 
 	function get() {
@@ -42,20 +41,24 @@ function PembeliCartService($http, $state, $q, message, AuthService, StorageServ
 		}
 	}
 
-	function order(data) {}
-
 	function saveCart() {
 		StorageService.addObject('cart', service.data);
 	}
 }
 
-function PembeliService($http, $state, $q, message, AuthService) {
-	var controller = helperService.url + 'api/barang';
+function PembeliService($http, $state, $q, message, AuthService, helperServices) {
+	var controller = helperServices.url + 'api/barang';
 	var service = {};
-
+	service.orders = [];
 	service.data = [];
 
-	return { getBarang: getBarang };
+	return {
+		getBarang: getBarang,
+		createOrder: createOrder,
+		getOrder: getOrder,
+		getOrders: getOrders,
+		createPembayaran: createPembayaran
+	};
 
 	function getBarang() {
 		var defer = $q.defer();
@@ -80,5 +83,72 @@ function PembeliService($http, $state, $q, message, AuthService) {
 		}
 
 		return defer.promise;
+	}
+
+	function createOrder(data) {
+		var def = $q.defer();
+		$http({
+			method: 'post',
+			url: helperServices.url + '/api/Pembelian/createorder',
+			headers: AuthService.getHeader(),
+			data: data
+		}).then(
+			(response) => {
+				service.orders.push(response.data);
+				def.resolve(response.data);
+			},
+			(err) => {
+				message.error(err);
+				def.reject(err);
+			}
+		);
+		return def.promise;
+	}
+
+	function createPembayaran(data) {
+		var def = $q.defer();
+		$http({
+			method: 'post',
+			url: helperServices.url + '/api/Pembelian/createPembayaran',
+			headers: AuthService.getHeader(),
+			data: data
+		}).then(
+			(response) => {
+				def.resolve(response.data);
+			},
+			(err) => {
+				message.error(err);
+				def.reject(err);
+			}
+		);
+		return def.promise;
+	}
+
+	function getOrders(idpembeli) {
+		var def = $q.defer();
+		$http({
+			method: 'get',
+			url: helperServices.url + '/api/pembelian/GetOrderByIdPembeli/' + idpembeli,
+			headers: AuthService.getHeader()
+		}).then(
+			(response) => {
+				service.orders = response.data;
+				def.resolve(service.orders);
+			},
+			(err) => {
+				message.error(err);
+				def.reject(err);
+			}
+		);
+		return def.promise;
+	}
+
+	function getOrder(idpembeli, idorder) {
+		var def = $q.defer();
+		getOrders(idpembeli).then(orders).then((orders) => {
+			var order = orders.find((x) => x.idorder == idorder);
+			def.resolve(order);
+		});
+		return def.promise;
 	}
 }

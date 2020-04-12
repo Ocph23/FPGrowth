@@ -8,20 +8,21 @@
                     <div class="form-group row">
                         <label class="col-12 col-sm-3 col-form-label text-right">Nama Penerima</label>
                         <div class="col-12 col-sm-8 col-lg-6">
-                            <input type="text" required="" placeholder="Nama Penerima" class="form-control">
+                            <input ng-model="profile.nama_pembeli" type="text" required="" placeholder="Nama Penerima"
+                                class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-12 col-sm-3 col-form-label text-right">No. Kontak</label>
                         <div class="col-12 col-sm-8 col-lg-6">
-                            <input data-parsley-type="number" type="text" required="" placeholder="Enter only numbers"
-                                class="form-control">
+                            <input ng-model="model.no_tlp" data-parsley-type="number" type="text" required=""
+                                placeholder="Enter only numbers" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row border-bottom">
                         <label class="col-12 col-sm-3 col-form-label text-right">Alamat</label>
                         <div class="col-12 col-sm-8 col-lg-6">
-                            <textarea required="" class="form-control"></textarea>
+                            <textarea ng-model="model.alamatpengiriman" required="" class="form-control"></textarea>
                         </div>
                     </div>
                     <h3 class="text-left pt-3">Pembayaran</h3>
@@ -35,7 +36,7 @@
                         </div>
                     </div>
                     <h3 class="text-left m-b-0 pt-3">Detail Belanja</h3>
-                    <div class="row" ng-repeat="item in datas">
+                    <div class="row" ng-repeat="item in model.data">
                         <div class="col-12 col-sm-3 text-sm-right align-items-center mt-0">
                             <img src="assets/images/slack.png" alt="User Avatar" class="user-avatar-xl">
                         </div>
@@ -64,7 +65,8 @@
                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Total Bayar</label>
                     <div class="col-12 col-sm-8 col-lg-2 mt-1 strong font-18 text-primary">
                         Rp 100.000.000</div>
-                    <span class="float-right"><button class="d-inline-block btn btn-primary" type="submit">Pesan
+                    <span class="float-right"><button ng-click="order(model)" class="d-inline-block btn btn-primary"
+                            type="submit">Pesan
                             Sekarang</button></span>
                 </div>
             </div>

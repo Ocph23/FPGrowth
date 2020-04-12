@@ -30,5 +30,7 @@ namespace MainWebApp.Models.Data {
           [DbColumn ("idorder")]
           public int idorder { get; set; }
 
+          public byte[] data_bukti { get; set; }
+
      }
 }

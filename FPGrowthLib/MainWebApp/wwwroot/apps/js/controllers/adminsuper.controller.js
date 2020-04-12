@@ -82,8 +82,54 @@ function adminsuperManagemenTransaksiController($scope, ManagemenTransaksiServic
 		ManagemenTransaksiService.delete(param).then((data) => {});
 	};
 }
-function adminsuperDataPenjualController() {}
-function adminsuperDataPembeliController() {}
-function adminsuperDataOrderController() {}
-function adminsuperKonfirPembayaranController() {}
-function adminsuperKonfirPengirimanController() {}
+function adminsuperDataPenjualController($scope, DataPenjualService) {
+	DataPenjualService.get().then((result) => {
+		$scope.source = result;
+	});
+}
+
+function adminsuperDataPembeliController($scope, DataPembeliService) {
+	DataPembeliService.get().then((result) => {
+		$scope.source = result;
+	});
+}
+
+function adminsuperDataOrderController($scope, OrderService) {
+	$scope.orderService = OrderService;
+
+	OrderService.get().then((result) => {
+		$scope.source = result.filter((x) => !x.pembayaran);
+		$scope.source.forEach((element) => {
+			OrderService.setBarang(element);
+			OrderService.diantar(element);
+		});
+	});
+}
+function adminsuperKonfirPembayaranController($scope, OrderService) {
+	$scope.orderService = OrderService;
+
+	OrderService.get().then((result) => {
+		$scope.source = result.filter((x) => x.pembayaran);
+		$scope.source.forEach((element) => {
+			OrderService.setBarang(element);
+			OrderService.diantar(element);
+		});
+	});
+
+	$scope.showBukti = (item) => {
+		$scope.model = item;
+	};
+
+	$scope.verifikasiPembayaran = (item) => {
+		OrderService.verifikasiPembayaran(item.pembayaran.idpembayaran).then((x) => {
+			item.pembayaran.status_pembayaran = 'Lunas';
+		});
+	};
+}
+function adminsuperKonfirPengirimanController($scope, OrderService) {
+	$scope.orderService = OrderService;
+
+	OrderService.get().then((result) => {
+		$scope.source = result.filter((x) => x.pembayaran);
+	});
+}

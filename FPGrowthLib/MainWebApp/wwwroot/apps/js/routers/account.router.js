@@ -26,5 +26,11 @@ angular.module('account.router', [ 'ui.router' ]).config(function($stateProvider
 			parent: 'account',
 			controller: 'RegisterPembeliController',
 			templateUrl: '../apps/views/account/sign-up.html'
+		})
+		.state('register-penjual', {
+			url: '/registerpenjual',
+			parent: 'account',
+			controller: 'RegisterPenjualController',
+			templateUrl: '../apps/views/account/sign-up-penjual.html'
 		});
 });

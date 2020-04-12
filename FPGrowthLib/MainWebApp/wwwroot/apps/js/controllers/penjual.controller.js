@@ -15,12 +15,33 @@ function penjualController($scope, AuthService) {
 	//AuthService.Init([ 'penjual' ]);
 }
 
-function penjualpHomeController() {}
+function penjualpHomeController($scope, AuthService) {
+	AuthService.profile().then((profile) => {
+		$scope.profile = profile;
+	});
+}
 
-function penjualprofilpController($scope, AuthService, BarangServices) {
+function penjualprofilpController($scope, $http, helperServices, AuthService, message, StorageService) {
 	AuthService.profile().then((x) => {
 		$scope.profile = x;
 	});
+
+	$scope.update = (data) => {
+		$http({
+			url: helperServices.url + '/api/penjual',
+			method: 'Put',
+			headers: AuthService.getHeader(),
+			data: data
+		}).then(
+			(result) => {
+				StorageService.addObject('profile', result.data);
+				$scope.profile = result.data;
+			},
+			(err) => {
+				message.error(err);
+			}
+		);
+	};
 }
 
 function penjualeditprofilController($scope) {
