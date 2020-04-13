@@ -52,9 +52,63 @@ function penjualdaftarbarangController($scope, BarangService) {
 	BarangService.get().then((data) => {
 		$scope.Items = data;
 	});
+
+	$scope.padLeft = (number, length) => {
+		return number.padLeft(length);
+	};
 }
 
-function penjualdetailbarangController() {}
+function penjualdetailbarangController(
+	$scope,
+	$stateParams,
+	AuthService,
+	BarangService,
+	PembeliCartService,
+	CommentService,
+	message
+) {
+	$scope.message = '';
+	BarangService.getById($stateParams.id).then((result) => {
+		$scope.model = result;
+		if (!result.comments)
+			CommentService.get($stateParams.id).then((comments) => {
+				$scope.model.comments = comments;
+			});
+
+		if (AuthService.userIsLogin()) {
+			AuthService.profile().then((profile) => {
+				$scope.profile = profile;
+			});
+		}
+	});
+
+	$scope.addToCart = (item) => {
+		PembeliCartService.add(item);
+	};
+
+	$scope.addComment = (message) => {
+		CommentService.post({
+			idbarang: $stateParams.id,
+			tgl_komentar: new Date(),
+			iduser: $scope.profile.iduser,
+			nama: $scope.profile.nama,
+			isi_komentar: message
+		}).then(
+			(result) => {
+				if (!$scope.model.comments) $scope.model.comments = [];
+				$scope.model.comments.push(result);
+				$scope.message = '';
+			},
+			(err) => {
+				message.error(err);
+			}
+		);
+	};
+
+	$scope.padLeft = (number, length) => {
+		return number.padLeft(length);
+	};
+}
 
 function penjualtambahbarangController($scope, AuthService, message, KategoriService, BarangService) {
 	$scope.title = 'Tambah Barang';

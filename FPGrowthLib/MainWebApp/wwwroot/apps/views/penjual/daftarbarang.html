@@ -32,8 +32,9 @@
                 <div class="email-list-item email-list-item--unread" ng-repeat="item in Items">
                     <div class="row align-items-center">
                         <div class="col-md-12 item-barang">
-                            <div class="mb-2 font-16 text-dark">Kode Barang :<a
-                                    class="text-light font-16 badge badge-success ml-2">{{item.idbarang}}</a>
+                            <div class="mb-2 font-16 text-dark" ui-sref="penjual-detailbarang({id:item.idbarang})">Kode
+                                Barang :<a ui-sref="penjual-detailbarang({id:item.idbarang})"
+                                    class="text-light font-16 badge badge-success ml-2">{{padLeft(item.idbarang,5)}}</a>
                             </div>
                             <div class="mb-2 font-16 text-dark">
                                 <p class="text-dark font-18 mr-3">{{item.nama_barang}}</p>
@@ -80,7 +81,9 @@
                                         </div>
                                         <div>
                                             <span class="font-16 mr-4 text-dark">Tanggal Publish : <a
-                                                    class="text-primary">{{item.tgl_publish}}</a></span>
+                                                    class="text-primary">
+                                                    <publish value="item.tgl_publish"> </publish>
+                                                </a></span>
                                         </div>
 
                                     </div>

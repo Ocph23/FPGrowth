@@ -15,10 +15,15 @@ angular
 
 function pembeliController() {}
 
-function pembeliHomeController($scope, BarangService) {
-	$scope.Source = [];
+function pembeliHomeController($scope, BarangService, KategoriService, $rootScope) {
+	$scope.Source = null;
+	$scope.selectedKategori = null;
 	BarangService.get().then((barangs) => {
 		$scope.Source = barangs;
+	});
+
+	$rootScope.$on('selectedKategori', function(evt, data) {
+		$scope.selectedKategori = data;
 	});
 }
 
@@ -67,6 +72,9 @@ function pembeliDetailProdukController(
 				message.error(err);
 			}
 		);
+	};
+	$scope.padLeft = (number, length) => {
+		return number.padLeft(length);
 	};
 }
 

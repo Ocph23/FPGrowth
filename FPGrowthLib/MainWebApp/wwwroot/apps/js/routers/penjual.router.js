@@ -30,7 +30,10 @@ angular.module('penjual.router', []).config(function($stateProvider, $urlRouterP
 			templateUrl: 'apps/views/penjual/daftarbarang.html'
 		})
 		.state('penjual-detailbarang', {
-			url: '/detailbarang',
+			url: '/detailbarang/:id',
+			params: {
+				id: null
+			},
 			parent: 'penjual',
 			controller: 'penjualdetailbarangController',
 			templateUrl: 'apps/views/penjual/detailbarang.html'

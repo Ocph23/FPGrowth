@@ -1,5 +1,5 @@
 angular
-	.module('app', [ 'swangular', 'app.router', 'app.conponent', 'app.controller', 'app.service' ])
+	.module('app', [ 'datatables', 'swangular', 'app.router', 'app.conponent', 'app.controller', 'app.service' ])
 	.config(() => {
 		//or as a Number prototype method:
 		Number.prototype.padLeft = function(n, str) {
