@@ -1,11 +1,13 @@
 using System.Linq;
 using MainWebApp.Models.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 namespace MainWebApp.Controllers {
     [ApiController]
     [Route ("api/[controller]")]
+
     public class CommentController : ControllerBase {
         private IOptions<AppSettings> _setting;
 

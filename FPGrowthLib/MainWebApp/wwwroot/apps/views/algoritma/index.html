@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">Source And Priority</div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>TID</th>
+                            <th>ITEM</th>
+                            <th>Sort Priority</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in model.source">
+                            <td>{{$index}}</td>
+                            <td>{{item.tid}}</td>
+                            <td><span ng-repeat="data in item.items">{{data}}, </span></td>
+                            <td><span ng-repeat="data in item.sortData">{{data}}, </span></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Frekuensi</div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nama/Kode</th>
+                            <th>Jumlah</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in model.frekuensi">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.count}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Frekuensi Sort And Eliminasi</div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nama/Kode</th>
+                            <th>Jumlah</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in model.resultX">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.count}}</td>
+
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer"></div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-header">FREKUENS 2 ITEMSET</div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>X</th>
+                            <th ng-repeat="item in model.resultX">{{item.name}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="items in model.frekuensiItemSet">
+                            <td>{{model.resultX[$index].name}}</td>
+                            <td ng-repeat="xx in items  track by $index">{{xx}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Suport Value</div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>X</th>
+                            <th ng-repeat="item in model.resultX">{{item.name}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="items in model.frekuensiItemSet">
+                            <td>{{model.resultX[$index].name}}</td>
+                            <td ng-repeat="xx in items  track by $index">{{xx/model.source.length |number:2}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer"></div>
+        </div>
+
+
+
+        <div class="card">
+            <div class="card-header">Graph</div>
+            <div class="card-body">
+                <div style="height: 60vh; width: 100%;" id="mynetwork"></div>
+            </div>
+            <div class="card-footer"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Confidance</div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>X</th>
+                            <th ng-repeat="item in model.resultX">{{item.name}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="items in model.frekuensiItemSet">
+                            <td>{{model.resultX[$index].name}}</td>
+                            <td ng-repeat="xx in items  track by $index">{{xx/model.resultX[$index].count |number:2}}
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer"></div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-header">Assosiasi</div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Assosiasi</th>
+                            <th>Nilai</th>
+                            <th>Mi Suport</th>
+                            <th>Confidance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in model.listItemSetResult">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.row}} - {{item.column}}</td>
+                            <td>{{item.value}}</td>
+                            <td>{{item.minSuport|number:2}}</td>
+                            <td>{{item.confidanceSupport|number:2}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer"></div>
+        </div>
+
+
+
+
+    </div>
+</body>
+
+</html>

@@ -18,7 +18,8 @@ angular
 function adminsuperController() {}
 function adminsuperHomeController() {}
 function adminsuperMenuUtamaController() {}
-function adminsuperDaftarKategoriController($scope, KategoriService) {
+function adminsuperDaftarKategoriController($scope, KategoriService, kodefikasiService) {
+	$scope.kodefikasi = kodefikasiService;
 	$scope.model = {};
 	KategoriService.get().then((data) => {
 		$scope.Items = data;
@@ -82,13 +83,15 @@ function adminsuperManagemenTransaksiController($scope, ManagemenTransaksiServic
 		ManagemenTransaksiService.delete(param).then((data) => {});
 	};
 }
-function adminsuperDataPenjualController($scope, DataPenjualService) {
+function adminsuperDataPenjualController($scope, DataPenjualService, kodefikasiService) {
+	$scope.kodefikasi = kodefikasiService;
 	DataPenjualService.get().then((result) => {
 		$scope.source = result;
 	});
 }
 
-function adminsuperDataPembeliController($scope, DataPembeliService) {
+function adminsuperDataPembeliController($scope, DataPembeliService, kodefikasiService) {
+	$scope.kodefikasi = kodefikasiService;
 	DataPembeliService.get().then((result) => {
 		$scope.source = result;
 	});
@@ -105,9 +108,8 @@ function adminsuperDataOrderController($scope, OrderService) {
 		});
 	});
 }
-function adminsuperKonfirPembayaranController($scope, OrderService) {
-	$scope.orderService = OrderService;
-
+function adminsuperKonfirPembayaranController($scope, OrderService, kodefikasiService) {
+	$scope.kodefikasi = kodefikasiService;
 	OrderService.get().then((result) => {
 		$scope.source = result.filter((x) => x.pembayaran);
 		$scope.source.forEach((element) => {
@@ -126,7 +128,8 @@ function adminsuperKonfirPembayaranController($scope, OrderService) {
 		});
 	};
 }
-function adminsuperKonfirPengirimanController($scope, OrderService) {
+function adminsuperKonfirPengirimanController($scope, OrderService, kodefikasiService) {
+	$scope.kodefikasi = kodefikasiService;
 	$scope.orderService = OrderService;
 
 	OrderService.get().then((result) => {

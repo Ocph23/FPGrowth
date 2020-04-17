@@ -42,6 +42,9 @@ namespace MainWebApp.Models.Data {
           [DbColumn ("keterangan")]
           public string keterangan { get; set; }
 
+          [DbColumn ("tgl_daftar")]
+          public DateTime tgl_daftar { get; set; }
+
           [DbColumn ("status")]
           public string status { get; set; }
 

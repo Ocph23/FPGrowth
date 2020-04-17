@@ -2,11 +2,11 @@
     <!--  pageheader  -->
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="page-header">
-            <h2 class="pageheader-title"><i class="fa fa-fw fa-clipboard-list"></i> Data Transaksi </h2>
+            <h2 class="pageheader-title"><i class="fa fa-fw fa-clipboard-list">Header</i> Data Transaksi </h2>
             <div class="page-breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">WPKS</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">WPKS</a>Header</li>
                         <li class="breadcrumb-item active" aria-current="page">Data Transaksi</li>
                     </ol>
                 </nav>
@@ -26,7 +26,7 @@
                 <li class="nav-item">
                     <a class="nav-link" id="pills-profile-tab" data-toggle="pill" data-target="#pills-profile"
                         href="javascript:void(0)" role="tab" aria-controls="profile" aria-selected="false"><i
-                            class="fas fa-plus-circle"></i> Tambah Data Transaksi</a>
+                            class="fas fa-plus-circle">Header</i> Tambah Data Transaksi</a>
                 </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
@@ -34,61 +34,22 @@
                     <div class="table-responsive">
                         <table class="table " datatable="">
                             <thead class="bg-light">
-                                <tr class="border-0">
-                                    <th class="border-0">No</th>
-                                    <th class="border-0">Kode</th>
-                                    <th class="border-0">Transasksi</th>
-                                    <th class="border-0">Aksi</th>
+                                <tr>
+                                    <td>Header1</td>
+                                    <td>Header2</td>
+                                    <td>Header3</td>
+                                    <td>Header4</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Sub Kategori</td>
-                                    <td>Sub Kategori</td>
-                                    <td>
-                                        <div class="btn-group ml-auto float-lg-right">
-                                            <button class="btn btn-sm btn-outline-light"> <i class="far fa-edit"></i>
-                                                Edit</button>
-                                            <button class="btn btn-sm btn-outline-light ">
-                                                <i class="far fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Sub Kategori</td>
-                                    <td>Sub Kategori</td>
-                                    <td>
-                                        <div class="btn-group ml-auto float-lg-right">
-                                            <button class="btn btn-sm btn-outline-light"> <i class="far fa-edit"></i>
-                                                Edit</button>
-                                            <button class="btn btn-sm btn-outline-light ">
-                                                <i class="far fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </td>
+                                <tr ng-repeat="item in [1, 2, 3]">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{item}}{{$index+1}}</td>
+                                    <td>{{item}}{{$index+1}}</td>
+                                    <td>{{item}}{{$index+1}}</td>
                                 </tr>
                             </tbody>
-                        </table><br><br>
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination float-lg-right">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next"><span
-                                            aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span></a>
-                                </li>
-                            </ul>
-                        </nav>
+                        </table>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -114,7 +75,7 @@
                                         </label>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-right"></label>
+                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Header</label>
                                         <div class="col-12 col-sm-8 col-lg-7">
                                             <button type="submit" class="btn btn-success float-right">Simpan</button>
                                             <button type="submit" class="btn btn-danger float-right">Cancel</button>

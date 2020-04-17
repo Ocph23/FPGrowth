@@ -43,10 +43,10 @@
                                             <td class="font-16"><span>{{$index+1}}</span>
                                             </td>
                                             <td class="font-16"><span
-                                                    class="badge badge-success">{{orderService.padLeft(item.pembayaran.idpembayaran,5)}}</span>
+                                                    class="badge badge-success">{{kodefikasi.pembayaran(item.pembayaran.idpembayaran,item.pembayaran.tgl_pembayaran)}}</span>
                                             </td>
                                             <td class="font-16"><span
-                                                    class="badge badge-success">{{orderService.padLeft(item.idorder,5)}}</span>
+                                                    class="badge badge-success">{{kodefikasi.order(item.idorder,item.tgl_order)}}</span>
                                             </td>
                                             <td class="font-16"><span>{{item.pembeli.nama_pembeli}}</span>
                                             </td>

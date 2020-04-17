@@ -32,9 +32,9 @@
                 <div class="email-list-item email-list-item--unread" ng-repeat="item in Items">
                     <div class="row align-items-center">
                         <div class="col-md-12 item-barang">
-                            <div class="mb-2 font-16 text-dark" ui-sref="penjual-detailbarang({id:item.idbarang})">Kode
-                                Barang :<a ui-sref="penjual-detailbarang({id:item.idbarang})"
-                                    class="text-light font-16 badge badge-success ml-2">{{padLeft(item.idbarang,5)}}</a>
+                            <div class="mb-2 font-16 text-dark" ui-sref="penjual-detailbarang({id:item.idbarang})"><a
+                                    ui-sref="penjual-detailbarang({id:item.idbarang})"
+                                    class="text-light font-16 badge badge-success ml-2">{{kodefikasi.barang(item.idbarang, item.tgl_publish)}}</a>
                             </div>
                             <div class="mb-2 font-16 text-dark">
                                 <p class="text-dark font-18 mr-3">{{item.nama_barang}}</p>
@@ -44,19 +44,13 @@
                                     class="rounded user-avatar-xl">
                             </div>
                             <div class="pl-xl-3">
-                                <div class="m-b-0">
-                                    <div class="d-inline-block">
-                                        <a class="text-dark font-16">Sub Kategori :</a>
-                                        <span class="font-16">Apa Saja</span>
-                                    </div>
-                                </div>
                                 <div class="d-inline-block">
                                     <div class="m-b-0">
-                                        <span class="text-dark font-16">Kategori :<a
-                                                class="font-16 mr-4">{{item.kategori.nama_kategori}}</a></span>
+                                        <span class="text-dark font-16">Kategori :<a class="font-16 mr-4"></a>
+                                            {{item.kategori.nama_kategori}}</a></span>
                                         <div class="d-inline-block">
-                                            <span class="font-16 mr-5 text-dark">Stock :<a
-                                                    class="text-secondary">{{item.stock}}</a></span>
+                                            <span class="font-16 mr-5 text-dark">Stock :<a class="text-secondary"></a>
+                                                {{item.stock}}</a></span>
                                         </div>
                                         <div class="d-inline-block">
                                             <span class="font-16 mr-1 text-dark">Panjang : <a
@@ -67,8 +61,8 @@
                                                     class="text-secondary">{{item.lebar}} cm</a></span>
                                         </div>
                                         <div class="d-inline-block">
-                                            <span class="font-16 mr-4 text-dark">Harga : <a class="text-primary">Rp
-                                                    {{item.harga}}</a></span>
+                                            <span class="font-16 mr-4 text-dark">Harga : <a class="text-primary">Rp.
+                                                    {{item.harga|number}}</a></span>
                                         </div>
                                         <div class="d-inline-block">
                                             <span>

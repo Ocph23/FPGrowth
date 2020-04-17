@@ -1,14 +1,14 @@
 <div class="row">
-
-    <div class="col border-bottom p-b-40">
-        <div ng-if="!selectedKategori" id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <div ng-if="!selectedKategori && !searchText" style="width: 100%;" class="border-bottom p-b-40">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators" ng-repeat="item in Source">
-                <li data-target="#carouselExampleIndicators" data-slide-to="$index" ng-class="{active: $index==0" }>
+                <li data-target="#carouselExampleIndicators{{$index}}" data-slide-to="$index"
+                    ng-class="{active: $index==0}">
                 </li>
             </ol>
             <div class="carousel-inner" ng-repeat="item in Source">
                 <div class="carousel-item" ng-class="{active: $index==0}">
-                    <img class="d-block w-100 " style="max-height: 85vh;" src="images/barang/{{item.idbarang}}.png"
+                    <img class="d-block w-100 " style="max-height: 85vh;" src="images/barang/{{item.gambar}}"
                         alt="{{$index}} slide">
                 </div>
             </div>
@@ -25,14 +25,13 @@
     <div id="btnPenjual">
         <a ui-sref="register-penjual" class="btn btn-primary text-light">Anda Pengusaha ?</a>
     </div>
-
 </div>
 
 <div class="row m-t-40">
     <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 col-12"
-        ng-repeat="item in Source | filter : {idkategori:selectedKategori.idkategori}">
+        ng-repeat="item in Source | filter : searchText ||  filter :  {idkategori:selectedKategori.idkategori}">
         <div class="card">
-            <img class="card-img" src="images/barang/{{item.idbarang}}.png" alt="Card image">
+            <img class="card-img" src="/images/barang/{{item.gambar}}" alt="Card image">
             <div class="card-img-overlay">
                 <h3 class="card-title">{{item.nama_barang}}</h3>
                 <p class="card-text">{{item.keterangan}}</p>

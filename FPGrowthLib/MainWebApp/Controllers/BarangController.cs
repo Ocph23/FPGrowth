@@ -57,6 +57,28 @@ namespace MainWebApp.Controllers {
             }
         }
 
+        [HttpGet]
+        [Route ("/bypenjualid/{id}")]
+        public IActionResult Getbypenjualid (int id) {
+            try {
+
+                using (var db = new OcphDbContext (_setting)) {
+                    var result = from a in db.Barang.Where (x => x.idpenjual == id)
+                    join b in db.Kategori.Select () on a.idkategori equals b.idkategori
+                    join c in db.Penjual.Select () on a.idpenjual equals c.idpenjual
+                    select new Models.Data.Barang {
+                    gambar = a.gambar, harga = a.harga, idbarang = a.idbarang,
+                    idkategori = a.idkategori, idpenjual = a.idpenjual, keterangan = a.keterangan, lebar = a.lebar,
+                    nama_barang = a.nama_barang, panjang = a.panjang, stock = a.stock, tgl_publish = a.tgl_publish, tinggi = a.tinggi, kategori = b,
+                    penjual = c
+                    };
+                    return Ok (result.ToList ());
+                }
+            } catch (System.Exception ex) {
+                return BadRequest (ex.Message);
+            }
+        }
+
         [HttpPost]
         public IActionResult Post (Models.Data.Barang data) {
             try {

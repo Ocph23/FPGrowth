@@ -373,6 +373,21 @@ function BarangServices($http, $q, message, helperServices, AuthService) {
 		return def.promise;
 	};
 
+	service.getByPenjualId = function(id) {
+		var def = $q.defer();
+		if (service.instance) {
+			var data = service.Items.filter((x) => x.idpenjual == id);
+			def.resolve(data);
+		} else {
+			service.get().then((result) => {
+				var data = service.Items.filter((x) => x.idpenjual == id);
+				def.resolve(data);
+			});
+		}
+
+		return def.promise;
+	};
+
 	return service;
 }
 

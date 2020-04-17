@@ -31,6 +31,12 @@ angular.module('pembeli.router', []).config(function($stateProvider, $urlRouterP
 			parent: 'pembeli',
 			templateUrl: 'apps/views/pembeli/profilpenjual.html'
 		})
+		.state('pembeli-profile', {
+			url: '/profile',
+			controller: 'pembeliProfileController',
+			parent: 'pembeli',
+			templateUrl: 'apps/views/pembeli/profil.html'
+		})
 		.state('pembeli-keranjang', {
 			url: '/keranjang',
 			parent: 'pembeli',

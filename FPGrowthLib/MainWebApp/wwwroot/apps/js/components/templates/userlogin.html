@@ -1,13 +1,13 @@
 <div ng-show="isLogin && profile.role=='pembeli'">
     <a class="nav-link nav-user-img" href="" id="navbarDropdownMenuLink2" data-toggle="dropdown" data-target="#profile1"
-        aria-haspopup="true" aria-expanded="false"><img src="/assets/images/avatar-1.jpg" alt=""
-            class="user-avatar-md rounded-circle" title="Profile"></a>
+        aria-haspopup="true" aria-expanded="false"><img src="/assets/images/avatar-1.jpg"
+            ng-src="images/avatar/{{profile.photo}}" alt="" class="user-avatar-md rounded-circle" title="Profile"></a>
     <div id="profile1" class="dropdown-menu dropdown-menu-right nav-user-dropdown"
         aria-labelledby="navbarDropdownMenuLink2">
         <div class="nav-user-info">
             <h5 class="mb-0 text-white nav-user-name">{{profile.nama}}</h5>
         </div>
-        <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Profile</a>
+        <a class="dropdown-item" ui-sref="pembeli-profile"><i class="fas fa-user mr-2"></i>Profile</a>
         <a class="dropdown-item" ui-sref="pembeli-daftartagihan"><i class="fas fa-power-off mr-2"></i>Transaksi</a>
         <a class="dropdown-item" href="" ng-click="logoff()"><i class="fas fa-power-off mr-2"></i>Logout</a>
     </div>
@@ -15,15 +15,14 @@
 
 <div ng-show="isLogin && profile.role=='penjual'">
     <a class="nav-link nav-user-img" href="" id="navbarDropdownMenuLink2" data-toggle="dropdown" data-target="#profile2"
-        aria-haspopup="true" aria-expanded="false"><img src="images/penjual/{{profile.photo}}" alt=""
-            class="user-avatar-md rounded-circle" title="Profile"></a>
+        aria-haspopup="true" aria-expanded="false"><img src="/assets/images/avatar-1.jpg"
+            ng-src="images/avatar/{{profile.photo}}" alt="" class="user-avatar-md rounded-circle" title="Profile"></a>
     <div id="profile2" class="dropdown-menu dropdown-menu-right nav-user-dropdown"
         aria-labelledby="navbarDropdownMenuLink2">
         <div class="nav-user-info">
             <h5 class="mb-0 text-white nav-user-name">{{profile.nama}}</h5>
         </div>
         <a class="dropdown-item" href="" ui-sref="penjual-profile"><i class="fas fa-user mr-2"></i>Account</a>
-        <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Transaksi</a>
         <a class="dropdown-item" href="" ng-click="logoff()"><i class="fas fa-power-off mr-2"></i>Logout</a>
     </div>
 </div>

@@ -30,7 +30,6 @@
     <PackageReference Include="Ocph.DAL.MySql" Version="1.1.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Models\Data\" />
   </ItemGroup>
   <ItemGroup>
@@ -91,5 +90,8 @@
     <None Include="wwwroot\assets\vendor\sweetalert2\dist\sweetalert2.common.js" />
     <None Include="wwwroot\assets\vendor\sweetalert2\dist\sweetalert2.js" />
     <None Include="wwwroot\assets\vendor\sweetalert2\dist\sweetalert2.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FPGrowthLib\FPGrowthLib.csproj" />
   </ItemGroup>
 </Project>

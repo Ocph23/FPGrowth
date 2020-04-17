@@ -1958,7 +1958,7 @@ Container / Wrapper
 .dashboard-wrapper-pembeli {
   position: relative;
   left: 0;
-  min-height: 870px !important;
+  min-height: 94vh !important;
 }
 .dashboard-wrapper {
   position: relative;
@@ -2063,6 +2063,7 @@ Pageheader
 .pageheader-title {
   font-size: 24px;
   margin-bottom: 8px;
+  color: #fff;
 }
 
 .pageheader-text {
@@ -6407,7 +6408,7 @@ Vertical Timeline - by CodyHouse.co
   justify-content: space-between;
 }
 .chat-module {
-  height: calc(80vh);
+  height: calc(50vh);
 }
 .dashboard-main-wrapper .content-container > .chat-module {
   /*height: 100%;*/

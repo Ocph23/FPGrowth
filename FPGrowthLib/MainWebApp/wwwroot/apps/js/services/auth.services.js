@@ -16,7 +16,8 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 		url: service.url,
 		profile: profile,
 		registerPembeli: registerPembeli,
-		registerPenjual: registerPenjual
+		registerPenjual: registerPenjual,
+		getToken: getToken
 	};
 
 	function InitLoad(params) {

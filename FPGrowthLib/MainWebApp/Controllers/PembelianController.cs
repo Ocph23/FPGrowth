@@ -148,5 +148,32 @@ namespace MainWebApp.Controllers {
                 }
             }
         }
+
+        [HttpPost]
+        [Route ("CreatePengiriman")]
+        public IActionResult CreatePengiriman (Models.Data.Pengiriman model) {
+            using (var db = new OcphDbContext (_setting)) {
+                var transaction = db.BeginTransaction ();
+                try {
+                    if (model.DataBukti != null) {
+                        Guid obj = Guid.NewGuid ();
+                        model.bukti = obj.ToString () + ".png";
+                        var path = Path.Combine (
+                            Directory.GetCurrentDirectory (), "wwwroot/images/bukti",
+                            model.bukti);
+                        System.IO.File.WriteAllBytes (path, model.DataBukti);
+                    }
+                    model.idpengiriman = db.Pengiriman.InsertAndGetLastID (model);
+                    if (model.idpengiriman <= 0)
+                        throw new System.Exception ("Pengiriman Gagal Dibuat");
+                    transaction.Commit ();
+                    return Ok (model);
+                } catch (System.Exception ex) {
+                    transaction.Rollback ();
+                    return BadRequest (ex.Message);
+                }
+            }
+        }
+
     }
 }

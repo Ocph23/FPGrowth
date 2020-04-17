@@ -170,7 +170,7 @@ namespace MainWebApp.Services {
                 var vdata = db.Pembeli.Where (x => x.iduser == user.iduser).FirstOrDefault ();
                 vdata.nama = vdata.nama_pembeli;
                 vdata.role = user.role;
-                vdata.photo = user.photo;
+                vdata.photo = vdata.foto_pembeli;
                 data = vdata;
             } else {
                 data = user;

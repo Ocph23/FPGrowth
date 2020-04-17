@@ -13,14 +13,18 @@
   <link rel="stylesheet" href="assets/vendor/datatables.net-dt/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="assets/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="/assets/libs/css/style.css">
+  <link rel="stylesheet" href="scss/chat.css">
   <link href="scss/style.css" rel="stylesheet" />
 </head>
 
 <body ng-app="app">
+  <div class="bg-image"></div>
   <ui-view></ui-view>
 </body>
-
 <script src="assets/vendor/jquery/dist/jquery.js"></script>
+<script src="lib/@microsoft/signalr/dist/browser/signalr.min.js"></script>
+<script src="lib/vis-network/dist/vis-network.min.js"></script>
+<script src="assets/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="assets/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="assets/vendor/angular/angular.min.js"></script>
 <script src="assets/vendor/angular-route/angular-route.js"></script>
@@ -28,20 +32,20 @@
 <script src="assets/vendor/angular-local-storage/dist/angular-local-storage.js"></script>
 <script src="assets/vendor/angular-datatables/dist/angular-datatables.min.js"></script>
 
-
-
 <script src="apps/js/app.js"></script>
 <script src="apps/js/routers/app.router.js"></script>
 <script src="apps/js/routers/adminsuper.route.js"></script>
 <script src="apps/js/routers/pembeli.router.js"></script>
 <script src="apps/js/routers/penjual.router.js"></script>
 <script src="apps/js/routers/account.router.js"></script>
+<script src="apps/js/routers/algoritma.router.js"></script>
 
 <script src="apps/js/controllers/app.controller.js"></script>
 <script src="apps/js/controllers/account.controllers.js"></script>
 <script src="apps/js/controllers/adminsuper.controller.js"></script>
 <script src="apps/js/controllers/pembeli.controller.js"></script>
 <script src="apps/js/controllers/penjual.controller.js"></script>
+<script src="apps/js/controllers/algoritma.controller.js"></script>
 
 <script src="apps/js/services/app.services.js"></script>
 <script src="apps/js/services/message.services.js"></script>
@@ -51,12 +55,15 @@
 <script src="apps/js/services/data.services.js"></script>
 <script src="apps/js/services/pembeli.services.js"></script>
 <script src="apps/js/services/penjual.services.js"></script>
+<script src="apps/js/services/algoritma.service.js"></script>
 
 <script src="apps/js/components/component.js"></script>
 <script src="apps/js/components/cart.component.js"></script>
 <script src="apps/js/components/login.component.js"></script>
 <script src="apps/js/components/inputFile.component.js"></script>
 <script src="apps/js/components/kategori.component.js"></script>
+<script src="apps/js/components/publish.component.js"></script>
+<script src="apps/js/components/chat.component.js"></script>
 
 
 <script src="assets/vendor/sweetalert2/dist/sweetalert2.js"></script>

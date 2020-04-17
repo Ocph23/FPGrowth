@@ -143,6 +143,20 @@ namespace TestApp
                 patternBase.Add(data.Name, list);
             }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             Console.WriteLine("Conditional Pattern Base");
             foreach (var item in patternBase)
             {

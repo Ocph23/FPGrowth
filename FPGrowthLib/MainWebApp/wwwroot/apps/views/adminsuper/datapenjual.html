@@ -20,6 +20,7 @@
                 <thead class="bg-light">
                     <tr>
                         <th>No</th>
+                        <th>Kode</th>
                         <th>Nama Toko</th>
                         <th>Nama Pembeli</th>
                         <th>Email </th>
@@ -33,6 +34,7 @@
                     <tr ng-repeat="item in source">
                         <td class="font-16"><span>{{$index+1}}</span>
                         </td>
+                        <td class="font-16">{{kodefikasi.penjual(item.idpenjual, item.tgl_daftar)}} </td>
                         <td class="font-16">{{item.nama_toko}} </td>
                         <td class="font-16">{{item.nama_penjual}} </td>
                         <td class="font-16">{{item.email}} </td>

@@ -41,7 +41,7 @@ namespace MainWebApp {
                         ValidateAudience = false
                     };
                 });
-
+            services.AddSignalR ();
             // configure DI for application services
             services.AddScoped<IUserService, UserService> ();
             services.AddScoped<OcphDbContext> ();
@@ -68,6 +68,9 @@ namespace MainWebApp {
 
             app.UseAuthentication ();
             app.UseAuthorization ();
+            app.UseSignalR (routes => {
+                routes.MapHub<ChatHub> ("/chathub");
+            });
 
             app.UseEndpoints (endpoints => {
                 endpoints.MapControllers ();

@@ -1,5 +1,11 @@
+body {
+  background-image: url(../assets/images/wooddark.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .account {
-  width: 50%;
   height: 100vh;
   margin: auto;
   top: 10%;
@@ -8,4 +14,8 @@
 .item-barang {
   padding: 5px;
   padding-top: 10px;
+}
+
+.main {
+  margin: 20px;
 }

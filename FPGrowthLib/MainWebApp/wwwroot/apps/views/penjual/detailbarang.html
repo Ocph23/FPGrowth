@@ -114,8 +114,8 @@
                                 <div class="chat-module-body" style="padding: 20px;">
                                     <div class="media chat-item" style="margin-bottom:30px"
                                         ng-repeat="msg in model.comments">
-                                        <img alt="William" src="/assets/images/avatar-1.jpg"
-                                            class="rounded-circle user-avatar-lg">
+                                        <img alt="photo" class="rounded-circle user-avatar-lg"
+                                            ng-src="images/avatar/{{msg.photo}}">
                                         <div class="media-body">
                                             <div class="chat-item-title" style="margin-bottom: 0">
                                                 <span class="chat-item-author">{{msg.nama}}</span>

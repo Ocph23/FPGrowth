@@ -1,4 +1,4 @@
-angular.module('message.service', []).factory('message', MessageServices);
+angular.module('message.service', []).factory('ChatService', ChatService).factory('message', MessageServices);
 
 function MessageServices(swangular, $q, $state) {
 	return { info: info, error: error, warning: warning, dialog: dialog };
@@ -80,4 +80,70 @@ function MessageServices(swangular, $q, $state) {
 
 		return def.promise;
 	}
+}
+
+function ChatService($http, message, helperServices, $q, AuthService, $rootScope) {
+	var service = {};
+	service.idpengirim = null;
+	service.idpenerima = null;
+	service.isOpened = false;
+	service.signalR = null;
+
+	service.startSignalR = () => {
+		service.signalR = new signalR.HubConnectionBuilder()
+			.withUrl('/chatHub', { accessTokenFactory: () => AuthService.getToken() })
+			.configureLogging(signalR.LogLevel.Information)
+			.build();
+
+		service.signalR.start();
+	};
+
+	service.sendChat = (user, message) => {
+		service.signalR.invoke('SendMessage', user, message).catch((err) => {
+			console.error(err.toString());
+		});
+	};
+
+	service.post = (data) => {
+		var def = $q.defer();
+		$http({
+			method: 'post',
+			url: helperServices.url + '/api/chat',
+			headers: AuthService.getHeader(),
+			data: data
+		}).then(
+			(response) => {
+				def.resolve(response.data);
+			},
+			(err) => {
+				message.error(err);
+				def.reject(err);
+			}
+		);
+		return def.promise;
+	};
+
+	service.getchatwith = (id) => {
+		var def = $q.defer();
+		$http({
+			method: 'get',
+			url: helperServices.url + '/api/chat/chatwith/' + id,
+			headers: AuthService.getHeader()
+		}).then(
+			(response) => {
+				def.resolve(response.data);
+			},
+			(err) => {
+				message.error(err);
+				def.reject(err);
+			}
+		);
+		return def.promise;
+	};
+
+	service.chatWith = (idpenerima) => {
+		$rootScope.$broadcast('openChat', idpenerima);
+	};
+
+	return service;
 }

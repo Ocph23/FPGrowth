@@ -14,7 +14,8 @@ function PembeliCartService($http, $q, message, helperServices, AuthService, Sto
 		get: get,
 		add: add,
 		delete: remove,
-		saveCart: saveCart
+		saveCart: saveCart,
+		clear: clear
 	};
 
 	function get() {
@@ -43,6 +44,10 @@ function PembeliCartService($http, $q, message, helperServices, AuthService, Sto
 
 	function saveCart() {
 		StorageService.addObject('cart', service.data);
+	}
+	function clear() {
+		StorageService.remove('cart');
+		service.data = [];
 	}
 }
 

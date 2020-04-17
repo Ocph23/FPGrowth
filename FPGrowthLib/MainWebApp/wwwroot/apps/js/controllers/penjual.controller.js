@@ -11,13 +11,27 @@ angular
 	.controller('penjualdaftarorderController', penjualdaftarorderController)
 	.controller('penjualdaftarpesananController', penjualdaftarpesananController);
 
-function penjualController($scope, AuthService) {
-	//AuthService.Init([ 'penjual' ]);
+function penjualController($scope, AuthService, $state, ChatService) {
+	AuthService.Init([ 'penjual' ]);
+	if (AuthService.userIsLogin()) {
+		if (!ChatService.signalR) {
+			ChatService.startSignalR();
+		}
+	} else {
+		$state.go('login');
+	}
 }
 
-function penjualpHomeController($scope, AuthService) {
+function penjualpHomeController($scope, AuthService, BarangService, PenjualOrderService, kodefikasiService) {
+	$scope.kodefikasi = kodefikasiService;
 	AuthService.profile().then((profile) => {
 		$scope.profile = profile;
+		BarangService.getByPenjualId(profile.idpenjual).then((source) => {
+			$scope.source = source;
+			PenjualOrderService.getLastOrder().then((lastOrder) => {
+				$scope.lastOrder = lastOrder;
+			});
+		});
 	});
 }
 
@@ -36,6 +50,7 @@ function penjualprofilpController($scope, $http, helperServices, AuthService, me
 			(result) => {
 				StorageService.addObject('profile', result.data);
 				$scope.profile = result.data;
+				message.info('Profile berhasil Diubah');
 			},
 			(err) => {
 				message.error(err);
@@ -48,7 +63,8 @@ function penjualeditprofilController($scope) {
 	$scope.model = {};
 }
 
-function penjualdaftarbarangController($scope, BarangService) {
+function penjualdaftarbarangController($scope, BarangService, kodefikasiService) {
+	$scope.kodefikasi = kodefikasiService;
 	BarangService.get().then((data) => {
 		$scope.Items = data;
 	});

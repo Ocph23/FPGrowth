@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -30,6 +32,26 @@ namespace MainWebApp {
         public IRepository<Transaksi> Transaksi { get { return new Repository<Transaksi> (this); } }
         public IRepository<Pembayaran> Pembayaran { get { return new Repository<Pembayaran> (this); } }
         public IRepository<Komentar> Komentar { get { return new Repository<Komentar> (this); } }
+        public IRepository<Pesan> Chat { get { return new Repository<Pesan> (this); } }
+        public IRepository<Pengiriman> Pengiriman { get { return new Repository<Pengiriman> (this); } }
+
+        public IEnumerable<dynamic> SelectDynamic (string sql) {
+
+            var command = this.CreateCommand ();
+            command.CommandText = sql;
+            command.CommandType = System.Data.CommandType.Text;
+            using (var reader = command.ExecuteReader ()) {
+                var names = Enumerable.Range (0, reader.FieldCount).Select (reader.GetName).ToList ();
+                foreach (IDataRecord record in reader as IEnumerable) {
+                    var expando = new Dictionary<string, object> ();
+                    foreach (var name in names)
+                        expando[name] = record[name];
+
+                    yield return expando;
+                }
+            }
+
+        }
 
     }
 }

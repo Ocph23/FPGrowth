@@ -6,7 +6,8 @@
         <li class="connection-list">
             <div class="row">
                 <div class="col-12 kategoriItem" ng-repeat="item in kategories">
-                    <a href="" ng-click="Select(item)" class="text-left"><span class="font-16">{{item.kode_kategori}} -
+                    <a href="" ng-click="Select(item)" class="text-left"><span
+                            class="font-16">{{kodefikasi.kategori(item.idkategori)}} -
                             {{item.nama_kategori}}</span></a>
                     <p class="text-muted">{{item.deskripsi}}</p>
                     <hr />

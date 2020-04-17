@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -78,10 +81,10 @@ namespace MainWebApp.Controllers {
                     obj = Guid.NewGuid ();
                     if (data.data_penjual != null && data.data_penjual.Length > 0) {
                         if (!string.IsNullOrEmpty (data.foto_penjual)) {
-                            System.IO.File.Delete (path + data.foto_penjual);
+                            System.IO.File.Delete (Path.Combine (Directory.GetCurrentDirectory (), "wwwroot/images/avatar/") + data.foto_penjual);
                         }
                         data.foto_penjual = obj.ToString () + ".png";
-                        System.IO.File.WriteAllBytes (path + data.foto_penjual, data.data_penjual);
+                        System.IO.File.WriteAllBytes (Path.Combine (Directory.GetCurrentDirectory (), "wwwroot/images/avatar/") + data.foto_penjual, data.data_penjual);
                     }
 
                     obj = Guid.NewGuid ();
@@ -95,6 +98,9 @@ namespace MainWebApp.Controllers {
 
                     var updated = db.Penjual.Update (x => new { x.alamat, x.foto_ktp, x.foto_penjual, x.foto_toko, x.jenis_kelamin, x.nama_penjual, x.no_tlp, x.nama_toko, x.status },
                         data, x => x.idpenjual == data.idpenjual);
+
+                    db.Users.Update (x => new { x.photo }, new Models.Data.User { photo = data.foto_penjual }, x => x.iduser == data.iduser);
+
                     if (!updated) {
                         throw new System.Exception ("Data tidak tersimpan");
                     }
@@ -121,5 +127,38 @@ namespace MainWebApp.Controllers {
                 throw;
             }
         }
+
+        [HttpGet]
+        [Route ("GetLastOrder")]
+        public IActionResult GetLastOrder () {
+            try {
+                string sql = @"SELECT
+  `barang`.`idbarang`,
+  `barang`.`tgl_publish`,
+  `barang`.`nama_barang`,
+  `barang`.`gambar`,
+  `barang`.`stock`,
+  `barang`.`harga`,
+  `barang`.`idpenjual`,
+  `pembayaran`.`idpembayaran`,
+  `pembayaran`.`tgl_pembayaran`,
+  `orders`.`tgl_order`,
+  `detailorder`.`idorder`,
+  `detailorder`.`jumlah`
+FROM
+  `orders`
+  LEFT JOIN `detailorder` ON `orders`.`idorder` = `detailorder`.`idorder`
+  LEFT JOIN `barang` ON `detailorder`.`idbarang` = `barang`.`idbarang`
+  LEFT JOIN `pembayaran` ON `orders`.`idorder` = `pembayaran`.`idorder`";
+                using (var db = new OcphDbContext (_setting)) {
+                    var result = db.SelectDynamic (sql);
+                    return Ok (result);
+                }
+            } catch (System.Exception ex) {
+                return BadRequest (ex.Message);
+            }
+        }
+
     }
+
 }

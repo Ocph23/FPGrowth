@@ -1,33 +1,32 @@
-<div class="d-flex justify-content-center" >
-    <div class="splash-container">
-        <div class="card">
-            <div class="card-header text-center">
-                <h1>WPKS</h1>
-            </div>
-            <div class="card-body"> 
-                <h3 class="mb-3">Sign In</h3>
-                <form ng-submit="login(model)">
-                    <div class="form-group">
-                        <input class="form-control form-control-lg" id="username" 
-                        ng-model="model.username" required
-                        type="text" placeholder="Username"
-                            autocomplete="off">
+<div class="row h-100">
+    <div class="col-sm-12 my-auto">
+        <div style="margin: auto; width: 400px;" class="card card-block">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h1>WPKS</h1>
+                </div>
+                <div class="card-body">
+                    <h3 class="mb-3">Sign In</h3>
+                    <form ng-submit="login(model)">
+                        <div class="form-group">
+                            <input class="form-control form-control-lg" id="username" ng-model="model.username" required
+                                type="text" placeholder="Username" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <input ng-model="model.password" required class="form-control form-control-lg" id="password"
+                                type="password" placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                    </form>
+                </div>
+                <div class="card-footer bg-white p-0  ">
+                    <div class="card-footer-item card-footer-item-bordered">
+                        <a ui-sref="register" href="" class="footer-link">Create An Account</a></div>
+                    <div class="card-footer-item card-footer-item-bordered">
+                        <a ui-sref="recover-password" class="footer-link">Forgot Password</a>
                     </div>
-                    <div class="form-group">
-                        <input ng-model="model.password" required class="form-control form-control-lg" id="password" type="password"
-                            placeholder="Password">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
-                </form> 
-            </div>
-            <div class="card-footer bg-white p-0  ">
-                <div class="card-footer-item card-footer-item-bordered">
-                    <a ui-sref="register" href="" class="footer-link">Create An Account</a></div>
-                <div class="card-footer-item card-footer-item-bordered">
-                    <a ui-sref="recover-password" class="footer-link">Forgot Password</a>
                 </div>
             </div>
         </div>
     </div>
-
 </div>

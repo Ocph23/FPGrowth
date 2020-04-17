@@ -35,7 +35,7 @@
                                     </tr>
                                     <tr>
                                         <td class="font-16"><span
-                                                class="badge badge-success">{{padLeft(item.idorder,5)}}</span>
+                                                class="badge badge-success">{{kodefikasi.order(item.idorder,item.tgl_order)}}</span>
                                         </td>
                                         <td class="font-16"><span>{{item.tgl_order|date:'dd-MM-yyyy hh:mm'}}</span>
                                         </td>
@@ -63,9 +63,11 @@
                                                 <th>Harga</th>
                                                 <th>Total</th>
                                             </tr>
-                                            <tr ng-repeat="data in item.data">
-                                                <td class="font-16"><span
-                                                        class="badge badge-warning">{{padLeft(data.idbarang,3)}}</span>
+                                            <tr ng-repeat="data in item.data"
+                                                ui-sref="pembeli-detailproduk({id:data.idbarang})">
+                                                <td class="font-16"><a
+                                                        ui-sref="pembeli-detailproduk({id:data.idbarang})"
+                                                        class="badge badge-warning">{{kodefikasi.barang(data.idbarang, data.tgl_publish)}}</a>
                                                 </td>
                                                 <td class="font-16">
                                                     <span>{{data.barang.nama_barang}}</span>
@@ -115,16 +117,15 @@
                                     </tr>
                                     <tr>
                                         <td class="font-16"><span
-                                                class="badge badge-success">{{padLeft(item.idorder,5)}}</span>
+                                                class="badge badge-success">{{kodefikasi.order(item.idorder,item.tgl_order)}}</span>
                                         </td>
                                         <td class="font-16"><span>{{item.tgl_order|date:'dd-MM-yyyy hh:mm'}}</span>
                                         </td>
                                         <td class="font-16"><span>{{item.wkt_exp_order|date:'dd-MM-yyyy hh:mm'}}</span>
                                         </td>
-                                        <td class="font-16"><span class="badge"
-                                                ng-class="item.expire?'badge-danger':'badge-warning'">{{item.status}}</span>
+                                        <td class="font-16"><span class="badge badge-warning">{{item.status}}</span>
                                         </td>
-                                        <td class="font-16"><span>Rp.{{total(item)|number}}</span>
+                                        <td class="font-16"><span>Rp. {{total(item)|number}}</span>
                                         </td>
                                         <td class="font-16"><span><button type="button" data-toggle="collapse"
                                                     data-target="#collapseExample{{item.idorder}}" aria-expanded="false"
@@ -143,9 +144,11 @@
                                                 <th>Harga</th>
                                                 <th>Total</th>
                                             </tr>
-                                            <tr ng-repeat="data in item.data">
-                                                <td class="font-16"><span
-                                                        class="badge badge-warning">{{padLeft(data.idbarang,3)}}</span>
+                                            <tr ng-repeat="data in item.data"
+                                                ui-sref="pembeli-detailproduk({id:data.idbarang})">
+                                                <td class="font-16"><a
+                                                        ui-sref="pembeli-detailproduk({id:data.idbarang})"
+                                                        class="badge badge-warning">{{kodefikasi.barang(data.idbarang, item.tgl_order)}}</a>
                                                 </td>
                                                 <td class="font-16">
                                                     <span>{{data.barang.nama_barang}}</span>

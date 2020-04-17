@@ -11,9 +11,44 @@ angular
 	.controller('pembelikonfirbayarController', pembelikonfirbayarController)
 	.controller('pembelipesanController', pembelipesanController)
 	.controller('pembelidiskusiController', pembelidiskusiController)
+	.controller('pembeliProfileController', pembeliProfileController)
 	.controller('pembelihomemenuController', pembelihomemenuController);
 
-function pembeliController() {}
+function pembeliController($scope, kodefikasiService, AuthService, ChatService) {
+	$scope.kodefikasi = kodefikasiService;
+
+	if (AuthService.userIsLogin()) {
+		if (!ChatService.signalR) {
+			ChatService.startSignalR();
+		}
+	}
+}
+
+function pembeliProfileController($scope, AuthService, $http, helperServices, StorageService, message) {
+	AuthService.profile().then((profile) => {
+		$scope.profile = profile;
+		$scope.profile.tgl_lahir = new Date(profile.tgl_lahir);
+	});
+
+	$scope.update = (data) => {
+		$http({
+			url: helperServices.url + '/api/pembeli',
+			method: 'Put',
+			headers: AuthService.getHeader(),
+			data: data
+		}).then(
+			(result) => {
+				StorageService.addObject('profile', result.data);
+				result.data.tgl_lahir = new Date(result.data.tgl_lahir);
+				$scope.profile = result.data;
+				message.info('Profile berhasil Diubah');
+			},
+			(err) => {
+				message.error(err);
+			}
+		);
+	};
+}
 
 function pembeliHomeController($scope, BarangService, KategoriService, $rootScope) {
 	$scope.Source = null;
@@ -24,6 +59,10 @@ function pembeliHomeController($scope, BarangService, KategoriService, $rootScop
 
 	$rootScope.$on('selectedKategori', function(evt, data) {
 		$scope.selectedKategori = data;
+		$scope.searchText = data.kode_kategori;
+	});
+	$rootScope.$on('cariEvent', function(evt, data) {
+		$scope.searchText = data;
 	});
 }
 
@@ -34,8 +73,11 @@ function pembeliDetailProdukController(
 	BarangService,
 	PembeliCartService,
 	CommentService,
-	message
+	message,
+	kodefikasiService,
+	ChatService
 ) {
+	$scope.kodefikasi = kodefikasiService;
 	$scope.message = '';
 	BarangService.getById($stateParams.id).then((result) => {
 		$scope.model = result;
@@ -76,6 +118,10 @@ function pembeliDetailProdukController(
 	$scope.padLeft = (number, length) => {
 		return number.padLeft(length);
 	};
+
+	$scope.chat = (userid) => {
+		ChatService.chatWith(userid);
+	};
 }
 
 function pembeliprofilpenjualController() {}
@@ -102,13 +148,15 @@ function pembeliorderController($scope, $stateParams, AuthService, ManagemenTran
 	$scope.order = function(model) {
 		PembeliService.createOrder(model).then((result) => {
 			message.info('Order Berhasil Dibuat');
+			PembeliCartService.clear();
 		});
 	};
 }
 
 function pembelitagihanController() {}
 
-function pembelidaftartagihanController($scope, PembeliService, AuthService, BarangService) {
+function pembelidaftartagihanController($scope, PembeliService, AuthService, BarangService, kodefikasiService) {
+	$scope.kodefikasi = kodefikasiService;
 	AuthService.profile().then((profile) => {
 		PembeliService.getOrders(profile.idpembeli).then((data) => {
 			$scope.Source = data;

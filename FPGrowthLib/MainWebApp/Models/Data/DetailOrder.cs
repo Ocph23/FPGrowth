@@ -23,5 +23,6 @@ namespace MainWebApp.Models.Data {
 
           [DbColumn ("idbarang")]
           public int idbarang { get; set; }
-     }
+        public string KodeKategori { get; internal set; }
+    }
 }

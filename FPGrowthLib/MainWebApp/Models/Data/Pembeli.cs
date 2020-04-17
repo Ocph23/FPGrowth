@@ -49,5 +49,9 @@ namespace MainWebApp.Models.Data {
           public string nama { get; set; }
           public string role { get; set; }
           public string photo { get; set; }
+
+          public byte[] data_ktp { get; set; }
+
+          public byte[] data_pembeli { get; set; }
      }
 }

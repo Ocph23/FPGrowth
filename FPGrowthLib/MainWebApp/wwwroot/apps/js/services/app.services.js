@@ -6,6 +6,7 @@ angular
 		'helper.service',
 		'data.service',
 		'app.pembeli.service',
-		'app.penjual.service'
+		'app.penjual.service',
+		'app.algoritma.service'
 	])
 	.controller('homeController', homeController);

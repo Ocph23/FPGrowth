@@ -1,0 +1,79 @@
+<div class="row main">
+    <div class="offset-xl-2 col-xl-8">
+        <div class="card">
+            <div class="card-header text-center font-22 text-dark">PROFIL PEMBELI</div>
+            <div class="card-body pt-0">
+                <div class="form-group row pb-0 mb-0 mt-0 pt-0">
+                    <div class="offset-xl-1 col-form-label col-sm-3 font-14">Avatar </div>
+                    <div class="col-md-6 font-16">
+                        <fileinput model="profile.data_pembeli" src="'images/avatar/'+profile.foto_pembeli"
+                            showview="true" width="100" height="100" idname="'pembeli'">
+                        </fileinput>
+                    </div>
+                </div>
+
+                <div class="form-group row pb-0 mb-0 mt-0 pt-0">
+                    <div class="offset-xl-1 col-form-label col-sm-3 font-14">Nama </div>
+                    <div class="col-md-6 font-16"><input type="text" ng-model="profile.nama_pembeli"
+                            class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group row pb-0 mb-0 mt-0 pt-0">
+                    <div class="offset-xl-1 col-form-label col-sm-3 font-14">Tanggal Lahir </div>
+                    <div class="col-md-6 font-16"><input type="date" ng-model="profile.tgl_lahir" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group row pb-0 mb-0 mt-0 pt-0">
+                    <div class="offset-xl-1 col-form-label col-sm-3 font-14">Jenis Kelamin </div>
+                    <div class="col-md-6 font-16"><input type="text" ng-model="profile.jenis_kelamin"
+                            class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group row pb-0 mb-0 mt-0 pt-0">
+                    <div class="offset-xl-1 col-form-label col-sm-3 font-14">No. Telepon </div>
+                    <div class="col-md-6 font-16"><input type="text" ng-model="profile.no_tlp" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row pb-0 mb-0 mt-0 pt-0">
+                    <div class="offset-xl-1 col-form-label col-sm-3 font-14">Alamat </div>
+                    <div class="col-md-6 font-16"><textarea ng-model="profile.alamat" class="form-control"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row pb-0 mb-0 mt-0 pt-0">
+                    <div class="offset-xl-1 col-form-label col-sm-3 font-14">Tanggal Daftar </div>
+                    <div class="col-md-6 font-16">
+                        <div class="col-form-label col-sm-3 font-14">
+                            {{profile.tgl_daftar|date:'dd-MM-yyyy'}} </div>
+                    </div>
+                </div>
+
+                <div class="form-group row pb-0 mb-0 mt-0 pt-0">
+                    <div class="offset-xl-1 col-form-label col-sm-3 font-14">Foto KTP </div>
+                    <div class="col-md-6 font-16">
+                        <fileinput model="profile.data_ktp" src="'images/pembeli/'+profile.foto_ktp" showview="true"
+                            width="300" height="200" idname="'ktp'">
+                        </fileinput>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="card-footer text-center">
+                <button class="btn btn-outline-primary font-16" ng-click="update(profile)">Ubah Profil
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .form-group {
+        margin-top: 20px !important;
+    }
+</style>
