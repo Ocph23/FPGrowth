@@ -1,24 +1,19 @@
 using System;
- 
- namespace MainWebApp.Models.Data 
-{ 
-     public interface IPengiriman  
-   {
-         int idpengiriman {  get; set;} 
 
-         DateTime tgl_pengiriman {  get; set;} 
+namespace MainWebApp.Models.Data {
 
-         int jumlah_barang {  get; set;} 
+     public interface IPengiriman {
+          int idpengiriman { get; set; }
 
-         string status_pengiriman {  get; set;} 
+          DateTime tgl_pengiriman { get; set; }
 
-         string status_pengantaran {  get; set;} 
+          int jumlah_barang { get; set; }
 
-         string keterangan {  get; set;} 
+          string status_pengantaran { get; set; }
 
-         int idorder {  get; set;} 
+          string keterangan { get; set; }
+
+          int idorder { get; set; }
 
      }
 }
-
-

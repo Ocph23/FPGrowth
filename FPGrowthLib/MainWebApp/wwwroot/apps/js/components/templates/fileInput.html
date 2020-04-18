@@ -6,6 +6,6 @@
             <a class="input-group-text" ng-click="openFile()">File</a>
         </div>
     </div>
-    <img ng-show="$ctrl.showview" ng-click="openFile()" style=" width: {{$ctrl.width}}px; height: {{$ctrl.height}}px;"
+    <img ng-show="$ctrl.showview" ng-click="openFile()" style="width:100%; height: {{$ctrl.height}}px;"
         data-ng-src="data:image/png;base64,{{$ctrl.model}}" src="{{$ctrl.src}}" />
 </div>

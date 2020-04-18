@@ -21,18 +21,15 @@ namespace MainWebApp.Models.Data {
           [DbColumn ("jumlah_barang")]
           public int jumlah_barang { get; set; }
 
-          [DbColumn ("status_pengiriman")]
-          public string status_pengiriman { get; set; }
-
           [DbColumn ("status_pengantaran")]
           public string status_pengantaran { get; set; }
 
           [DbColumn ("keterangan")]
           public string keterangan { get; set; }
 
-          [DbColumn ("bukti")]
-          public string bukti { get; set; }
-          public byte[] DataBukti { get; set; }
+          [DbColumn ("bukti_pengiriman")]
+          public string bukti_pengiriman { get; set; }
+          public byte[] data_bukti_pengiriman { get; set; }
 
      }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -83,18 +84,22 @@ namespace MainWebApp.Controllers {
         public IActionResult Post (Models.Data.Barang data) {
             try {
                 using (var db = new OcphDbContext (_setting)) {
+                    Guid obj = Guid.NewGuid ();
+                    data.gambar = obj.ToString () + ".png";
+                    var path = Path.Combine (
+                        Directory.GetCurrentDirectory (), "wwwroot/images/barang",
+                        data.gambar);
+
+                    if (data.GambarData != null && data.GambarData.Length > 0) {
+
+                        System.IO.File.WriteAllBytes (path, data.GambarData);
+                    }
+
                     data.idbarang = db.Barang.InsertAndGetLastID (data);
                     if (data.idbarang <= 0) {
                         throw new System.Exception ("Data tidak tersimpan");
                     }
 
-                    if (data.GambarData != null) {
-                        data.gambar = data.idbarang.ToString () + ".png";
-                        var path = Path.Combine (
-                            Directory.GetCurrentDirectory (), "wwwroot/images/barang",
-                            data.gambar);
-                        System.IO.File.WriteAllBytes (path, data.GambarData);
-                    }
                     return Ok (data);
 
                 }
@@ -107,17 +112,23 @@ namespace MainWebApp.Controllers {
         [HttpPut]
         public IActionResult Put (Models.Data.Barang data) {
             try {
-
                 if (data.GambarData != null) {
-                    data.gambar = data.idbarang.ToString () + ".png";
+
+                    if (!string.IsNullOrEmpty (data.gambar)) {
+                        var path1 = Path.Combine (
+                            Directory.GetCurrentDirectory (), "wwwroot/images/barang",
+                            data.gambar);
+
+                        if (System.IO.File.Exists (path1)) {
+                            System.IO.File.Delete (path1);
+                        }
+                    }
+
+                    Guid obj = Guid.NewGuid ();
+                    data.gambar = obj.ToString () + ".png";
                     var path = Path.Combine (
                         Directory.GetCurrentDirectory (), "wwwroot/images/barang",
                         data.gambar);
-
-                    if (System.IO.File.Exists (path)) {
-                        System.IO.File.Delete (path);
-                    }
-
                     System.IO.File.WriteAllBytes (path, data.GambarData);
                 }
 

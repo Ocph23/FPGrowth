@@ -27,7 +27,7 @@
                     </div>
                     <h3 class="text-left pt-3">Pembayaran</h3>
                     <div class="form-group row border-bottom">
-                        <label class="col-12 col-sm-3 col-form-label text-right mt-0 m-t-0" for="input-select">Pilih
+                        <label class="col-12 col-sm-3 col-form-label text-right mt-0 m-t-0">Pilih
                             Bank</label>
                         <div class="col-12 col-sm-8 col-lg-2">
                             <select required="" data-parsley-type="input-select" class="form-control">
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <h3 class="text-left m-b-0 pt-3">Detail Belanja</h3>
-                    <div class="row" ng-repeat="item in model.data">
+                    <div style="margin: 10px;" class="row" ng-repeat="item in model.data">
                         <div class="col-12 col-sm-3 text-sm-right align-items-center mt-0">
                             <img src="assets/images/slack.png" alt="User Avatar" class="user-avatar-xl">
                         </div>
@@ -53,10 +53,30 @@
                                 </span>
 
                                 <br>
-                                <span class="m-r-20 strong font-16 d-inline-block">Status Pengantaran</span>
-                                <span class="badge badge-success">Tidak Tidak Diantar</span>
+
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row border-bottom"></div>
+
+                    <h3 class="text-left pt-3">Status Pengiriman</h3>
+                    <div class="form-group row border-bottom">
+                        <label class="col-12 col-sm-3 col-form-label text-left"></label>
+                        <div class="col-12 col-sm-8 col-lg-2">
+                            <span class="badge badge-success">{{model.diantar}}</span>
+                        </div>
+
+                    </div>
+                    <h3 class="text-left pt-3">Total Bayar</h3>
+                    <div class="form-group row border-bottom">
+                        <label class="col-12 col-sm-3 col-form-label text-left mt-0 m-t-0"> <span
+                                class="badge badge-success"></span></label>
+                        <div class="col-12 col-sm-8 col-lg-2">
+                            <span class="badge badge-success">Rp. {{model.total|number}}</span>
+                        </div>
+
+
                     </div>
                 </form>
             </div>
@@ -64,9 +84,9 @@
                 <div class="row">
                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Total Bayar</label>
                     <div class="col-12 col-sm-8 col-lg-2 mt-1 strong font-18 text-primary">
-                        Rp 100.000.000</div>
-                    <span class="float-right"><button ng-click="order(model)" class="d-inline-block btn btn-primary"
-                            type="submit">Pesan
+                        Rp. {{model.total|number}}</div>
+                    <span class="float-right"><button ng-disabled="!model.total" ng-click="order(model)"
+                            class="d-inline-block btn btn-primary" type="submit">Pesan
                             Sekarang</button></span>
                 </div>
             </div>

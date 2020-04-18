@@ -91,7 +91,7 @@
                                             </tr>
                                             <tr ng-repeat="data in item.data">
                                                 <td class="font-16"><span
-                                                        class="badge badge-warning">{{orderService.padLeft(data.barang.idbarang,3)}}</span>
+                                                        class="badge badge-warning">{{kodefikasi.barang(data.barang.idbarang,data.barang.tgl_publish)}}</span>
                                                 </td>
                                                 <td class="font-16">
                                                     <span>{{data.barang.nama_barang}}</span>

@@ -172,6 +172,86 @@ function penjualeditbarangController($scope, AuthService, message, KategoriServi
 	};
 }
 
-function penjualdaftarorderController() {}
+function penjualdaftarorderController($scope, AuthService, kodefikasiService, OrderService, helperServices) {
+	$scope.kodefikasi = kodefikasiService;
+	$scope.orderService = OrderService;
+	AuthService.profile().then((x) => {
+		$scope.profile = x;
+		OrderService.getOrderByIdPenjual($scope.profile.idpenjual).then((orders) => {
+			var entries = helperServices.groupBy(orders, (x) => x.idorder);
+			$scope.orders = [];
+			entries.forEach((values, key) => {
+				var item = values[0];
+				if (item) {
+					var model = {
+						idorder: item.idorder,
+						kodeorder: kodefikasiService.order(item.idorder, item.tgl_order),
+						idpembayaran: kodefikasiService.pembayaran(item.idpembayaran, item.tgl_pembayaran),
+						status_pembayaran: item.status_pembayaran,
+						bukti_pembayaran: item.bukti_pembayaran,
+						idpengiriman: item.idpengiriman,
+						kodepengiriman: kodefikasiService.pengiriman(item.idpengiriman, item.tgl_pengiriman),
+						nama_pembeli: item.nama_pembeli,
+						no_tlp: item.no_tlp,
+						alamat: item.alamat,
+						bukti_pengiriman: item.bukti_pengiriman,
+						jumlah_barang: item.jumlah_barang,
+						status_pengantaran: item.status_pengantaran,
+						alamatpengiriman: item.alamatpengiriman,
+						bts_jumlah_pengiriman: item.bts_jumlah_pengiriman
+					};
+
+					model.data = [];
+					values.forEach((da) => {
+						var data = {
+							idbarang: kodefikasiService.barang(da.idbarang, da.tgl_publish),
+							harga: da.harga,
+							jumlah: da.jumlah,
+							nama_barang: da.nama_barang,
+							idpenjual: da.idpenjual,
+							tgl_publish: da.tgl_publish,
+							potongan: da.potongan
+						};
+						model.data.push(data);
+					});
+
+					model.total = OrderService.total(model.data);
+					model.diantar =
+						model.total >= item.bts_jumlah_pengiriman ? (item.idpengiriman ? 'Sudah ' : 'Belum') : 'Tidak';
+					$scope.orders.push(model);
+				}
+			});
+		});
+	});
+
+	$scope.selectModel = (item) => {
+		$scope.model = item;
+	};
+
+	$scope.emptyModel = () => {
+		$scope.model = null;
+	};
+
+	$scope.save = (model) => {
+		var data = {
+			idorder: model.idorder,
+			idpengiriman: model.idpengiriman,
+			tgl_pengiriman: model.tgl_pengiriman,
+			data_bukti_pengiriman: model.data_bukti_pengiriman,
+			jumlah_barang: model.jumlah_barang,
+			keterangan: model.keterangan
+		};
+
+		if (!data.idpengiriman) {
+			data.idpengiriman = 0;
+		}
+
+		OrderService.createPengiriman(data).then((x) => {
+			model.idpengiriman = x.idpengiriman;
+			model.kodepengiriman = kodefikasiService.pengiriman(x.idpengiriman, x.tgl_pengiriman);
+		});
+		$scope.model = null;
+	};
+}
 
 function penjualdaftarpesananController() {}

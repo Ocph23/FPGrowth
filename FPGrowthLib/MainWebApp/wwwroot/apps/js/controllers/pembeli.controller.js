@@ -12,6 +12,7 @@ angular
 	.controller('pembelipesanController', pembelipesanController)
 	.controller('pembelidiskusiController', pembelidiskusiController)
 	.controller('pembeliProfileController', pembeliProfileController)
+	.controller('pembeliProfilePenjualController', pembeliProfilePenjualController)
 	.controller('pembelihomemenuController', pembelihomemenuController);
 
 function pembeliController($scope, kodefikasiService, AuthService, ChatService) {
@@ -128,13 +129,21 @@ function pembeliprofilpenjualController() {}
 
 function pembelikeranjangController() {}
 
-function pembeliorderController($scope, $stateParams, AuthService, ManagemenTransaksiService, message, PembeliService) {
+function pembeliorderController(
+	$scope,
+	$stateParams,
+	AuthService,
+	ManagemenTransaksiService,
+	message,
+	OrderService,
+	PembeliService
+) {
 	$scope.model = {};
 	AuthService.profile().then((profile) => {
 		$scope.profile = profile;
 
 		ManagemenTransaksiService.getActive().then((man) => {
-			$scope.model = {
+			var model = {
 				idpembeli: profile.idpembeli,
 				idmanajemen: man.idmanajemen,
 				alamatpengiriman: profile.alamat,
@@ -142,6 +151,10 @@ function pembeliorderController($scope, $stateParams, AuthService, ManagemenTran
 				tgl_order: new Date(),
 				data: $stateParams.data
 			};
+
+			model.total = OrderService.total(model.data);
+			model.diantar = model.total >= man.bts_jumlah_pengiriman ? 'Diantar' : 'Tidak Diantar';
+			$scope.model = model;
 		});
 	});
 
@@ -240,6 +253,24 @@ function pembelikonfirbayarController(
 			order.status = 'Menunggu Verifikasi Pembayaran';
 		});
 	};
+}
+
+function pembeliProfilePenjualController(
+	$scope,
+	PenjualOrderService,
+	DataPenjualService,
+	$stateParams,
+	BarangService,
+	kodefikasiService
+) {
+	$scope.kodefikasi = kodefikasiService;
+
+	DataPenjualService.getById($stateParams.id).then((x) => {
+		$scope.model = x;
+		BarangService.getByPenjualId(x.idpenjual).then((source) => {
+			$scope.source = source;
+		});
+	});
 }
 
 function pembelihomemenuController() {}

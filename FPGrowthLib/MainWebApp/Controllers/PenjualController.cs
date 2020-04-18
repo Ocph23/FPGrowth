@@ -133,23 +133,23 @@ namespace MainWebApp.Controllers {
         public IActionResult GetLastOrder () {
             try {
                 string sql = @"SELECT
-  `barang`.`idbarang`,
-  `barang`.`tgl_publish`,
-  `barang`.`nama_barang`,
-  `barang`.`gambar`,
-  `barang`.`stock`,
-  `barang`.`harga`,
-  `barang`.`idpenjual`,
-  `pembayaran`.`idpembayaran`,
-  `pembayaran`.`tgl_pembayaran`,
-  `orders`.`tgl_order`,
-  `detailorder`.`idorder`,
-  `detailorder`.`jumlah`
-FROM
-  `orders`
-  LEFT JOIN `detailorder` ON `orders`.`idorder` = `detailorder`.`idorder`
-  LEFT JOIN `barang` ON `detailorder`.`idbarang` = `barang`.`idbarang`
-  LEFT JOIN `pembayaran` ON `orders`.`idorder` = `pembayaran`.`idorder`";
+                    `barang`.`idbarang`,
+                    `barang`.`tgl_publish`,
+                    `barang`.`nama_barang`,
+                    `barang`.`gambar`,
+                    `barang`.`stock`,
+                    `barang`.`harga`,
+                    `barang`.`idpenjual`,
+                    `pembayaran`.`idpembayaran`,
+                    `pembayaran`.`tgl_pembayaran`,
+                    `orders`.`tgl_order`,
+                    `detailorder`.`idorder`,
+                    `detailorder`.`jumlah`
+                    FROM
+                    `orders`
+                    LEFT JOIN `detailorder` ON `orders`.`idorder` = `detailorder`.`idorder`
+                    LEFT JOIN `barang` ON `detailorder`.`idbarang` = `barang`.`idbarang`
+                    LEFT JOIN `pembayaran` ON `orders`.`idorder` = `pembayaran`.`idorder`";
                 using (var db = new OcphDbContext (_setting)) {
                     var result = db.SelectDynamic (sql);
                     return Ok (result);
@@ -160,5 +160,4 @@ FROM
         }
 
     }
-
 }

@@ -155,14 +155,17 @@ namespace MainWebApp.Controllers {
             using (var db = new OcphDbContext (_setting)) {
                 var transaction = db.BeginTransaction ();
                 try {
-                    if (model.DataBukti != null) {
+                    if (model.data_bukti_pengiriman != null) {
                         Guid obj = Guid.NewGuid ();
-                        model.bukti = obj.ToString () + ".png";
+                        model.bukti_pengiriman = obj.ToString () + ".png";
                         var path = Path.Combine (
                             Directory.GetCurrentDirectory (), "wwwroot/images/bukti",
-                            model.bukti);
-                        System.IO.File.WriteAllBytes (path, model.DataBukti);
+                            model.bukti_pengiriman);
+                        System.IO.File.WriteAllBytes (path, model.data_bukti_pengiriman);
                     }
+
+                    model.status_pengantaran = "Sudah";
+
                     model.idpengiriman = db.Pengiriman.InsertAndGetLastID (model);
                     if (model.idpengiriman <= 0)
                         throw new System.Exception ("Pengiriman Gagal Dibuat");
@@ -172,6 +175,59 @@ namespace MainWebApp.Controllers {
                     transaction.Rollback ();
                     return BadRequest (ex.Message);
                 }
+            }
+        }
+
+        [HttpGet]
+        [Route ("GetOrderByPenjualId/{id}")]
+        public IActionResult GetOrderByPenjualId (int id) {
+            try {
+                string sql = string.Format (@"SELECT
+                            orders.idorder,
+                            orders.tgl_order,
+                            orders.wkt_exp_order,
+                            orders.idpembeli,
+                            orders.idmanajemen,
+                            pembayaran.idpembayaran,
+                            pembayaran.tgl_pembayaran,
+                            pembeli.nama_pembeli,
+                            pembeli.no_tlp,
+                            pembeli.alamat,
+                            pengiriman.status_pengantaran,
+                            pengiriman.idpengiriman,
+                            pengiriman.tgl_pengiriman,
+                            pengiriman.jumlah_barang,
+                            pengiriman.status_pengantaran,
+                            pengiriman.keterangan,
+                            pengiriman.idorder,
+                            pengiriman.bukti_pengiriman,
+                            orders.alamatpengiriman,
+                            detailorder.idbarang,
+                            detailorder.harga,
+                            detailorder.jumlah,
+                            barang.nama_barang,
+                            barang.idpenjual,
+                            barang.tgl_publish,
+                            pembayaran.status_pembayaran,
+                            manajemen_transaksi.potongan,
+                            manajemen_transaksi.bts_jumlah_pengiriman,
+                            pembayaran.bukti_pembayaran
+                            FROM
+                            orders
+                            LEFT JOIN pembayaran ON orders.idorder = pembayaran.idorder
+                            LEFT JOIN pengiriman ON orders.idorder = pengiriman.idorder
+                            LEFT JOIN pembeli ON orders.idpembeli = pembeli.idpembeli
+                            LEFT JOIN detailorder ON orders.idorder = detailorder.idorder
+                            LEFT JOIN barang ON detailorder.idbarang = barang.idbarang
+                            LEFT JOIN manajemen_transaksi ON orders.idmanajemen =
+                            manajemen_transaksi.idmanajemen
+                            where idpenjual={0}", id);
+                using (var db = new OcphDbContext (_setting)) {
+                    var result = db.SelectDynamic (sql);
+                    return Ok (result);
+                }
+            } catch (System.Exception ex) {
+                return BadRequest (ex.Message);
             }
         }
 

@@ -496,8 +496,8 @@ function OrderService($http, $q, message, helperServices, AuthService, BarangSer
 		});
 	};
 
-	service.total = (source) => {
-		return source.data.reduce((total, item) => {
+	service.total = (data) => {
+		return data.reduce((total, item) => {
 			return total + item.jumlah * item.harga;
 		}, 0);
 	};
@@ -525,6 +525,46 @@ function OrderService($http, $q, message, helperServices, AuthService, BarangSer
 		else {
 			return null;
 		}
+	};
+
+	service.getOrderByIdPenjual = (id) => {
+		//GetOrderByPenjualId
+		var def = $q.defer();
+		$http({
+			method: 'GET',
+			url: url + '/GetOrderByPenjualId/' + id,
+			headers: AuthService.getHeader()
+		}).then(
+			(response) => {
+				def.resolve(response.data);
+			},
+			(err) => {
+				message.error(err);
+				def.reject(err);
+			}
+		);
+
+		return def.promise;
+	};
+
+	service.createPengiriman = (model) => {
+		var def = $q.defer();
+		$http({
+			method: 'Post',
+			url: url + '/CreatePengiriman',
+			headers: AuthService.getHeader(),
+			data: model
+		}).then(
+			(response) => {
+				def.resolve(response.data);
+			},
+			(err) => {
+				message.error(err);
+				def.reject(err);
+			}
+		);
+
+		return def.promise;
 	};
 
 	return service;

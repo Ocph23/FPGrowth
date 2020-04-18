@@ -80,5 +80,14 @@ angular.module('pembeli.router', []).config(function($stateProvider, $urlRouterP
 			url: '/diskusi',
 			parent: 'pembeli',
 			templateUrl: 'apps/views/pembeli/diskusi.html'
+		})
+		.state('pembeli-profile-penjual', {
+			url: '/penjual/:id',
+			parent: 'pembeli',
+			params: {
+				id: null
+			},
+			controller: 'pembeliProfilePenjualController',
+			templateUrl: 'apps/views/pembeli/profilepenjual.html'
 		});
 });
