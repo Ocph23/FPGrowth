@@ -187,6 +187,8 @@ function penjualdaftarorderController($scope, AuthService, kodefikasiService, Or
 						idorder: item.idorder,
 						kodeorder: kodefikasiService.order(item.idorder, item.tgl_order),
 						idpembayaran: kodefikasiService.pembayaran(item.idpembayaran, item.tgl_pembayaran),
+						tgl_pembayaran: item.tgl_pembayaran,
+						tgl_pengiriman: item.tgl_pengiriman,
 						status_pembayaran: item.status_pembayaran,
 						bukti_pembayaran: item.bukti_pembayaran,
 						idpengiriman: item.idpengiriman,
@@ -225,6 +227,7 @@ function penjualdaftarorderController($scope, AuthService, kodefikasiService, Or
 	});
 
 	$scope.selectModel = (item) => {
+		item.tgl_pengiriman = new Date(item.tgl_pengiriman);
 		$scope.model = item;
 	};
 
@@ -248,6 +251,7 @@ function penjualdaftarorderController($scope, AuthService, kodefikasiService, Or
 
 		OrderService.createPengiriman(data).then((x) => {
 			model.idpengiriman = x.idpengiriman;
+			model.bukti_pengiriman = x.bukti_pengiriman;
 			model.kodepengiriman = kodefikasiService.pengiriman(x.idpengiriman, x.tgl_pengiriman);
 		});
 		$scope.model = null;

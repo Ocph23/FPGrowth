@@ -19,8 +19,16 @@ namespace MainWebApp.Controllers {
             try {
 
                 using (var db = new OcphDbContext (_setting)) {
-                    var result = db.Pembeli.Select ();
-                    return Ok (result);
+                    var result = from a in db.Pembeli.Select ()
+                    join b in db.Users.Select () on a.iduser equals b.iduser
+                    select new Models.Data.Pembeli {
+                    alamat = a.alamat, email_pembeli = a.email_pembeli, foto_ktp = a.foto_ktp,
+                    foto_pembeli = a.foto_pembeli, idpembeli = a.idpembeli, iduser = a.iduser,
+                    jenis_kelamin = a.jenis_kelamin, nama_pembeli = a.nama_pembeli,
+                    no_tlp = a.no_tlp, photo = b.photo, role = b.role, status = a.status,
+                    tgl_daftar = a.tgl_daftar, tgl_lahir = a.tgl_lahir
+                    };
+                    return Ok (result.ToList ());
                 }
 
             } catch (System.Exception ex) {

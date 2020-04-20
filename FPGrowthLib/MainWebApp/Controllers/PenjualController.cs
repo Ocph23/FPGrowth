@@ -96,7 +96,10 @@ namespace MainWebApp.Controllers {
                         System.IO.File.WriteAllBytes (path + data.foto_toko, data.data_toko);
                     }
 
-                    var updated = db.Penjual.Update (x => new { x.alamat, x.foto_ktp, x.foto_penjual, x.foto_toko, x.jenis_kelamin, x.nama_penjual, x.no_tlp, x.nama_toko, x.status },
+                    var updated = db.Penjual.Update (x => new {
+                            x.alamat, x.foto_ktp, x.keterangan, x.foto_penjual,
+                                x.foto_toko, x.jenis_kelamin, x.nama_penjual, x.no_tlp, x.nama_toko, x.status
+                        },
                         data, x => x.idpenjual == data.idpenjual);
 
                     db.Users.Update (x => new { x.photo }, new Models.Data.User { photo = data.foto_penjual }, x => x.iduser == data.iduser);

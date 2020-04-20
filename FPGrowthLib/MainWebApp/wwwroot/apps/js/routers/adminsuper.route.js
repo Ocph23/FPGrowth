@@ -2,6 +2,7 @@ angular.module('adminsuper.router', []).config(function($stateProvider, $urlRout
 	$stateProvider
 		.state('adminsuper', {
 			url: '/adminsuper',
+			controller: 'adminsuperController',
 			templateUrl: 'apps/views/adminsuper/index.html'
 		})
 		.state('adminsuper-home', {
@@ -10,11 +11,11 @@ angular.module('adminsuper.router', []).config(function($stateProvider, $urlRout
 			controller: 'adminsuperHomeController',
 			templateUrl: 'apps/views/adminsuper/home.html'
 		})
-		.state('adminsuper-menuutama', {
-			url: '/menuutama',
+		.state('adminsuper-algoritma', {
+			url: '/algoritma',
 			parent: 'adminsuper',
-			controller: 'adminsuperMenuUtamaController',
-			templateUrl: 'apps/views/adminsuper/menuutama.html'
+			controller: 'AlgoritmaController',
+			templateUrl: 'apps/views/algoritma/index.html'
 		})
 		.state('adminsuper-daftarkategori', {
 			url: '/daftarkategori',
@@ -81,5 +82,11 @@ angular.module('adminsuper.router', []).config(function($stateProvider, $urlRout
 			parent: 'adminsuper',
 			controller: 'adminsuperKonfirPengirimanController',
 			templateUrl: 'apps/views/adminsuper/konfirpengiriman.html'
+		})
+		.state('adminsuper-inbox', {
+			url: '/inbox',
+			parent: 'adminsuper',
+			controller: 'inboxController',
+			templateUrl: 'apps/views/inbox.html'
 		});
 });

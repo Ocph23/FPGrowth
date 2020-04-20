@@ -39,12 +39,14 @@ namespace MainWebApp.Controllers {
                     throw new System.Exception ("Anda Tidak Memiliki Akses");
 
                 int Id = Convert.ToInt32 (userId);
+
                 return Ok (_service.profile (Id));
             } catch (System.Exception ex) {
                 return Unauthorized (ex.Message);
             }
         }
 
+        [HttpGet]
         public IActionResult verifyemail (int userid, string token) {
             try {
                 return Ok (_service.verifyemail (userid, token));
@@ -58,7 +60,7 @@ namespace MainWebApp.Controllers {
         public async Task<IActionResult> RegisterPembeli (Pembeli model) {
             try {
                 var data = await _service.RegisterPembeli (model);
-                return Ok ();
+                return Ok (data);
             } catch (System.Exception ex) {
                 return BadRequest (ex.Message);
             }
@@ -68,7 +70,17 @@ namespace MainWebApp.Controllers {
         public async Task<IActionResult> RegisterPenjual (Penjual model) {
             try {
                 var data = await _service.RegisterPenjual (model);
-                return Ok ();
+                return Ok (data);
+            } catch (System.Exception ex) {
+                return BadRequest (ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route ("photoprofile/{id}")]
+        public async Task<IActionResult> photoprofile (int id, byte[] model) {
+            try {
+                return Ok (await _service.UpdatePhotoProfile (id, model););
             } catch (System.Exception ex) {
                 return BadRequest (ex.Message);
             }

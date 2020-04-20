@@ -22,6 +22,7 @@ function MessageServices(swangular, $q, $state) {
 				case 401:
 					title = 'Unauthorize';
 					message = 'Anda Tidak Memiliki Akses';
+					if (params.data && params.data != '') message = params.data;
 					setTimeout(() => {
 						$state.go('login');
 					}, 500);
@@ -111,6 +112,24 @@ function ChatService($http, message, helperServices, $q, AuthService, $rootScope
 			url: helperServices.url + '/api/chat',
 			headers: AuthService.getHeader(),
 			data: data
+		}).then(
+			(response) => {
+				def.resolve(response.data);
+			},
+			(err) => {
+				message.error(err);
+				def.reject(err);
+			}
+		);
+		return def.promise;
+	};
+
+	service.get = () => {
+		var def = $q.defer();
+		$http({
+			method: 'get',
+			url: helperServices.url + '/api/chat',
+			headers: AuthService.getHeader()
 		}).then(
 			(response) => {
 				def.resolve(response.data);

@@ -17,7 +17,7 @@
                             style="width: 100%; max-height: 60vh; " /></div>
                     <div class="col-md-6">
                         <h2 class="font-16">Deskripsi Toko</h2>
-                        <p class="break-word font-16 text-justify">{{profile.keterangan}}</p>
+                        <p class="font-16 text-justify">{{profile.keterangan}}</p>
                     </div>
                 </div>
             </div>
@@ -100,9 +100,16 @@
 
 
 
-<div class="section-title font-24 strong text-light">DAFTAR BARANG</div>
+<div class="section-title font-24 strong text-light">DAFTAR BARANG
+
+</div>
+<div class="row">
+    <div id="custom-search" class="top-search-bar">
+        <input class="form-search" ng-model="cari" type="text" placeholder="Cari Kayu">
+    </div>
+</div>
 <div class="row m-t-40">
-    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 col-12" ng-repeat="item in source ">
+    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 col-12" ng-repeat="item in source |filter : cari">
         <div class="card">
             <img class="card-img" src="/images/barang/{{item.gambar}}" alt="Card image">
             <div class="card-img-overlay">
@@ -149,5 +156,12 @@
 
     .card {
         color: #99bdc3;
+    }
+
+    .top-search-bar {
+        width: 500px;
+        float: none;
+        margin: auto;
+        position: sticky;
     }
 </style>

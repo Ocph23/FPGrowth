@@ -27,5 +27,6 @@ namespace MainWebApp.Models.Data {
           [DbColumn ("nama_pengirim")]
           public string pengirim { get; set; }
           public string avatar { get; set; }
+          public string role { get; set; }
      }
 }

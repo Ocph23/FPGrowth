@@ -32,7 +32,7 @@
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table" datatable="ng">
                             <thead class="bg-light">
                                 <tr class="border-0">
                                     <th class="border-0">#</th>
@@ -73,24 +73,7 @@
                                     </td>
                                 </tr>
                             </tbody>
-                        </table><br><br>
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination float-lg-right">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next"><span
-                                            aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span></a>
-                                </li>
-                            </ul>
-                        </nav>
+                        </table>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -122,22 +105,22 @@
                                         <label class="col-12 col-sm-3 col-form-label text-sm-left">Batas Jumlah
                                             Pengiriman</label>
                                         <div class="col-12 col-sm-8 col-lg-2">
-                                            <input ng-model="model.bts_jumlah_pengiriman" type="text" required=""
-                                                data-parsley-minlength="6" placeholder="" class="form-control">
+                                            <input ng-model="model.bts_jumlah_pengiriman" type="number" required=""
+                                                data-parsley-minlength="6" placeholder="Jumlah" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-12 col-sm-3 col-form-label text-sm-left">Potongan</label>
                                         <div class="col-12 col-sm-8 col-lg-2">
-                                            <input ng-model="model.potongan" type="text" required=""
-                                                data-parsley-minlength="6" placeholder="" class="form-control">
+                                            <input ng-model="model.potongan" type="number" required=""
+                                                data-parsley-minlength="6" placeholder="Potongan" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-left">Status</label>
+                                        <label class="col-12 col-sm-3 col-form-label text-sm-left">Status Aktif</label>
                                         <div class="col-12 col-sm-8 col-lg-2">
-                                            <input ng-model="model.status" type="text" required=""
-                                                data-parsley-minlength="6" placeholder="" class="form-control">
+                                            <input ng-model="model.status" value="model.status=='aktif'" type="checkbox"
+                                                required="" data-parsley-minlength="6" placeholder="">
                                         </div>
                                     </div>
                                     <div class="form-group row">

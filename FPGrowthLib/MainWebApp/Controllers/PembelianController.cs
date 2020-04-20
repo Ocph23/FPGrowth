@@ -155,20 +155,50 @@ namespace MainWebApp.Controllers {
             using (var db = new OcphDbContext (_setting)) {
                 var transaction = db.BeginTransaction ();
                 try {
-                    if (model.data_bukti_pengiriman != null) {
-                        Guid obj = Guid.NewGuid ();
-                        model.bukti_pengiriman = obj.ToString () + ".png";
-                        var path = Path.Combine (
-                            Directory.GetCurrentDirectory (), "wwwroot/images/bukti",
-                            model.bukti_pengiriman);
-                        System.IO.File.WriteAllBytes (path, model.data_bukti_pengiriman);
+
+                    if (model.idpengiriman <= 0) {
+                        if (model.data_bukti_pengiriman != null) {
+                            Guid obj = Guid.NewGuid ();
+                            model.bukti_pengiriman = obj.ToString () + ".png";
+                            var path = Path.Combine (
+                                Directory.GetCurrentDirectory (), "wwwroot/images/bukti",
+                                model.bukti_pengiriman);
+                            System.IO.File.WriteAllBytes (path, model.data_bukti_pengiriman);
+                        }
+
+                        model.status_pengantaran = "Sudah";
+
+                        model.idpengiriman = db.Pengiriman.InsertAndGetLastID (model);
+                        if (model.idpengiriman <= 0)
+                            throw new System.Exception ("Pengiriman Gagal Dibuat");
+                    } else {
+                        if (model.data_bukti_pengiriman != null) {
+                            string path = "";
+
+                            if (!string.IsNullOrEmpty (model.bukti_pengiriman)) {
+                                path = Path.Combine (
+                                    Directory.GetCurrentDirectory (), "wwwroot/images/bukti",
+                                    model.bukti_pengiriman);
+                                System.IO.File.Delete (path);
+                            }
+
+                            Guid obj = Guid.NewGuid ();
+                            model.bukti_pengiriman = obj.ToString () + ".png";
+                            path = Path.Combine (
+                                Directory.GetCurrentDirectory (), "wwwroot/images/bukti",
+                                model.bukti_pengiriman);
+
+                            System.IO.File.WriteAllBytes (path, model.data_bukti_pengiriman);
+                        }
+                        model.status_pengantaran = "Sudah";
+                        var updated = db.Pengiriman.Update (x => new {
+                            x.bukti_pengiriman, x.jumlah_barang, x.keterangan, x.status_pengantaran, x.tgl_pengiriman
+                        }, model, x => x.idpengiriman == model.idpengiriman);
+
+                        if (!updated)
+                            throw new System.Exception ("Pengiriman Gagal Dibuat");
                     }
 
-                    model.status_pengantaran = "Sudah";
-
-                    model.idpengiriman = db.Pengiriman.InsertAndGetLastID (model);
-                    if (model.idpengiriman <= 0)
-                        throw new System.Exception ("Pengiriman Gagal Dibuat");
                     transaction.Commit ();
                     return Ok (model);
                 } catch (System.Exception ex) {

@@ -18,6 +18,23 @@ namespace MainWebApp.Controllers {
 
         [Authorize]
         [HttpGet]
+        public IActionResult Get () {
+            try {
+                string userId = User.FindFirst (ClaimTypes.NameIdentifier)?.Value;
+                int myId = Convert.ToInt32 (userId);
+                using (var db = new OcphDbContext (_setting)) {
+                    var result = from a in db.Chat.Where (x => (x.idpengirim == myId || x.idpenerima == myId))
+                    join b in db.Users.Select () on a.idpengirim equals b.iduser
+                    select new Pesan { pengirim = a.pengirim, role = b.role, idpenerima = a.idpenerima, idpengirim = a.idpengirim, idpesan = a.idpesan, isi_pesan = a.isi_pesan, tgl_pesan = a.tgl_pesan, avatar = b.photo };
+                    return Ok (result);
+                }
+            } catch (System.Exception ex) {
+                return BadRequest (ex.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
         [Route ("chatwith/{id}")]
         public IActionResult chatwith (int id) {
             try {

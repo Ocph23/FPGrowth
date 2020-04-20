@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using MainWebApp.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -59,7 +62,9 @@ namespace MainWebApp {
             app.UseStaticFiles (); // For the wwwroot folder
 
             app.UseRouting ();
-
+            var addresses = app.ServerFeatures.Get<IServerAddressesFeature> ().Addresses;
+            var address = addresses.FirstOrDefault ();
+            AppDomain.CurrentDomain.SetData ("BaseUrl", address ?? "");
             // global cors policy
             app.UseCors (x => x
                 .AllowAnyOrigin ()

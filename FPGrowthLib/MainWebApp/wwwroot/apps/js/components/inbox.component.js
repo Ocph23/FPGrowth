@@ -1,4 +1,4 @@
-angular.module('app.account.conponent', []).component('userlogin', {
+angular.module('app.inbox.conponent', []).component('inbox', {
 	controller: function($scope, AuthService) {
 		$scope.isLogin = AuthService.userIsLogin();
 		if ($scope.isLogin) {
@@ -6,14 +6,9 @@ angular.module('app.account.conponent', []).component('userlogin', {
 				$scope.profile = profile;
 			});
 		}
-
 		$scope.logoff = function() {
 			AuthService.logOff();
 		};
-
-		$scope.updateAdminProfile = (iduser, photodata) => {
-			AuthService.updatePhotoProfile(iduser, photodata).then((x) => {});
-		};
 	},
-	templateUrl: 'apps/js/components/templates/userlogin.html'
+	templateUrl: 'apps/js/components/templates/inbox.html'
 });

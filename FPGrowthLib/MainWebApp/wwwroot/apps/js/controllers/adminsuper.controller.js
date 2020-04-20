@@ -15,9 +15,25 @@ angular
 	.controller('adminsuperKonfirPembayaranController', adminsuperKonfirPembayaranController)
 	.controller('adminsuperKonfirPengirimanController', adminsuperKonfirPengirimanController);
 
-function adminsuperController() {}
-function adminsuperHomeController() {}
-function adminsuperMenuUtamaController() {}
+function adminsuperController($scope, AuthService) {
+	AuthService.Init([ 'adminsuper' ]);
+}
+function adminsuperHomeController($scope, kodefikasiService, DataPembeliService, OrderService) {
+	$scope.kodefikasi = kodefikasiService;
+	DataPembeliService.get().then((result) => {
+		$scope.pembeli = result;
+		OrderService.get().then((result) => {
+			result.forEach((element) => {
+				OrderService.setBarang(element);
+				element.total = OrderService.total(element.data);
+				OrderService.diantar(element);
+			});
+			$scope.orders = result;
+			$scope.konfirm = result.filter((x) => x.pembayaran);
+		});
+	});
+}
+
 function adminsuperDaftarKategoriController($scope, KategoriService, kodefikasiService) {
 	$scope.kodefikasi = kodefikasiService;
 	$scope.model = {};
@@ -46,10 +62,6 @@ function adminsuperDaftarKategoriController($scope, KategoriService, kodefikasiS
 	};
 }
 
-function adminsuperDataParameterController() {}
-function adminsuperTambahKategoriController() {}
-function adminsuperDataTransaksiController() {}
-function adminsuperAnalisaController() {}
 function adminsuperManagemenTransaksiController($scope, ManagemenTransaksiService) {
 	$scope.model = {};
 	$scope.tambahTitle = 'Tambah Data Parameter';
@@ -136,3 +148,9 @@ function adminsuperKonfirPengirimanController($scope, OrderService, kodefikasiSe
 		$scope.source = result.filter((x) => x.pembayaran);
 	});
 }
+
+function adminsuperMenuUtamaController() {}
+function adminsuperDataParameterController() {}
+function adminsuperTambahKategoriController() {}
+function adminsuperDataTransaksiController() {}
+function adminsuperAnalisaController() {}

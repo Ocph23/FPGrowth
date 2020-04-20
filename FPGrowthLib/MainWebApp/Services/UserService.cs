@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using MainWebApp.Models;
 using MainWebApp.Models.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -17,6 +19,7 @@ namespace MainWebApp.Services {
         object profile (int userid);
         Task<Pembeli> RegisterPembeli (Pembeli pembeli);
         Task<Penjual> RegisterPenjual (Penjual pembeli);
+        Task<User> UpdatePhotoProfile (int id, byte[] model);
     }
 
     public class UserService : IUserService {
@@ -27,10 +30,12 @@ namespace MainWebApp.Services {
         public UserService (IOptions<AppSettings> appSettings, OcphDbContext _db) {
             _appSettings = appSettings.Value;
             db = _db;
+
         }
 
         public User Authenticate (string username, string password) {
             try {
+
                 var user = db.Users.Where (x => x.username == username || x.email == username).FirstOrDefault ();
 
                 //var user = _users.SingleOrDefault(x => x.Username == username && x.Password == password);
@@ -90,7 +95,8 @@ namespace MainWebApp.Services {
                     user = user.CreateUser (db);
                     var token = user.GenerateToken (_appSettings.Secret);
                     var emailService = new EmailService ();
-                    emailService.SendEmail ("ocph23@gmail.com", $"<a href='https://localhost:5001/user/verifyemail?userid={user.iduser}&token={token}'>Verifikasi Accunt</a>");
+
+                    emailService.SendEmail ("ocph23@gmail.com", getEmailMessage (user.iduser, token));
                     transaction.Commit ();
                 }
                 return Task.CompletedTask;
@@ -112,9 +118,17 @@ namespace MainWebApp.Services {
                 pembeli.idpembeli = db.Pembeli.InsertAndGetLastID (pembeli);
                 if (pembeli.idpembeli <= 0)
                     throw new SystemException ("Registrasi Gagal");
+
+                var admin = db.Users.Where (x => x.role == "Adminsuper").FirstOrDefault ();
+                if (admin != null) {
+                    Pesan pesan = new Pesan { tgl_pesan = DateTime.Now, pengirim = admin.username, idpenerima = user.iduser, idpengirim = admin.iduser, isi_pesan = "Selamat Datang" };
+                    db.Chat.Insert (pesan);
+
+                }
+
                 var token = user.GenerateToken (_appSettings.Secret);
                 var emailService = new EmailService ();
-                emailService.SendEmail (pembeli.email_pembeli, $"<a href='https://localhost:5001/user/verifyemail?userid={user.iduser}&token={token}'>Verifikasi Accunt</a>");
+                emailService.SendEmail (pembeli.email_pembeli, getEmailMessage (user.iduser, token));
                 transaction.Commit ();
                 return Task.FromResult (pembeli);
 
@@ -134,12 +148,21 @@ namespace MainWebApp.Services {
                 user = user.CreateUser (db);
                 penjual.iduser = user.iduser;
                 penjual.status = "aktif";
+                penjual.tgl_daftar = DateTime.Now;
                 penjual.idpenjual = db.Penjual.InsertAndGetLastID (penjual);
                 if (penjual.idpenjual <= 0)
                     throw new SystemException ("Registrasi Gagal");
+
+                var admin = db.Users.Where (x => x.role == "Adminsuper").FirstOrDefault ();
+                if (admin != null) {
+                    Pesan pesan = new Pesan { tgl_pesan = DateTime.Now, pengirim = admin.username, idpenerima = user.iduser, idpengirim = admin.iduser, isi_pesan = "Selamat Datang" };
+                    db.Chat.Insert (pesan);
+
+                }
+
                 var token = user.GenerateToken (_appSettings.Secret);
                 var emailService = new EmailService ();
-                emailService.SendEmail (penjual.email, $"<a href='https://localhost:5001/user/verifyemail?userid={user.iduser}&token={token}'>Verifikasi Accunt</a>");
+                emailService.SendEmail (penjual.email, getEmailMessage (user.iduser, token));
                 transaction.Commit ();
                 return Task.FromResult (penjual);
 
@@ -147,6 +170,36 @@ namespace MainWebApp.Services {
                 transaction.Rollback ();
                 throw new SystemException (ex.Message);
             }
+        }
+
+        private string getEmailMessage (int iduser, string token) {
+            string baseUrl = AppDomain.CurrentDomain.GetData ("BaseUrl").ToString ();
+            return $@"<h1><span style='color: #00ccff;'><strong>WPKS - VERIFIKASI EMAIL</strong></span></h1>
+                                            <p><strong>Selamat Datang</strong></p>
+                                            <p><strong>untuk mengaktifkan akun anda Silhakan click&nbsp;</strong></p>
+                                            <div style='text-align: center; margin : 50px'>
+                                                <h1>
+                                                    <a style='color:white ;border-radius: 5px; border: 1px rgb(0, 225, 255); background-color: #00ccff; padding: 20px 60px; text-decoration:none'
+                                                    href='{baseUrl}/#!/account/confirmemail/{iduser}/{token}''>Disini</a>
+                                                </h1>
+                                            </div>
+                                            <p>&nbsp;</p>";
+        }
+
+        public Task<User> UpdatePhotoProfile (int id, byte[] model) {
+
+            var user = db.Users.Where (x => x.iduser == id).FirstOrDefault ();
+            if (user != null && string.IsNullOrEmpty (user.photo)) {
+                System.IO.File.Delete (Path.Combine (Directory.GetCurrentDirectory (), "wwwroot/images/avatar/") + user.photo);
+            }
+            var obj = Guid.NewGuid ();
+            user.photo = obj.ToString () + ".png";
+            System.IO.File.WriteAllBytes (Path.Combine (Directory.GetCurrentDirectory (), "wwwroot/images/avatar/") + user.photo, model);
+
+            db.Users.Update (x => new { x.photo }, user, x => x.iduser == id);
+
+            return Task.FromResult (user);
+
         }
     }
 

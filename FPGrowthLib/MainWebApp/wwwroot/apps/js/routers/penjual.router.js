@@ -61,5 +61,11 @@ angular.module('penjual.router', []).config(function($stateProvider, $urlRouterP
 			parent: 'penjual',
 			controller: 'penjualdaftarpesananController',
 			templateUrl: 'apps/views/penjual/daftarpesanan.html'
+		})
+		.state('penjual-inbox', {
+			url: '/inbox',
+			parent: 'penjual',
+			controller: 'inboxController',
+			templateUrl: 'apps/views/inbox.html'
 		});
 });

@@ -10,7 +10,7 @@ namespace MainWebApp {
     public class EmailService : IEmailService {
         public void SendEmail (string destination, string messageText) {
             MimeMessage message = new MimeMessage ();
-            MailboxAddress from = new MailboxAddress ("Admin Desa",
+            MailboxAddress from = new MailboxAddress ("WPKS",
                 "ocph23.test@gmail.com");
             message.From.Add (from);
 

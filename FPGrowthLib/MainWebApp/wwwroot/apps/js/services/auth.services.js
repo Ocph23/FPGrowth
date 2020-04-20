@@ -17,15 +17,38 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 		profile: profile,
 		registerPembeli: registerPembeli,
 		registerPenjual: registerPenjual,
-		getToken: getToken
+		getToken: getToken,
+		updatePhotoProfile: updatePhotoProfile
 	};
+
+	function updatePhotoProfile(userid, data) {
+		var def = $q.defer();
+		$http({
+			method: 'post',
+			url: helperServices.url + controller + '/photoprofile/' + userid,
+			headers: getHeader(),
+			data: data
+		}).then(
+			(res) => {
+				StorageService.addObject('user', res.data);
+				def.resolve(res.data);
+			},
+			(err) => {
+				message.error(err);
+				def.reject();
+			}
+		);
+		return def.promise;
+	}
 
 	function InitLoad(params) {
 		var isFound = false;
 		params.forEach((x) => {
 			if (userInRole(x)) isFound = true;
 		});
-		return isFound;
+
+		if (!isFound) $state.go('login');
+		else return isFound;
 	}
 
 	function profile() {

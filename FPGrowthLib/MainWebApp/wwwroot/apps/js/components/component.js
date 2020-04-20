@@ -5,7 +5,8 @@ angular
 		'app.fileInput.conponent',
 		'app.kategori.conponent',
 		'app.publish.conponent',
-		'app.chat.conponent'
+		'app.chat.conponent',
+		'app.inbox.conponent'
 	])
 	.component('cari', {
 		bindings: { value: '<', placeholder: '@' },
