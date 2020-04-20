@@ -80,7 +80,7 @@ namespace MainWebApp.Controllers {
         [Route ("photoprofile/{id}")]
         public async Task<IActionResult> photoprofile (int id, byte[] model) {
             try {
-                return Ok (await _service.UpdatePhotoProfile (id, model););
+                return Ok (await _service.UpdatePhotoProfile (id, model));
             } catch (System.Exception ex) {
                 return BadRequest (ex.Message);
             }
