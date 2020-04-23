@@ -388,6 +388,26 @@ function BarangServices($http, $q, message, helperServices, AuthService) {
 		return def.promise;
 	};
 
+	service.getRecomendation = (id) => {
+		//localhost:5001/api/rekomendasi/byidbarang/1
+		var def = $q.defer();
+		https: $http({
+			method: 'Get',
+			url: helperServices.url + '/api/rekomendasi/byidbarang/' + id,
+			headers: AuthService.getHeader()
+		}).then(
+			(response) => {
+				def.resolve(response.data);
+			},
+			(err) => {
+				message.error(err.data);
+				def.reject(err);
+			}
+		);
+
+		return def.promise;
+	};
+
 	return service;
 }
 

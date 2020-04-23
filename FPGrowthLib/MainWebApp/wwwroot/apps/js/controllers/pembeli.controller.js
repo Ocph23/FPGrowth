@@ -82,16 +82,19 @@ function pembeliDetailProdukController(
 	$scope.message = '';
 	BarangService.getById($stateParams.id).then((result) => {
 		$scope.model = result;
-		if (!result.comments)
-			CommentService.get($stateParams.id).then((comments) => {
-				$scope.model.comments = comments;
-			});
+		BarangService.getRecomendation($stateParams.id).then((recomendations) => {
+			$scope.recomendations = recomendations;
+			if (!result.comments)
+				CommentService.get($stateParams.id).then((comments) => {
+					$scope.model.comments = comments;
+				});
 
-		if (AuthService.userIsLogin()) {
-			AuthService.profile().then((profile) => {
-				$scope.profile = profile;
-			});
-		}
+			if (AuthService.userIsLogin()) {
+				AuthService.profile().then((profile) => {
+					$scope.profile = profile;
+				});
+			}
+		});
 	});
 
 	$scope.addToCart = (item) => {

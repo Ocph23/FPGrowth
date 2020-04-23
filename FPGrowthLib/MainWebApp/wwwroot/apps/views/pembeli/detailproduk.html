@@ -107,27 +107,37 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row bottom-border">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10 m-t-20">
                 <h3>Rekomendasi Produk</h3>
+                <div ng-if="!recomendations" style="margin: 20px;"><i class="fa fa-spinner fa-spin fa-3x"></i> <span>
+                        Tunggu
+                    </span></div>
+
+                <div ng-if="recomendations.length<=0" style="margin: 20px;">Tidak Ada Rekomendasi </div>
             </div>
-            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 col-6" ng-repeat="rek in [1,2,3,4,5]">
+            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 col-6" ng-repeat="item in recomendations">
                 <!-- .card -->
                 <div class="card card-figure">
                     <!-- .card-figure -->
                     <figure class="figure">
                         <!-- .figure-img -->
                         <div class="figure-img">
-                            <img class="img-fluid" src="/assets/images/card-img.jpg" alt="Card image cap">
+                            <img style="height: 200px;" class="img-fluid" src="/images/barang/{{item.gambar}}"
+                                alt="Card image cap">
                             <div class="figure-action">
-                                <a href="#" class="btn btn-block btn-sm btn-success">See More</a>
+                                <a ui-sref="pembeli-detailproduk({id:item.idbarang})"
+                                    class="btn btn-block btn-sm btn-success">Detail</a>
                             </div>
                         </div>
                         <!-- /.figure-img -->
                         <!-- .figure-caption -->
                         <figcaption class="figure-caption">
-                            <h4 class="figure-title">Call action</h4>
-                            <h3 class="mb-0 text-primary">$49.00</h3>
+                            <h4 class="figure-title"><span
+                                    class="badge badge-warning">{{kodefikasi.barang(item.idbarang,item.tgl_publish)}}</span>
+                            </h4>
+                            <h4 class="figure-title">{{item.nama_barang}}</h4>
+                            <h3 class="mb-0 text-primary">Rp. {{item.harga|number}}</h3>
                         </figcaption>
                         <!-- /.figure-caption -->
                     </figure>

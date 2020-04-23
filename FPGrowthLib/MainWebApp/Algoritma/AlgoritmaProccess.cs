@@ -9,7 +9,8 @@ using MainWebApp.Models.Data;
 namespace MainWebApp.Algoritma {
     public class AlgoritmaProccess {
         public AlgoritmaProccess (List<DataItem> datas1111) {
-            var datas = getData ();
+            //var datas = getData ();
+            var datas = datas1111;
 
             Source = datas;
 
@@ -60,7 +61,7 @@ namespace MainWebApp.Algoritma {
 
             //Console.WriteLine("Data FTree");
             //PrintDataTree(dataitemsort.Item1);
-            var vertices = Enumerable.Range (0, 23).ToArray ();
+            var vertices = Enumerable.Range (0, datas.Count + 1).ToArray ();
             var graph = new Graph<int> (vertices, dataitemsort.Item2);
             var algorithms = new AlgoritmaDFS ();
             var path = new List<int> ();
@@ -198,7 +199,7 @@ namespace MainWebApp.Algoritma {
                 foreach (var c in resultX) {
                     var res = listItemSet.Where (x => x.Row == r.Name && x.Column == c.Name).FirstOrDefault ();
                     if (res != null) {
-                        var minSup = Convert.ToDouble (res.Value) / 22;
+                        var minSup = Convert.ToDouble (res.Value) / datas.Count;
                         var conf = Convert.ToDouble (res.Value) / r.Count;
 
                         if (minSup <= 0.1 || conf <= 0.3 || conf == 1) {
@@ -298,33 +299,6 @@ namespace MainWebApp.Algoritma {
             //Console.WriteLin("");
             return Tuple.Create (StateItems, edges);
 
-        }
-
-        private List<DataItem> getData () {
-            var datas = new List<DataItem> ();
-            datas.Add (new DataItem { TID = 1, Items = new List<string> { "M1", "L2" } });
-            datas.Add (new DataItem { TID = 2, Items = new List<string> { "L2", "M1", "L3" } });
-            datas.Add (new DataItem { TID = 3, Items = new List<string> { "M3", "L2" } });
-            datas.Add (new DataItem { TID = 4, Items = new List<string> { "L2" } });
-            datas.Add (new DataItem { TID = 5, Items = new List<string> { "B4", "B6", "M3", "L2" } });
-            datas.Add (new DataItem { TID = 6, Items = new List<string> { "Li3" } });
-            datas.Add (new DataItem { TID = 7, Items = new List<string> { "B6" } });
-            datas.Add (new DataItem { TID = 8, Items = new List<string> { "L2", "M1" } });
-            datas.Add (new DataItem { TID = 9, Items = new List<string> { "B4" } });
-            datas.Add (new DataItem { TID = 10, Items = new List<string> { "B2", "M3" } });
-            datas.Add (new DataItem { TID = 11, Items = new List<string> { "M1" } });
-            datas.Add (new DataItem { TID = 12, Items = new List<string> { "M1", "L2", "L3", "B3", "B2", "B4" } });
-            datas.Add (new DataItem { TID = 13, Items = new List<string> { "M3" } });
-            datas.Add (new DataItem { TID = 14, Items = new List<string> { "B2", "L2", "B6", "L3" } });
-            datas.Add (new DataItem { TID = 15, Items = new List<string> { "L3", "B4" } });
-            datas.Add (new DataItem { TID = 16, Items = new List<string> { "B4", "B3" } });
-            datas.Add (new DataItem { TID = 17, Items = new List<string> { "M1", "M3", "B4" } });
-            datas.Add (new DataItem { TID = 18, Items = new List<string> { "B4", "L2", "B6", "M3" } });
-            datas.Add (new DataItem { TID = 19, Items = new List<string> { "M1", "L2", "M7" } });
-            datas.Add (new DataItem { TID = 20, Items = new List<string> { "M1", "L2", "M7" } });
-            datas.Add (new DataItem { TID = 21, Items = new List<string> { "B4", "B2", "B3" } });
-            datas.Add (new DataItem { TID = 22, Items = new List<string> { "M1", "L2", "M7" } });
-            return datas;
         }
 
     }
