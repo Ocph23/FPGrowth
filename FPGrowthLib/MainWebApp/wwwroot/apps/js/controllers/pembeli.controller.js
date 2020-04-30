@@ -134,6 +134,7 @@ function pembelikeranjangController() {}
 
 function pembeliorderController(
 	$scope,
+	$state,
 	$stateParams,
 	AuthService,
 	ManagemenTransaksiService,
@@ -165,6 +166,7 @@ function pembeliorderController(
 		PembeliService.createOrder(model).then((result) => {
 			message.info('Order Berhasil Dibuat');
 			PembeliCartService.clear();
+			$state.go('pembeli-daftartagihan');
 		});
 	};
 }

@@ -8,15 +8,15 @@ using MainWebApp.Models.Data;
 
 namespace MainWebApp.Algoritma {
     public class AlgoritmaProccess {
-        public AlgoritmaProccess (List<DataItem> datas1111) {
+        public AlgoritmaProccess (double minSupport, double confidance, List<DataItem> datas1111) {
             //var datas = getData ();
+            double MinSupport = minSupport;
+            double Confidance = confidance;
             var datas = datas1111;
 
             Source = datas;
 
             var result = FrekuensiItem (datas); //.OrderBy(X=>X.Name).ToList();
-
-            double MinSupport = 15;
 
             //remove item less then minsuport
             var frRemoveItem = new List<FekuensiItem> ();
@@ -70,15 +70,16 @@ namespace MainWebApp.Algoritma {
             var start = 0;
             Console.WriteLine (string.Join (", ", algorithms.DFS (graph, start, v => path.Add (v))));
 
-            foreach (var data in resultX) {
+            foreach (var data in resultX.OrderBy (x => x.Suport).ToList ()) {
                 var zzzz = dataitemsort.Item1.Where (x => x.Name == data.Name).ToList ();
 
                 List<PatternBase> list = new List<PatternBase> ();
                 foreach (var item in zzzz) {
                     var pathresult = new List<int> ();
                     var pb = new PatternBase ();
-                    var r = path.IndexOf (item.Id);
-                    var jj = dataitemsort.Item1.Where (x => x.Id == path[r]).FirstOrDefault ();
+                    //      var r = path.IndexOf (item.Id);
+                    //    var ssss = path[r];
+                    var jj = dataitemsort.Item1.Where (x => x.Id == item.Id).FirstOrDefault ();
                     pb.Count = jj.Count;
                     pathresult.Add (jj.Id);
                     while (jj.Index > 0) {
@@ -201,8 +202,8 @@ namespace MainWebApp.Algoritma {
                     if (res != null) {
                         var minSup = Convert.ToDouble (res.Value) / datas.Count;
                         var conf = Convert.ToDouble (res.Value) / r.Count;
-
-                        if (minSup <= 0.1 || conf <= 0.3 || conf == 1) {
+                        var rrr = (MinSupport / 100);
+                        if (minSup <= 0.1 || conf <= Confidance || conf == 1) {
 
                         } else {
                             res.MinSuport = minSup;
@@ -214,7 +215,7 @@ namespace MainWebApp.Algoritma {
 
             }
 
-            ListItemSetResult = listItemSetResult;
+            ListItemSetResult = listItemSetResult.OrderByDescending (x => x.Value).ToList ();
             /* foreach (var rr in listItemSetResult)
              {
                 //Console.WriteLin($"{rr.Row} - {rr.Column} | {rr.MinSuport} | {rr.ConfidanceSupport} |");

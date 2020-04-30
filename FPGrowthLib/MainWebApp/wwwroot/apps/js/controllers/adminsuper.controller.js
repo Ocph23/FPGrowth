@@ -20,6 +20,7 @@ function adminsuperController($scope, AuthService) {
 }
 function adminsuperHomeController($scope, kodefikasiService, DataPembeliService, OrderService) {
 	$scope.kodefikasi = kodefikasiService;
+	$scope.orderService = OrderService;
 	DataPembeliService.get().then((result) => {
 		$scope.pembeli = result;
 		OrderService.get().then((result) => {
@@ -109,7 +110,8 @@ function adminsuperDataPembeliController($scope, DataPembeliService, kodefikasiS
 	});
 }
 
-function adminsuperDataOrderController($scope, OrderService) {
+function adminsuperDataOrderController($scope, OrderService, kodefikasiService) {
+	$scope.kodefikasi = kodefikasiService;
 	$scope.orderService = OrderService;
 
 	OrderService.get().then((result) => {
@@ -122,6 +124,7 @@ function adminsuperDataOrderController($scope, OrderService) {
 }
 function adminsuperKonfirPembayaranController($scope, OrderService, kodefikasiService) {
 	$scope.kodefikasi = kodefikasiService;
+	$scope.orderService = OrderService;
 	OrderService.get().then((result) => {
 		$scope.source = result.filter((x) => x.pembayaran);
 		$scope.source.forEach((element) => {

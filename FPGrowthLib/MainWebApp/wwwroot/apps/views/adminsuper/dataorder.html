@@ -39,7 +39,7 @@
                                         <td class="font-16"><span>{{$index+1}}</span>
                                         </td>
                                         <td class="font-16"><span
-                                                class="badge badge-success">{{orderService.padLeft(item.idorder,5)}}</span>
+                                                class="badge badge-success">{{kodefikasi.order(item.idorder,item.tgl_order)}}</span>
                                         </td>
                                         <td class="font-16"><span>{{item.tgl_order|date:'dd-MM-yyyy hh:mm'}}</span>
                                         </td>
@@ -52,7 +52,7 @@
                                         </td>
                                         <td class="font-16"><span>Ya</span>
 
-                                        <td class="font-16"><span>Rp.{{orderService.total(item)|number}}</span>
+                                        <td class="font-16"><span>Rp.{{orderService.total(item.data)|number}}</span>
                                         </td>
 
 

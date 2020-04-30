@@ -8,15 +8,6 @@
         </div>
     </div>
     <div class="email-filters" ng-if="source.length>0">
-        <div class="email-filters-left">
-            <label class="custom-control custom-checkbox be-select-all">
-                <input class="custom-control-input chk_all" type="checkbox" name="chk_all">
-                <span class="custom-control-label"></span>
-            </label>
-            <div class="btn-group mt-2 font-18">
-                Pilih Semua
-            </div>
-        </div>
         <div class="email-filters-right"><span class="email-pagination-indicator text-primary font-20">Rp
                 {{total()|number}}</span>
             <div class="btn-group email-pagination-nav">
@@ -26,12 +17,6 @@
     </div>
     <div class="email-list">
         <div class="email-list-item email-list-item--unread" ng-repeat="item in source">
-            <div class="email-list-actions">
-                <label class="custom-control custom-checkbox">
-                    <input ng-model="item.checked" class="custom-control-input checkboxes" type="checkbox"
-                        id="one"><span class="custom-control-label"></span>
-                </label>
-            </div>
             <div class="row align-items-center">
                 <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="user-avatar float-xl-left pr-4 float-none">

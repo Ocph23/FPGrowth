@@ -44,7 +44,48 @@ namespace MainWebApp.Controllers {
                         index++;
                     }
 
-                    var algoritma = new Algoritma.AlgoritmaProccess (getData ());
+                    var algoritma = new Algoritma.AlgoritmaProccess (15, 0.3, getData ());
+
+                    return Ok (new {
+                        Source = algoritma.Source, Frekuensi = algoritma.Frekuensi,
+                            FrekuensiItemSet = algoritma.FrekuensiItemSet, ListItemSet = algoritma.ListItemSet,
+                            ResultX = algoritma.ResultX, Vertices = algoritma.Vertices, Graphs = algoritma.Graphs,
+                            ListConditionFPTree = algoritma.ListConditionFPTree, ItemSortPriority = algoritma.ItemSortPriority, ListItemSetResult = algoritma.ListItemSetResult,
+                    });
+                } catch (System.Exception ex) {
+                    return BadRequest (ex.Message);
+                }
+            }
+        }
+
+        [HttpPost]
+        [Route ("byalgoritma")]
+        public IActionResult byalgoritma (AlgoParam param) {
+            using (var db = new OcphDbContext (_setting)) {
+                try {
+                var orders = from a in db.Transaksi.Select ()
+                join d in db.Barang.Select () on a.idbarang equals d.idbarang
+                join k in db.Kategori.Select () on d.idkategori equals k.idkategori
+                select new Transaksi {
+                idorder = a.idorder,
+                iddetailorder = a.iddetailorder,
+                idbarang = a.idbarang,
+                KodeKategori = k.kode_kategori
+                    };
+
+                    var listData = new List<DataItem> ();
+                    var index = 1;
+                    foreach (var items in orders.GroupBy (x => x.idorder)) {
+                        var dataItem = new DataItem { TID = index, Items = new List<string> () };
+                        foreach (var data in items.GroupBy (x => x.KodeKategori)) {
+                            dataItem.Items.Add (data.Key);
+                        }
+                        listData.Add (dataItem);
+
+                        index++;
+                    }
+
+                    var algoritma = new Algoritma.AlgoritmaProccess (param.MinSupport, param.Confidance, getData ());
 
                     return Ok (new {
                         Source = algoritma.Source, Frekuensi = algoritma.Frekuensi,
@@ -102,7 +143,7 @@ namespace MainWebApp.Controllers {
                         index++;
                     }
 
-                    var algoritma = new Algoritma.AlgoritmaProccess (listData);
+                    var algoritma = new Algoritma.AlgoritmaProccess (15, 0.3, listData);
 
                     var brg = new TransaksiBarang { idbarang = id };
 
@@ -127,7 +168,7 @@ namespace MainWebApp.Controllers {
                     kategori = k, idkategori = k.idkategori
                     };
 
-                    return Ok (resss.Where (x => x.idpenjual == barangSearch.idpenjual));
+                    return Ok (resss.Where (x => x.idbarang != barangSearch.idbarang && x.idpenjual == barangSearch.idpenjual));
                 } catch (System.Exception ex) {
                     return BadRequest (ex.Message);
                 }
@@ -170,6 +211,12 @@ namespace MainWebApp.Controllers {
             return datas;
         }
 
+    }
+
+    public class AlgoParam {
+        public int IdPenjual { get; set; }
+        public double MinSupport { get; set; }
+        public double Confidance { get; set; }
     }
 
     public class Recomendation {

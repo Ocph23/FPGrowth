@@ -80,13 +80,13 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="order in orders| limitTo:5">
-                                <td>1</td>
+                                <td>{{$index+1}}</td>
                                 <td>
                                     <span
                                         class="badge badge-success">{{kodefikasi.order(order.idorder,order.tgl_order)}}</span>
                                 </td>
                                 <td>{{order.pembeli.nama_pembeli}} </td>
-                                <td>{{order.total}}</td>
+                                <td>{{order.total|number}}</td>
                                 <td>{{order.status}}</td>
                                 <td>{{order.tgl_order|date :"dd-MM-yyyy hh:ss"}}</td>
                             </tr>

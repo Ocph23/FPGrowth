@@ -12,8 +12,7 @@ angular.module('app.cart.conponent', []).component('cart', {
 
 		$scope.lanjut = () => {
 			if (AuthService.userIsLogin()) {
-				var datas = $scope.source.filter((x) => x.checked);
-				$state.go('pembeli-order', { data: datas });
+				$state.go('pembeli-order', { data: $scope.source });
 			} else {
 				message.error('Anda Belum Login !');
 				$state.go('login');
