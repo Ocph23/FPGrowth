@@ -69,3 +69,60 @@ body {
     }
   }
 }
+
+.chart-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 2px;
+  .chart-item-first {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    .chart-item-first-body {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    p {
+      margin: 0;
+    }
+  }
+  .chart-item-secound {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+
+@media screen and(max-width:764px) {
+  .main {
+    margin: 0px;
+  }
+  .chart-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    .chart-item-first {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      p {
+        margin: 0;
+      }
+    }
+    .chart-item-secound {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}

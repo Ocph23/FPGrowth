@@ -41,18 +41,20 @@ namespace MainWebApp.Controllers {
 
         [HttpPost]
         public IActionResult Post (Models.Data.Manajemen_Transaksi data) {
-            try {
-                using (var db = new OcphDbContext (_setting)) {
+            using (var db = new OcphDbContext (_setting)) {
+                var trans = db.BeginTransaction ();
+                try {
+                    db.ManagementTransaksi.Update (x => new { x.status }, new Models.Data.Manajemen_Transaksi { status = "false" }, x => x.status == "true");
                     data.idmanajemen = db.ManagementTransaksi.InsertAndGetLastID (data);
                     if (data.idmanajemen <= 0) {
                         throw new System.Exception ("Data tidak tersimpan");
                     }
+                    trans.Commit ();
                     return Ok (data);
-
+                } catch (System.Exception ex) {
+                    trans.Rollback ();
+                    return BadRequest (ex.Message);
                 }
-            } catch (System.Exception ex) {
-
-                return BadRequest (ex.Message);
             }
         }
 
@@ -72,17 +74,18 @@ namespace MainWebApp.Controllers {
         }
 
         [HttpDelete]
+        [Route ("{id}")]
         public IActionResult Delete (int id) {
             try {
                 using (var db = new OcphDbContext (_setting)) {
                     var deleted = db.ManagementTransaksi.Delete (x => x.idmanajemen == id);
-                    if (deleted) {
+                    if (!deleted) {
                         throw new System.Exception ("Data tidak berhasil dihapus");
                     }
                     return Ok (true);
                 }
-            } catch (System.Exception) {
-                throw;
+            } catch (System.Exception ex) {
+                return BadRequest (ex.Message);
             }
         }
     }

@@ -72,17 +72,18 @@ namespace MainWebApp.Controllers {
         }
 
         [HttpDelete]
+        [Route ("{id}")]
         public IActionResult Delete (int id) {
             try {
                 using (var db = new OcphDbContext (_setting)) {
                     var deleted = db.Kategori.Delete (x => x.idkategori == id);
-                    if (deleted) {
+                    if (!deleted) {
                         throw new System.Exception ("Data tidak berhasil dihapus");
                     }
                     return Ok (true);
                 }
-            } catch (System.Exception) {
-                throw;
+            } catch (System.Exception ex) {
+                return BadRequest (ex.Message);
             }
         }
     }

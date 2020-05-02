@@ -111,6 +111,7 @@ namespace MainWebApp.Controllers {
         }
 
         [HttpDelete]
+        [Route ("{id}")]
         public IActionResult Delete (int id) {
             try {
                 using (var db = new OcphDbContext (_setting)) {
@@ -120,8 +121,8 @@ namespace MainWebApp.Controllers {
                     }
                     return Ok (true);
                 }
-            } catch (System.Exception) {
-                throw;
+            } catch (System.Exception ex) {
+                return BadRequest (ex.Message);
             }
         }
     }

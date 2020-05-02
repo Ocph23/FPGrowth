@@ -107,8 +107,7 @@ function KategoriServices($http, $q, message, helperServices, AuthService) {
 		$http({
 			method: 'Delete',
 			url: url + '/' + param.idkategori,
-			headers: AuthService.getHeader(),
-			data: param
+			headers: AuthService.getHeader()
 		}).then(
 			(response) => {
 				var index = service.Items.indexOf(param);
@@ -239,8 +238,7 @@ function ManagemenTransaksiService($http, $q, message, helperServices, AuthServi
 		$http({
 			method: 'Delete',
 			url: url + '/' + param.idmanajemen,
-			headers: AuthService.getHeader(),
-			data: param
+			headers: AuthService.getHeader()
 		}).then(
 			(response) => {
 				var index = service.Items.indexOf(param);
@@ -357,8 +355,7 @@ function BarangServices($http, $q, message, helperServices, AuthService) {
 		$http({
 			method: 'Delete',
 			url: url + '/' + param.idbarang,
-			headers: AuthService.getHeader(),
-			data: param
+			headers: AuthService.getHeader()
 		}).then(
 			(response) => {
 				var index = service.Items.indexOf(param);
@@ -891,9 +888,8 @@ function CommentServices($http, $q, message, helperServices, AuthService) {
 		var def = $q.defer();
 		$http({
 			method: 'Delete',
-			url: url + '/' + param.idkategori,
-			headers: AuthService.getHeader(),
-			data: param
+			url: url + '/' + param.idcomment,
+			headers: AuthService.getHeader()
 		}).then(
 			(response) => {
 				var index = service.Items.indexOf(param);

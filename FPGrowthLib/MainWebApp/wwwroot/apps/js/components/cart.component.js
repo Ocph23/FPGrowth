@@ -20,13 +20,21 @@ angular.module('app.cart.conponent', []).component('cart', {
 		};
 
 		$scope.Up = (item) => {
-			item.jumlah++;
+			if (item.stock > item.jumlah) {
+				item.jumlah++;
+			}
 		};
 		$scope.Down = (item) => {
-			item.jumlah--;
+			if (item.jumlah > 0) {
+				item.jumlah--;
+			}
 		};
 
 		$scope.hitung = (item) => {
+			if (item.jumlah > item.stock) {
+				item.jumlah = item.stock;
+			}
+
 			PembeliCartService.saveCart();
 			return item.jumlah * item.harga;
 		};

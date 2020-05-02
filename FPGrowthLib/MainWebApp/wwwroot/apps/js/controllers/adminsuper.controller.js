@@ -65,14 +65,14 @@ function adminsuperDaftarKategoriController($scope, KategoriService, kodefikasiS
 
 function adminsuperManagemenTransaksiController($scope, ManagemenTransaksiService) {
 	$scope.model = {};
-	$scope.tambahTitle = 'Tambah Data Parameter';
+	$scope.tambahTitle = 'Tambah Data';
 	ManagemenTransaksiService.get().then((data) => {
 		$scope.Items = data;
 	});
 
 	$scope.new = () => {
-		$scope.tambahTitle = 'Tambah Data Parameter';
-		$scope.model = {};
+		$scope.tambahTitle = 'Tambah Data';
+		$scope.model = { potongan: 0, bts_jumlah_pengiriman: 0, status: true };
 	};
 
 	$scope.selectedItem = (param) => {
