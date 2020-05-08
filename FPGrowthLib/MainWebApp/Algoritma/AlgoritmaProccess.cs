@@ -8,17 +8,12 @@ using MainWebApp.Models.Data;
 
 namespace MainWebApp.Algoritma {
     public class AlgoritmaProccess {
-        public AlgoritmaProccess (double minSupport, double confidance, List<DataItem> datas1111) {
-            //var datas = getData ();
+        public AlgoritmaProccess (double minSupport, double confidance, List<DataItem> dataSource) {
             double MinSupport = minSupport;
             double Confidance = confidance;
-            var datas = datas1111;
-
+            var datas = dataSource;
             Source = datas;
-
-            var result = FrekuensiItem (datas); //.OrderBy(X=>X.Name).ToList();
-
-            //remove item less then minsuport
+            var result = FrekuensiItem (datas);
             var frRemoveItem = new List<FekuensiItem> ();
             foreach (var item in result.ToList ()) {
                 var support = Convert.ToDouble (item.Count) / Convert.ToDouble (datas.Count) * 100;
@@ -216,11 +211,6 @@ namespace MainWebApp.Algoritma {
             }
 
             ListItemSetResult = listItemSetResult.OrderByDescending (x => x.Value).ToList ();
-            /* foreach (var rr in listItemSetResult)
-             {
-                //Console.WriteLin($"{rr.Row} - {rr.Column} | {rr.MinSuport} | {rr.ConfidanceSupport} |");
-             }*/
-
         }
 
         public List<DataItem> Source { get; }
@@ -264,7 +254,6 @@ namespace MainWebApp.Algoritma {
             var edges = new List<Tuple<int, int>> ();
             int id = 1;
             foreach (var item in datas) {
-                //Console.WriteLin($"{item.TID} - {GetStringItems(item.SortData)}");
                 var index = 0;
                 StateItem parent = null;
                 foreach (var d in item.SortData) {
@@ -297,7 +286,6 @@ namespace MainWebApp.Algoritma {
                     index++;
                 }
             }
-            //Console.WriteLin("");
             return Tuple.Create (StateItems, edges);
 
         }
