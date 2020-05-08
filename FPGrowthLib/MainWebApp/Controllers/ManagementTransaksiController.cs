@@ -62,6 +62,7 @@ namespace MainWebApp.Controllers {
         public IActionResult Put (Models.Data.Manajemen_Transaksi data) {
             try {
                 using (var db = new OcphDbContext (_setting)) {
+                    db.ManagementTransaksi.Update (x => new { x.status }, new Models.Data.Manajemen_Transaksi { status = "false" }, x => x.status == "true");
                     var updated = db.ManagementTransaksi.Update (x => new { x.bts_jumlah_pengiriman, x.nama_bank_pembayaran, x.no_rek_pembayaran, x.potongan }, data, x => x.idmanajemen == data.idmanajemen);
                     if (!updated) {
                         throw new System.Exception ("Data tidak tersimpan");
