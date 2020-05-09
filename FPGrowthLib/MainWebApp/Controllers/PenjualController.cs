@@ -98,7 +98,7 @@ namespace MainWebApp.Controllers {
 
                     var updated = db.Penjual.Update (x => new {
                             x.alamat, x.foto_ktp, x.keterangan, x.foto_penjual,
-                                x.foto_toko, x.jenis_kelamin, x.nama_penjual, x.no_tlp, x.nama_toko, x.status
+                                x.foto_toko, x.jenis_kelamin, x.nama_penjual, x.no_tlp, x.nama_toko, x.status, x.tgl_lahir
                         },
                         data, x => x.idpenjual == data.idpenjual);
 

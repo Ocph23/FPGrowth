@@ -33,6 +33,9 @@ namespace MainWebApp.Models.Data {
           [DbColumn ("photo")]
           public string photo { get; set; }
 
+          [DbColumn ("status")]
+          public bool status { get; set; }
+
           public string Token { get; set; }
      }
 }

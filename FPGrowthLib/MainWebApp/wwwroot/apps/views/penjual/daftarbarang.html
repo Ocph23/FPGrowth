@@ -2,34 +2,30 @@
     <div class="m-auto col-xl-12">
         <div class="card">
             <div class="card-header">
-                <div class="text-left font-18 mt-2 d-inline-block">
+                <div class="text-left font-18 mt-2 item">
                     Daftar Barang
                 </div>
-                <div class="float-right d-inline-block">
+                <div class="float-right item">
                     <button ui-sref="penjual-tambahbarang" class="btn btn-outline-primary">Tambah Barang</button>
                 </div>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="d-inline-block col-auto">Show</div>
-                        <span class="d-inline-block col-auto">
-                            <select class="form-control-sm form-control custom-select custom-select-sm">
-                                <option>10</option>
-                            </select>
-                        </span>
+
                     </div>
                     <div class="col-md-4">
-                        <input class="form-search text-center" placeholder="Cari Produk" />
+                        <input class="form-search text-center" ng-model="textSearch" placeholder="Cari Produk" />
                     </div>
                     <div class="col-md-4">
-                        <select class="col-md-6 offset-md-6 form-control">
-                            <option>Kategori</option>
+                        <select ng-model="selectedKategori" ng-change="filterKategori(selectedKategori)"
+                            class="col-md-6 offset-md-6 form-control"
+                            ng-options="item as item.nama_kategori for item in kategories">
                         </select>
                     </div>
                 </div>
 
-                <div class="email-list-item email-list-item--unread" ng-repeat="item in Items">
+                <div class="email-list-item email-list-item--unread" ng-repeat="item in Items | filter: textSearch">
                     <div class="row align-items-center">
                         <div class="col-md-12 item-barang">
                             <div class="mb-2 font-16 text-dark" ui-sref="penjual-detailbarang({id:item.idbarang})"><a
@@ -39,50 +35,49 @@
                             <div class="mb-2 font-16 text-dark">
                                 <p class="text-dark font-18 mr-3">{{item.nama_barang}}</p>
                             </div>
-                            <div class="user-avatar float-xl-left pr-2 float-none mb-0">
-                                <img src="images/barang/{{item.gambar}}" alt="User Avatar"
-                                    class="rounded user-avatar-xl">
-                            </div>
-                            <div class="pl-xl-3">
-                                <div class="d-inline-block">
-                                    <div class="m-b-0">
-                                        <span class="text-dark font-16">Kategori :<a class="font-16 mr-4"></a>
-                                            {{item.kategori.nama_kategori}}</a></span>
-                                        <div class="d-inline-block">
-                                            <span class="font-16 mr-5 text-dark">Stock :<a class="text-secondary"></a>
-                                                {{item.stock}}</a></span>
+
+                            <div class="item-detail">
+                                <div class="user-avatar float-xl-left pr-2 float-none mb-0">
+                                    <img src="images/barang/{{item.gambar}}" alt="User Avatar"
+                                        class="rounded user-avatar-xl">
+                                </div>
+                                <div>
+                                    <div class="m-b-0 item-detail-body" style="width: auto;">
+                                        <div class="item">
+                                            <span class="text-dark font-16">Kategori :
+                                                {{item.kategori.nama_kategori}}</span>
                                         </div>
-                                        <div class="d-inline-block">
-                                            <span class="font-16 mr-1 text-dark">Panjang : <a
-                                                    class="text-secondary">{{item.panjang}} cm</a></span>
-                                            <span class="font-16 mr-1 text-dark">Tinggi : <a
-                                                    class="text-secondary">{{item.tinggi}} cm</a></span>
-                                            <span class="font-16 mr-5 text-dark">Lebar : <a
-                                                    class="text-secondary">{{item.lebar}} cm</a></span>
+                                        <div class="item">
+                                            <span class="font-16 mr-1 text-dark">Stock : {{item.stock}}</span>
                                         </div>
-                                        <div class="d-inline-block">
-                                            <span class="font-16 mr-4 text-dark">Harga : <a class="text-primary">Rp.
-                                                    {{item.harga|number}}</a></span>
+                                        <div class="item">
+                                            <span class="font-16 mr-1 text-dark">Panjang : {{item.panjang}}</span>
                                         </div>
-                                        <div class="d-inline-block">
-                                            <span>
-                                                <button ui-sref="penjual-editbarang({id:item.idbarang})"
-                                                    class="btn btn-rounded btn-outline-warning">Edit</button>
-                                            </span>
-                                            <span class="mr-0">
-                                                <button class="btn btn-rounded btn-outline-dark">Hapus</button>
-                                            </span>
+                                        <div class="item">
+                                            <span class="font-16 mr-1 text-dark">Tinggi : {{item.tinggi}} cm</span>
                                         </div>
-                                        <div>
-                                            <span class="font-16 mr-4 text-dark">Tanggal Publish : <a
+                                        <div class="item">
+                                            <span class="font-16 mr-1 text-dark">Lebar :{{item.lebar}} cm</span>
+                                        </div>
+                                        <div class="item">
+                                            <span class="font-16 mr-1 text-dark">Harga :
+                                                <a class="text-primary">Rp. {{item.harga|number}}</a></span>
+                                        </div>
+                                        <div class="item">
+                                            <span class="font-16 mr-1 text-dark">Tanggal Publish : <a
                                                     class="text-primary">
                                                     <publish value="item.tgl_publish"> </publish>
                                                 </a></span>
                                         </div>
 
+
+                                    </div>
+                                    <div class="item item-footer">
+                                        <button ui-sref="penjual-editbarang({id:item.idbarang})"
+                                            class="btn btn-outline-warning">Edit</button>
+                                        <button ng-click="delete(item)" class="btn btn-outline-dark">Hapus</button>
                                     </div>
                                 </div>
-
 
                             </div>
 

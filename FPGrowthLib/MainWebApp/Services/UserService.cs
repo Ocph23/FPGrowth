@@ -20,6 +20,8 @@ namespace MainWebApp.Services {
         Task<Pembeli> RegisterPembeli (Pembeli pembeli);
         Task<Penjual> RegisterPenjual (Penjual pembeli);
         Task<User> UpdatePhotoProfile (int id, byte[] model);
+        Task<bool> changeStatusPembeli (int userId);
+        Task<bool> changeStatusPenjual (int userId);
     }
 
     public class UserService : IUserService {
@@ -114,7 +116,7 @@ namespace MainWebApp.Services {
                 user = user.CreateUser (db);
                 pembeli.iduser = user.iduser;
                 pembeli.tgl_daftar = DateTime.Now;
-                pembeli.status = "aktif";
+                pembeli.status = true;
                 pembeli.idpembeli = db.Pembeli.InsertAndGetLastID (pembeli);
                 if (pembeli.idpembeli <= 0)
                     throw new SystemException ("Registrasi Gagal");
@@ -147,7 +149,7 @@ namespace MainWebApp.Services {
                 };
                 user = user.CreateUser (db);
                 penjual.iduser = user.iduser;
-                penjual.status = "aktif";
+                penjual.status = true;
                 penjual.tgl_daftar = DateTime.Now;
                 penjual.idpenjual = db.Penjual.InsertAndGetLastID (penjual);
                 if (penjual.idpenjual <= 0)
@@ -200,6 +202,56 @@ namespace MainWebApp.Services {
 
             return Task.FromResult (user);
 
+        }
+
+        public Task<bool> changeStatusPembeli (int userId) {
+            var transaction = db.BeginTransaction ();
+            try {
+                var pembeli = db.Pembeli.Where (x => x.iduser == userId).FirstOrDefault ();
+                if (pembeli == null)
+                    throw new SystemException ("Pembeli Tidak Ditemukan");
+                pembeli.status = !pembeli.status;
+
+                var updatePembeli = db.Pembeli.Update (x => new { x.status }, pembeli, x => x.idpembeli == pembeli.idpembeli);
+                if (!updatePembeli) {
+                    throw new SystemException ("Data Tidak Berhasil Diubah");
+                }
+
+                if (!db.Users.Update (x => new { x.status }, new User { status = pembeli.status }, x => x.iduser == userId))
+                    throw new SystemException ("Data Tidak Berhasil Diubah");
+
+                transaction.Commit ();
+                return Task.FromResult (true);
+
+            } catch (System.Exception ex) {
+                transaction.Rollback ();
+                throw new SystemException (ex.Message);
+            }
+        }
+
+        public Task<bool> changeStatusPenjual (int userId) {
+            var transaction = db.BeginTransaction ();
+            try {
+                var data = db.Penjual.Where (x => x.iduser == userId).FirstOrDefault ();
+                if (data == null)
+                    throw new SystemException ("Pembeli Tidak Ditemukan");
+                data.status = !data.status;
+
+                var updatePenjual = db.Penjual.Update (x => new { x.status }, data, x => x.idpenjual == data.idpenjual);
+                if (!updatePenjual) {
+                    throw new SystemException ("Data Tidak Berhasil Diubah");
+                }
+
+                if (!db.Users.Update (x => new { x.status }, new User { status = data.status }, x => x.iduser == userId))
+                    throw new SystemException ("Data Tidak Berhasil Diubah");
+
+                transaction.Commit ();
+                return Task.FromResult (true);
+
+            } catch (System.Exception ex) {
+                transaction.Rollback ();
+                throw new SystemException (ex.Message);
+            }
         }
     }
 

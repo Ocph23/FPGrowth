@@ -15,7 +15,7 @@ angular
 	.controller('pembeliProfilePenjualController', pembeliProfilePenjualController)
 	.controller('pembelihomemenuController', pembelihomemenuController);
 
-function pembeliController($scope, kodefikasiService, AuthService, ChatService) {
+function pembeliController($scope, kodefikasiService, AuthService, ChatService, PembeliCartService) {
 	$scope.kodefikasi = kodefikasiService;
 
 	if (AuthService.userIsLogin()) {
@@ -23,6 +23,8 @@ function pembeliController($scope, kodefikasiService, AuthService, ChatService) 
 			ChatService.startSignalR();
 		}
 	}
+
+	$scope.chartStatus = () => PembeliCartService.chartStatus();
 }
 
 function pembeliProfileController($scope, AuthService, $http, helperServices, StorageService, message) {
@@ -56,14 +58,32 @@ function pembeliHomeController($scope, BarangService, KategoriService, $rootScop
 	$scope.selectedKategori = null;
 	BarangService.get().then((barangs) => {
 		$scope.Source = barangs;
+		$scope.source = angular.copy($scope.Source);
 	});
 
+	$scope.getSource = () => {
+		if ($scope.Source && $scope.selectedKategori) {
+			return $scope.Source.filter((x) => x.idkategori == $scope.selectedKategori.idkategori);
+		}
+
+		return $scope.Source;
+	};
+
 	$rootScope.$on('selectedKategori', function(evt, data) {
-		$scope.selectedKategori = data;
-		$scope.searchText = data.kode_kategori;
+		$scope.$apply((x) => {
+			$scope.selectedKategori = data;
+			$scope.source = $scope.Source.filter((x) => x.idkategori == data.idkategori);
+			$scope.searchText = data.nama_kategori;
+		});
 	});
+
 	$rootScope.$on('cariEvent', function(evt, data) {
 		$scope.searchText = data;
+		if (!data) {
+			$scope.selectedKategori = null;
+		} else {
+			$scope.source = angular.copy($scope.Source);
+		}
 	});
 }
 
@@ -144,24 +164,28 @@ function pembeliorderController(
 	PembeliService
 ) {
 	$scope.model = {};
-	AuthService.profile().then((profile) => {
-		$scope.profile = profile;
+	if (!$stateParams.data) {
+		$state.go('pembeli-keranjang');
+	} else {
+		AuthService.profile().then((profile) => {
+			$scope.profile = profile;
+			ManagemenTransaksiService.getActive().then((man) => {
+				var model = {
+					idpembeli: profile.idpembeli,
+					idmanajemen: man.idmanajemen,
+					alamatpengiriman: profile.alamat,
+					no_tlp: profile.no_tlp,
+					tgl_order: new Date(),
+					management: man,
+					data: $stateParams.data
+				};
 
-		ManagemenTransaksiService.getActive().then((man) => {
-			var model = {
-				idpembeli: profile.idpembeli,
-				idmanajemen: man.idmanajemen,
-				alamatpengiriman: profile.alamat,
-				no_tlp: profile.no_tlp,
-				tgl_order: new Date(),
-				data: $stateParams.data
-			};
-
-			model.total = OrderService.total(model.data);
-			model.diantar = model.total >= man.bts_jumlah_pengiriman ? 'Diantar' : 'Tidak Diantar';
-			$scope.model = model;
+				model.total = OrderService.total(model.data);
+				model.diantar = model.total >= man.bts_jumlah_pengiriman ? 'Diantar' : 'Tidak Diantar';
+				$scope.model = model;
+			});
 		});
-	});
+	}
 
 	$scope.order = function(model) {
 		PembeliService.createOrder(model).then((result) => {

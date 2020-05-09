@@ -21,7 +21,7 @@ angular.module('adminsuper.router', []).config(function($stateProvider, $urlRout
 			url: '/daftarkategori',
 			parent: 'adminsuper',
 			controller: 'adminsuperDaftarKategoriController',
-			templateUrl: 'apps/views/adminsuper/DaftarKategori.html'
+			templateUrl: 'apps/views/adminsuper/daftarkategori.html'
 		})
 		.state('adminsuper-tambahkategori', {
 			url: '/tambahkategori',

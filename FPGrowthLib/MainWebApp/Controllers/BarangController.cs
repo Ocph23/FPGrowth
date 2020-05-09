@@ -133,7 +133,7 @@ namespace MainWebApp.Controllers {
                 }
 
                 using (var db = new OcphDbContext (_setting)) {
-                    var updated = db.Barang.Update (x => new { x.gambar, x.harga, x.idbarang, x.idkategori, x.keterangan, x.lebar, x.tinggi, x.panjang, x.stock }, data, x => x.idbarang == data.idbarang);
+                    var updated = db.Barang.Update (x => new { x.nama_barang, x.gambar, x.harga, x.idbarang, x.idkategori, x.keterangan, x.lebar, x.tinggi, x.panjang, x.stock }, data, x => x.idbarang == data.idbarang);
                     if (!updated) {
                         throw new System.Exception ("Data tidak tersimpan");
                     }

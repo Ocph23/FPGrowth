@@ -15,6 +15,18 @@
     </div>
     <!-- end pageheader  -->
     <div class="col card">
+        <style>
+            .card-header {
+                display: flex;
+                justify-content: space-between;
+            }
+        </style>
+        <div class="card-header">
+            <h5>Data Penjual</h5>
+            <button data-target="#modalAddPenjual" data-toggle="modal" class="btn btn-sm btn-outline-success"> <i
+                    class="far fa-plus-square"></i>
+            </button>
+        </div>
         <div class="card-body">
             <table class="table">
                 <thead class="bg-light">
@@ -23,7 +35,6 @@
                         <th>Kode</th>
                         <th>Nama Toko</th>
                         <th>Nama Pembeli</th>
-                        <th>Email </th>
                         <th>No Telepon</th>
                         <th>Alamat</th>
                         <th>Status</th>
@@ -37,13 +48,12 @@
                         <td class="font-16">{{kodefikasi.penjual(item.idpenjual, item.tgl_daftar)}} </td>
                         <td class="font-16">{{item.nama_toko}} </td>
                         <td class="font-16">{{item.nama_penjual}} </td>
-                        <td class="font-16">{{item.email}} </td>
                         <td class="font-16">{{item.no_tlp}} </td>
                         <td class="font-16">{{item.alamat}} </td>
                         <td class="font-16">{{item.status}} </td>
                         <td>
                             <div class="btn-group ml-auto float-lg-right">
-                                <button ng-click="showBukti(item)" class="btn btn-sm btn-outline-light"> <i
+                                <button ng-click="changeStatus(item)" class="btn btn-sm btn-outline-light"> <i
                                         class="far fa-edit"></i>
                                 </button>
                             </div>
@@ -51,6 +61,75 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalAddPenjual" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah Penjual</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <h3 class="mb-3">Registrasi</h3>
+                    <div class="form-group">
+                        <input ng-model="model.nama_penjual" class="form-control form-control-lg" type="text"
+                            name="nama" required="" placeholder="Nama" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <input ng-model="model.email" class="form-control form-control-lg" type="email" name="email"
+                            required="" placeholder="E-mail" autocomplete="off">
+                    </div>
+
+
+                    <div class="form-group">
+                        <select ng-model="model.jenis_kelamin" class="form-control form-control-lg" type="text"
+                            name="jk" required="" placeholder="Jenis Kelamin" autocomplete="off"
+                            ng-options="item as item for item in helper.genders"></select>
+                    </div>
+                    <div class="form-group">
+                        <input ng-model="model.tgl_lahir" type="date" class="form-control form-control-lg" type="text"
+                            name="tgl_lahir" required="" placeholder="Tanggal Lahir" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <input ng-model="model.nama_toko" class="form-control form-control-lg" type="text"
+                            name="telepon" required="" placeholder="Nama Toko" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <input ng-model="model.no_tlp" class="form-control form-control-lg" type="text" name="telepon"
+                            required="" placeholder="Telepon" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <textarea ng-model="model.alamat" class="form-control form-control-lg" type="text" name="alamat"
+                            required="" placeholder="Alamat" autocomplete="off"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <input ng-model="model.Password" class="form-control form-control-lg" id="pass1" type="password"
+                            required="" placeholder="Password" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <input ng-model="model.ConfirmPassword" type="password" class="form-control form-control-lg"
+                            required="" placeholder="Konfirmasi Password" autocomplete="off">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" ng-click="register(model)" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+
         </div>
     </div>
 </div>

@@ -15,133 +15,127 @@
     </div>
     <!-- end pageheader  -->
 
+
+
+
+
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-5">
-        <div class="pills-regular">
-            <ul class="nav nav-pills mb-1" id="pills-tab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" data-target="#pills-home"
-                        href="javascript:void(0)" role="tab" aria-controls="home" aria-selected="true">Data</a>
-                </li>
-                <li class="nav-item">
-                    <a ng-click="new()" class="nav-link" id="pills-profile-tab" data-toggle="pill"
-                        data-target="#pills-profile" href="javascript:void(0)" role="tab" aria-controls="profile"
-                        aria-selected="false"><i class="fas fa-plus-circle"></i>Tambah Data</a>
-                </li>
-            </ul>
-            <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <div class="table-responsive">
-                        <table class="table" datatable="ng">
-                            <thead class="bg-light">
-                                <tr class="border-0">
-                                    <th class="border-0">#</th>
-                                    <th class="border-0">Bank Pembayaran</th>
-                                    <th class="border-0">Nomor Rekening</th>
-                                    <th class="border-0">Batas Pengiriman</th>
-                                    <th class="border-0">Potongan</th>
-                                    <th class="border-0">Status</th>
-                                    <th class="border-0">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="item in Items">
-                                    <td>{{$index+1}}</td>
-                                    <td>{{item.nama_bank_pembayaran}}</td>
-                                    <td>{{item.no_rek_pembayaran}}</td>
-                                    <td>{{item.bts_jumlah_pengiriman}}</td>
-                                    <td>{{item.potongan}}</td>
-                                    <td>{{item.status}}</td>
-                                    <td>
-                                        <ul class="list-group">
-                                            <li class="d-flex justify-content-between align-items-center">
-                                                <span class="badge  badge-pill">
-                                                    <div class="btn-group ml-auto float-lg-right">
-                                                        <a class="btn btn-sm btn-outline-light" data-toggle="pill"
-                                                            data-target="#pills-profile" href="javascript:void(0)"
-                                                            ng-click="selectedItem(item)"><i class="far fa-edit"></i>
-                                                        </a>
-                                                        <button class="btn btn-sm btn-outline-light"
-                                                            ng-click="delete(item)">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </button>
-                                                    </div>
-                                                </span>
-                                            </li>
-                                        </ul>
+        <style>
+            .card-header {
+                display: flex;
+                justify-content: space-between;
+            }
+        </style>
+        <div class="card">
+            <div class="card-header">
+                <h5> Data Management</h5>
+                <a ng-click="new()" class="btn btn-success" data-toggle="modal" data-target="#modelId"
+                    href="javascript:void(0)" role="tab" aria-controls="profile" aria-selected="false"><i
+                        class="fas fa-plus-circle"></i>Tambah Data</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table" datatable="ng">
+                        <thead class="bg-light">
+                            <tr class="border-0">
+                                <th class="border-0">#</th>
+                                <th class="border-0">Bank Pembayaran</th>
+                                <th class="border-0">Nomor Rekening</th>
+                                <th class="border-0">Batas Pengiriman</th>
+                                <th class="border-0">Potongan</th>
+                                <th class="border-0">Status</th>
+                                <th class="border-0">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in Items">
+                                <td>{{$index+1}}</td>
+                                <td>{{item.nama_bank_pembayaran}}</td>
+                                <td>{{item.no_rek_pembayaran}}</td>
+                                <td>{{item.bts_jumlah_pengiriman}}</td>
+                                <td>{{item.potongan}}</td>
+                                <td>{{item.status}}</td>
+                                <td>
+                                    <ul class="list-group">
+                                        <li class="d-flex justify-content-between align-items-center">
+                                            <span class="badge  badge-pill">
+                                                <div class="btn-group ml-auto float-lg-right">
+                                                    <a class="btn btn-sm btn-outline-light" data-toggle="modal"
+                                                        data-target="#modelId" href="javascript:void(0)"
+                                                        ng-click="selectedItem(item)"><i class="far fa-edit"></i>
+                                                    </a>
+                                                    <button class="btn btn-sm btn-outline-light"
+                                                        ng-click="delete(item)">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </button>
+                                                </div>
+                                            </span>
+                                        </li>
+                                    </ul>
 
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <div class="card">
-                        <h3 class="card-header">{{tambahTitle}}</h3>
-                        <div class="card-body">
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <form ng-submit="simpan(model)" id="validationform" data-parsley-validate=""
-                                    novalidate="">
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-left">Nama Bank
-                                            Pembayaran</label>
-                                        <div class="col-12 col-sm-8 col-lg-7">
-                                            <input ng-model="model.nama_bank_pembayaran" type="text" required=""
-                                                data-parsley-minlength="6" placeholder="Nama Bank Pembayaran"
-                                                class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-left">No Rekening
-                                            Pembayaran</label>
-                                        <div class="col-12 col-sm-8 col-lg-7">
-                                            <input ng-model="model.no_rek_pembayaran" type="text" required=""
-                                                data-parsley-minlength="6" placeholder="Nomor Rekening Pembayaran"
-                                                class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-left">Batas Jumlah
-                                            Pengiriman</label>
-                                        <div class="col-12 col-sm-8 col-lg-2">
-                                            <input ng-model="model.bts_jumlah_pengiriman" type="number" required=""
-                                                data-parsley-minlength="6" placeholder="Jumlah" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-left">Potongan</label>
-                                        <div class="col-12 col-sm-8 col-lg-2">
-                                            <input ng-model="model.potongan" type="number" required=""
-                                                data-parsley-minlength="6" placeholder="Potongan" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-left">Status Aktif</label>
-                                        <div class="col-12 col-sm-8 col-lg-2">
-                                            <input ng-model="model.status" value="model.status=='aktif'" type="checkbox"
-                                                required="" data-parsley-minlength="6" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-12 col-sm-3 col-form-label text-sm-left"></label>
-                                        <div class="col-12 col-sm-8 col-lg-7 ">
-                                            <div class="float-right">
-                                                <ul class="list-group">
-                                                    <li class="d-flex justify-content-between align-items-center">
-                                                        <button ng-click="new()" type="button"
-                                                            class="btn btn-danger ">Cancel</button>
-                                                        <button type="submit" class="btn btn-success ">Simpan</button>
-                                                    </li>
-                                                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{tambahTitle}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form ng-submit="simpan(model)" id="validationform" data-parsley-validate="" novalidate="">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label text-sm-left">Bank
+                            Pembayaran</label>
+                        <div class="col-sm-7">
+                            <input ng-model="model.nama_bank_pembayaran" type="text" required=""
+                                data-parsley-minlength="6" placeholder="Nama Bank Pembayaran" class="form-control">
                         </div>
                     </div>
-                </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label text-sm-left">Rekening
+                            Pembayaran</label>
+                        <div class="col-sm-7">
+                            <input ng-model="model.no_rek_pembayaran" type="text" required="" data-parsley-minlength="6"
+                                placeholder="Nomor Rekening Pembayaran" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label text-sm-left">Batas Pengiriman</label>
+                        <div class="col-sm-7">
+                            <input ng-model="model.bts_jumlah_pengiriman" number-input type="number" required=""
+                                data-parsley-minlength="6" placeholder="Jumlah" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label text-sm-left">Potongan</label>
+                        <div class="col-sm-7">
+                            <input ng-model="model.potongan" type="number" required="" number-input
+                                data-parsley-minlength="6" placeholder="Potongan" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label text-sm-left">Status Aktif</label>
+                        <div class="col-sm-7">
+                            <input ng-model="model.status" value="model.status=='aktif'" type="checkbox" required=""
+                                data-parsley-minlength="6" placeholder="">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

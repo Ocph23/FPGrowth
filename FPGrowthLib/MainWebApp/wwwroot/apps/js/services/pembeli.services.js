@@ -15,8 +15,14 @@ function PembeliCartService($http, $q, message, helperServices, AuthService, Sto
 		add: add,
 		delete: remove,
 		saveCart: saveCart,
+		chartStatus: chartStatus,
 		clear: clear
 	};
+
+	function chartStatus() {
+		if (service.data && service.data.length > 0) return true;
+		else return false;
+	}
 
 	function get() {
 		return service.data;

@@ -3,11 +3,14 @@ angular
 	.controller('AlgoritmaController', AlgoritmaController)
 	.controller('AlgoritmaHomeController', AlgoritmaHomeController);
 
-function AlgoritmaController($scope, $state, AuthService, AlgoritmaService) {
+function AlgoritmaController($scope, $state, message, AlgoritmaService, ParameterService) {
 	$scope.IsBusy = false;
+
 	$scope.analisa = (param) => {
 		$scope.IsBusy = true;
-		AlgoritmaService.get(param).then((result) => {
+		var dataparam = { MinSupport: param.nilai_minimum_support, Confidance: param.nilai_minimum_confidancce };
+
+		AlgoritmaService.get(dataparam).then((result) => {
 			$scope.model = result;
 			var vertices = [];
 			var edgesData = [];
@@ -39,6 +42,29 @@ function AlgoritmaController($scope, $state, AuthService, AlgoritmaService) {
 			var network = new vis.Network(container, data, options);
 			$scope.IsBusy = false;
 		});
+	};
+
+	ParameterService.get().then((x) => {
+		$scope.source = x;
+	});
+
+	$scope.save = (data) => {
+		if (data.idnilai) {
+			ParameterService.put(data).then((res) => {});
+		} else {
+			ParameterService.post(data).then((res) => {});
+		}
+	};
+	$scope.delete = (data) => {
+		message.dialog('Hapus Data Parameter').then((x) => {
+			ParameterService.delete(data).then((res) => {
+				message.info('Data Berhasil Dihapus');
+			});
+		});
+	};
+
+	$scope.select = (item) => {
+		$scope.param = angular.copy(item);
 	};
 }
 function AlgoritmaHomeController($scope, $state, AuthService) {}

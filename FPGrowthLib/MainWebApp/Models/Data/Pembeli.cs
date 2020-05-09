@@ -40,7 +40,7 @@ namespace MainWebApp.Models.Data {
           public DateTime tgl_daftar { get; set; }
 
           [DbColumn ("status")]
-          public string status { get; set; }
+          public bool status { get; set; }
 
           [DbColumn ("iduser")]
           public int iduser { get; set; }

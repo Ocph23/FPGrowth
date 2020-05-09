@@ -12,7 +12,7 @@
                 <div class="form-group row pb-0 mb-0 mt-3 pt-0">
                     <div class="offset-xl-1 col-form-label col-sm-3 font-14">Tanggal Lahir</div>
                     <div class="offset-xl-1 col-6 text-dark font-16">
-                        <input class="form-control" ng-model="profile.tgl_lahir" type="date">
+                        <input class="form-control" date-input ng-model="profile.tgl_lahir" type="date">
                     </div>
                 </div>
 
@@ -25,7 +25,8 @@
                 <div class="form-group row pb-0 mb-0 mt-3 pt-0">
                     <div class="offset-xl-1 col-form-label col-sm-3 font-14">Jenis Kelamin</div>
                     <div class="offset-xl-1 col-6 text-dark font-16">
-                        <input class="form-control" ng-model="profile.jenis_kelamin" type="text">
+                        <select class="form-control" ng-model="profile.jenis_kelamin"
+                            ng-options="item as item for item in genders"></select>
                     </div>
                 </div>
                 <div class="form-group row pb-0 mb-0 mt-3 pt-0">

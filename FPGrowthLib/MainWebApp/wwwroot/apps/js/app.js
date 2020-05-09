@@ -75,6 +75,66 @@ angular
 				});
 			}
 		};
+	})
+	.directive('dateInput', function() {
+		return {
+			restrict: 'A',
+			require: 'ngModel',
+			link: textDateLink
+		};
+		function textDateLink(scope, element, attributes, ngModel) {
+			// Simple date regex to accept YYYY/MM/DD formatted dates.
+			var dateTestRegex = /\d{4}\/\d{1,2}\/\d{1,2}/;
+			ngModel.$parsers.push(parser);
+			ngModel.$formatters.push(formatter);
+			function parser(value) {
+				if (!isNaN(Date.parse(value))) {
+					value = new Date(value);
+				}
+
+				return value;
+			}
+			function formatter(value) {
+				var formatted = '';
+				if (value && !angular.isDate(value)) {
+					value = new Date(value);
+				}
+				if (value.getFullYear() == 1) {
+					value = new Date();
+				}
+				return value;
+			}
+		}
+	})
+	.directive('numberInput', function() {
+		return {
+			restrict: 'A',
+			require: 'ngModel',
+			link: textNumberLink
+		};
+		function textNumberLink(scope, element, attributes, ngModel) {
+			ngModel.$formatters.push(formatter);
+			ngModel.$parsers.push(parser);
+			function parser(value) {
+				var retValue = value;
+				if (value !== null) {
+					if (value.length > 0) {
+						if (!isNaN(value)) {
+							retValue = parseInt(str);
+						}
+					}
+				}
+				return retValue;
+			}
+			function formatter(value) {
+				!isNaN(value);
+				{
+					value = parseInt(value);
+				}
+
+				return value;
+			}
+		}
 	});
 
 function homeController($scope, AuthService) {

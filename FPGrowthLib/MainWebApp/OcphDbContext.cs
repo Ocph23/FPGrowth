@@ -34,6 +34,7 @@ namespace MainWebApp {
         public IRepository<Komentar> Komentar { get { return new Repository<Komentar> (this); } }
         public IRepository<Pesan> Chat { get { return new Repository<Pesan> (this); } }
         public IRepository<Pengiriman> Pengiriman { get { return new Repository<Pengiriman> (this); } }
+        public IRepository<Parameter> Parameters { get { return new Repository<Parameter> (this); } }
 
         public IEnumerable<dynamic> SelectDynamic (string sql) {
 

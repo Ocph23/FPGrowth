@@ -25,7 +25,7 @@ namespace MainWebApp.Models.Data {
 
           string keterangan { get; set; }
 
-          string status { get; set; }
+          bool status { get; set; }
 
           int iduser { get; set; }
 

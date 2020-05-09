@@ -63,7 +63,7 @@ function adminsuperDaftarKategoriController($scope, KategoriService, kodefikasiS
 	};
 }
 
-function adminsuperManagemenTransaksiController($scope, ManagemenTransaksiService) {
+function adminsuperManagemenTransaksiController($scope, ManagemenTransaksiService, message) {
 	$scope.model = {};
 	$scope.tambahTitle = 'Tambah Data';
 	ManagemenTransaksiService.get().then((data) => {
@@ -81,33 +81,105 @@ function adminsuperManagemenTransaksiController($scope, ManagemenTransaksiServic
 	};
 
 	$scope.simpan = (param) => {
-		if (param.idkategori == undefined) {
+		if (param.idmanajemen == undefined) {
 			ManagemenTransaksiService.post(param).then((res) => {
 				$scope.model = {};
+				$('#modelId').modal('hide');
 			});
 		} else {
 			ManagemenTransaksiService.put(param).then((res) => {
 				$scope.model = {};
+				$('#modelId').modal('hide');
 			});
 		}
 	};
 
 	$scope.delete = (param) => {
-		ManagemenTransaksiService.delete(param).then((data) => {});
+		message.dialog().then((x) => {
+			ManagemenTransaksiService.delete(param).then((data) => {});
+		});
 	};
 }
-function adminsuperDataPenjualController($scope, DataPenjualService, kodefikasiService) {
+function adminsuperDataPenjualController(
+	$scope,
+	helperServices,
+	DataPenjualService,
+	message,
+	$http,
+	kodefikasiService,
+	AuthService
+) {
 	$scope.kodefikasi = kodefikasiService;
+	$scope.helper = helperServices;
 	DataPenjualService.get().then((result) => {
 		$scope.source = result;
 	});
+
+	$scope.changeStatus = (data) => {
+		var text = 'Mengaktifkan Penjual';
+		if (data.status) {
+			var text = 'Menonaktifkan Penjual';
+		}
+
+		message.dialog(text).then((res) => {
+			$http({
+				method: 'Get',
+				url: helperServices.url + '/user/changeStatusPenjual?userId=' + data.iduser,
+				headers: AuthService.getHeader()
+			}).then(
+				(response) => {
+					data.status = !data.status;
+					message.info('Berhasil...!');
+				},
+				(err) => {
+					message.error(err.data);
+				}
+			);
+		});
+	};
+	$scope.register = function(user) {
+		AuthService.registerPenjual(user).then((x) => {
+			$scope.source.push(x);
+		});
+	};
 }
 
-function adminsuperDataPembeliController($scope, DataPembeliService, kodefikasiService) {
+function adminsuperDataPembeliController(
+	$scope,
+	DataPembeliService,
+	message,
+	helperServices,
+	AuthService,
+	$http,
+	kodefikasiService
+) {
 	$scope.kodefikasi = kodefikasiService;
 	DataPembeliService.get().then((result) => {
 		$scope.source = result;
 	});
+
+	$scope.changeStatus = (data) => {
+		var text = 'Mengaktifkan Pembeli';
+		if (data.status) {
+			var text = 'Menonaktifkan Pembeli';
+		}
+
+		message.dialog(text).then((res) => {
+			$http({
+				method: 'Get',
+				url: helperServices.url + '/user/changeStatusPembeli?userId=' + data.iduser,
+				headers: AuthService.getHeader()
+			}).then(
+				(response) => {
+					data.status = !data.status;
+					message.info('Berhasil...!');
+				},
+				(err) => {
+					message.error(err.data);
+				}
+			);
+		});
+	};
 }
 
 function adminsuperDataOrderController($scope, OrderService, kodefikasiService) {

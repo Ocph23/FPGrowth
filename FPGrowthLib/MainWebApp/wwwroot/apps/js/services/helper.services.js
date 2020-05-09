@@ -26,6 +26,8 @@ function helperServices($location) {
 		return map;
 	};
 
+	service.genders = [ 'L', 'P' ];
+
 	return service;
 }
 
@@ -70,8 +72,6 @@ function kodefikasiServices() {
 		tgl = new Date(tgl);
 		return 'PMB' + tgl.getFullYear() + tgl.getDay().padLeft(2) + tgl.getMonth().padLeft(2) + number.padLeft(4);
 	};
-
-	function extra(params) {}
 
 	return service;
 }

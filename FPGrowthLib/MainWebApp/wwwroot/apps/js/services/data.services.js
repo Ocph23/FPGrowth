@@ -1,6 +1,7 @@
 angular
 	.module('data.service', [])
 	.factory('BarangService', BarangServices)
+	.factory('ParameterService', ParameterService)
 	.factory('CommentService', CommentServices)
 	.factory('KategoriService', KategoriServices)
 	.factory('OrderService', OrderService)
@@ -202,6 +203,9 @@ function ManagemenTransaksiService($http, $q, message, helperServices, AuthServi
 			data: param
 		}).then(
 			(response) => {
+				service.Items.forEach((item) => {
+					item.status = false;
+				});
 				service.Items.push(response.data);
 				def.resolve(response.data);
 			},
@@ -223,6 +227,16 @@ function ManagemenTransaksiService($http, $q, message, helperServices, AuthServi
 			data: param
 		}).then(
 			(response) => {
+				service.Items.forEach((item) => {
+					if (item.idmanajemen == param.idmanajemen) {
+						item.nama_bank_pembayaran = param.nama_bank_pembayaran;
+						item.no_rek_pembayaran = param.no_rek_pembayaran;
+						item.potongan = param.potongan;
+						item.status = param.status;
+					} else {
+						item.status = false;
+					}
+				});
 				def.resolve(response.data);
 			},
 			(err) => {
@@ -889,6 +903,131 @@ function CommentServices($http, $q, message, helperServices, AuthService) {
 		$http({
 			method: 'Delete',
 			url: url + '/' + param.idcomment,
+			headers: AuthService.getHeader()
+		}).then(
+			(response) => {
+				var index = service.Items.indexOf(param);
+				service.Items.splice(index, 1);
+				def.resolve(response.data);
+			},
+			(err) => {
+				message.error(err.data);
+				def.reject(err);
+			}
+		);
+		return def.promise;
+	};
+
+	return service;
+}
+
+function ParameterService($http, $q, message, helperServices, AuthService) {
+	var url = helperServices.url + '/api/parameter';
+	var service = { Items: [] };
+
+	service.get = function() {
+		var def = $q.defer();
+		if (service.instance) {
+			def.resolve(service.Items);
+		} else {
+			$http({
+				method: 'Get',
+				url: url,
+				headers: AuthService.getHeader()
+			}).then(
+				(response) => {
+					service.instance = true;
+					service.Items = response.data;
+					def.resolve(service.Items);
+				},
+				(err) => {
+					message.error(err.data);
+					def.reject(err);
+				}
+			);
+		}
+
+		return def.promise;
+	};
+
+	service.getById = function(id) {
+		var def = $q.defer();
+		if (service.instance) {
+			var data = service.Items.find((x) => x.idkategori == id);
+			def.resolve(data);
+		} else {
+			$http({
+				method: 'Get',
+				url: url + '/' + id,
+				headers: AuthService.getHeader()
+			}).then(
+				(response) => {
+					service.Items.push(response.data);
+					def.resolve(response.data);
+				},
+				(err) => {
+					message.error(err.data);
+					def.reject(err);
+				}
+			);
+		}
+
+		return def.promise;
+	};
+
+	service.post = function(param) {
+		var def = $q.defer();
+		$http({
+			method: 'Post',
+			url: url,
+			headers: AuthService.getHeader(),
+			data: param
+		}).then(
+			(response) => {
+				service.Items.push(response.data);
+				def.resolve(response.data);
+			},
+			(err) => {
+				message.error(err.data);
+				def.reject(err);
+			}
+		);
+
+		return def.promise;
+	};
+
+	service.put = function(param) {
+		var def = $q.defer();
+		$http({
+			method: 'Put',
+			url: url,
+			headers: AuthService.getHeader(),
+			data: param
+		}).then(
+			(response) => {
+				service.Items.forEach((x) => {
+					if (x.idnilai == param.idnilai) {
+						x.status = true;
+					} else {
+						x.status = false;
+					}
+				});
+
+				def.resolve(response.data);
+			},
+			(err) => {
+				message.error(err.data);
+				def.reject(err);
+			}
+		);
+		return def.promise;
+	};
+
+	service.delete = function(param) {
+		var def = $q.defer();
+		$http({
+			method: 'Delete',
+			url: url + '/' + param.idnilai,
 			headers: AuthService.getHeader()
 		}).then(
 			(response) => {

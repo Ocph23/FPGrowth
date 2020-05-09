@@ -23,7 +23,7 @@ namespace MainWebApp.Models.Data {
 
           DateTime tgl_daftar { get; set; }
 
-          string status { get; set; }
+          bool status { get; set; }
 
           int iduser { get; set; }
 

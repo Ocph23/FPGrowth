@@ -18,25 +18,61 @@
             <div class="card-header">
                 <h3>Min Support And Confidance</h3>
             </div>
-            <div class="card-body">
-                <form ng-submit="analisa(param)" class="col-xl-4 col-lg-6 col-md-8 col-sm-12 col-12">
-                    <div class="form-group">
-                        <label for="">Min Suport</label>
-                        <input type="number" ng-model="param.minsupport" class="form-control" placeholder=""
-                            aria-describedby="helpId">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Confidance</label>
-                        <input type="number" min="" max="1" step=".01" ng-model="param.confidance" class="form-control"
-                            placeholder="Nilai Maximum 1" aria-describedby="helpId">
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-outline-primary" type="submit" class="form-control">Analisa</button>
-                    </div>
-                </form>
+            <div class="row card-body">
+                <div class="col-md-4">
+                    <form ng-submit="analisa(param)" class="col-12">
+                        <div class="form-group">
+                            <label for="">Min Suport</label>
+                            <input type="number" ng-model="param.nilai_minimum_support" max="100" class="form-control"
+                                placeholder="" aria-describedby="helpId">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Confidance</label>
+                            <input type="number" min="" max="1" step=".1" ng-model="param.nilai_minimum_confidancce"
+                                class="form-control" placeholder="Nilai Maximum 1" aria-describedby="helpId">
+                        </div>
+                        <div class="form-group"
+                            ng-show="param.nilai_minimum_support && param.nilai_minimum_confidancce">
+                            <button class="btn btn-outline-success" type="button" ng-click="save(param)"
+                                class="form-control">Simpan</button>
+                            <button class="btn btn-outline-primary" type="submit" class="form-control">Analisa</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-7">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Minimum Suport</th>
+                                <th>Minimum Confidance</th>
+                                <th>Status</th>
+                                <th> <button class="btn btn-sm btn-outline-success" ng-click="param=null">
+                                        <i class="far fa-plus-square"></i>
+                                    </button></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in source" ng-click="select(item)">
+                                <td scope="row">{{$index+1}}</td>
+                                <td>{{item.nilai_minimum_support}}</td>
+                                <td>{{item.nilai_minimum_confidancce}}</td>
+                                <td>{{item.status}}</td>
+                                <td> <button class="btn btn-sm btn-outline-light" ng-click="delete(item)">
+                                        <i class="far fa-trash-alt"></i>
+                                    </button></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+
             </div>
             <div class="card-footer"></div>
         </div>
+
+
 
     </div>
 

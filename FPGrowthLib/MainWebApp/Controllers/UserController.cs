@@ -86,5 +86,25 @@ namespace MainWebApp.Controllers {
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> changeStatusPembeli (int userId) {
+            try {
+                var data = await _service.changeStatusPembeli (userId);
+                return Ok (data);
+            } catch (System.Exception ex) {
+                return BadRequest (ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> changeStatusPenjual (int userId) {
+            try {
+                var data = await _service.changeStatusPenjual (userId);
+                return Ok (data);
+            } catch (System.Exception ex) {
+                return BadRequest (ex.Message);
+            }
+        }
+
     }
 }

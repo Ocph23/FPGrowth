@@ -12,6 +12,21 @@ body {
 .item-barang {
   padding: 5px;
   padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  .item-detail {
+    display: flex;
+    .item-detail-body {
+      display: flex;
+      flex-wrap: wrap;
+      .item {
+        margin-right: 15px;
+      }
+    }
+    .item-footer {
+      padding-top: 5px !important;
+    }
+  }
 }
 
 .main {

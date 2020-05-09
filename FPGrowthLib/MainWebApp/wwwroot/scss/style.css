@@ -12,6 +12,35 @@ body {
 .item-barang {
   padding: 5px;
   padding-top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.item-barang .item-detail {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.item-barang .item-detail .item-detail-body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.item-barang .item-detail .item-detail-body .item {
+  margin-right: 15px;
+}
+
+.item-barang .item-detail .item-footer {
+  padding-top: 5px !important;
 }
 
 .main {

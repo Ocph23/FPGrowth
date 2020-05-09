@@ -26,13 +26,18 @@
                         </div>
                     </div>
                     <h3 class="text-left pt-3">Pembayaran Lewat Bank</h3>
+                    <div class="form-group row ">
+                        <label class="col-12 col-sm-3 col-form-label text-right mt-0 m-t-0">Nama Bank</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <input ng-model="model.management.nama_bank_pembayaran" disabled data-parsley-type="number"
+                                type="text" required="" placeholder="Enter only numbers" class="form-control">
+                        </div>
+                    </div>
                     <div class="form-group row border-bottom">
-                        <label class="col-12 col-sm-3 col-form-label text-right mt-0 m-t-0">Pilih
-                            Bank</label>
-                        <div class="col-12 col-sm-8 col-lg-4">
-                            <select required="" data-parsley-type="input-select" class="form-control">
-                                <option>Muamalat Syariah</option>
-                            </select>
+                        <label class="col-12 col-sm-3 col-form-label text-right mt-0 m-t-0">Nomor Rekening</label>
+                        <div class="col-12 col-sm-8 col-lg-6">
+                            <input ng-model="model.management.no_rek_pembayaran" disabled data-parsley-type="number"
+                                type="text" required="" placeholder="Enter only numbers" class="form-control">
                         </div>
                     </div>
                     <h3 class="text-left pt-3">Status Pengiriman</h3>

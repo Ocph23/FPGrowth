@@ -48,7 +48,20 @@ angular.module('penjual.router', []).config(function($stateProvider, $urlRouterP
 			url: '/editbarang/:id',
 			parent: 'penjual',
 			controller: 'penjualeditbarangController',
-			templateUrl: 'apps/views/penjual/tambahbarang.html'
+			templateUrl: 'apps/views/penjual/tambahbarang.html',
+			resolve: {
+				PreviousState: [
+					'$state',
+					function($state) {
+						var currentStateData = {
+							Name: $state.current.name,
+							Params: $state.params,
+							URL: $state.href($state.current.name, $state.params)
+						};
+						return currentStateData;
+					}
+				]
+			}
 		})
 		.state('penjual-daftarorder', {
 			url: '/daftarorder',

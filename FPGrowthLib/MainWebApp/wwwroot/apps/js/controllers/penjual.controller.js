@@ -35,7 +35,8 @@ function penjualpHomeController($scope, AuthService, BarangService, PenjualOrder
 	});
 }
 
-function penjualprofilpController($scope, $http, helperServices, AuthService, message, StorageService) {
+function penjualprofilpController($scope, $http, helperServices, AuthService, message, $state, StorageService) {
+	$scope.genders = helperServices.genders;
 	AuthService.profile().then((x) => {
 		$scope.profile = x;
 	});
@@ -51,6 +52,7 @@ function penjualprofilpController($scope, $http, helperServices, AuthService, me
 				StorageService.addObject('profile', result.data);
 				$scope.profile = result.data;
 				message.info('Profile berhasil Diubah');
+				$state.go('penjual-home');
 			},
 			(err) => {
 				message.error(err);
@@ -63,14 +65,32 @@ function penjualeditprofilController($scope) {
 	$scope.model = {};
 }
 
-function penjualdaftarbarangController($scope, BarangService, kodefikasiService) {
+function penjualdaftarbarangController($scope, BarangService, KategoriService, kodefikasiService, message) {
 	$scope.kodefikasi = kodefikasiService;
+	$scope.selectedKategori = { idkategori: 0 };
 	BarangService.get().then((data) => {
 		$scope.Items = data;
+		KategoriService.get().then((kategories) => {
+			$scope.kategories = kategories;
+		});
 	});
 
 	$scope.padLeft = (number, length) => {
 		return number.padLeft(length);
+	};
+
+	$scope.filterKategori = (param) => {
+		BarangService.get().then((data) => {
+			$scope.Items = data.filter((res) => res.idkategori == param.idkategori);
+		});
+	};
+
+	$scope.delete = (id) => {
+		message.dialog('Hapus Barang').then((x) => {
+			BarangService.delete(id).then((result) => {
+				message.info('Barang Berhasil Dihapus');
+			});
+		});
 	};
 }
 
@@ -81,7 +101,8 @@ function penjualdetailbarangController(
 	BarangService,
 	PembeliCartService,
 	CommentService,
-	message
+	$state,
+	$rootScope
 ) {
 	$scope.message = '';
 	BarangService.getById($stateParams.id).then((result) => {
@@ -147,10 +168,21 @@ function penjualtambahbarangController($scope, AuthService, message, KategoriSer
 		model = {};
 	};
 }
-function penjualeditbarangController($scope, AuthService, message, KategoriService, BarangService, $stateParams) {
+function penjualeditbarangController(
+	$scope,
+	AuthService,
+	message,
+	KategoriService,
+	BarangService,
+	$state,
+	$rootScope,
+	PreviousState,
+	$stateParams
+) {
 	$scope.title = 'Edit Barang';
 	$scope.model = {};
 	var id = $stateParams.id;
+	var a = $state.$current.$previousState;
 	AuthService.profile().then((x) => {
 		$scope.profile = x;
 		KategoriService.get().then((kategories) => {
@@ -166,8 +198,10 @@ function penjualeditbarangController($scope, AuthService, message, KategoriServi
 		model.idkategori = model.kategori.idkategori;
 		BarangService.put(model).then((data) => {
 			message.info('Data Berhasil Disimpan');
+			if (PreviousState.Name) {
+				$state.go(PreviousState.Name, PreviousState.Params);
+			}
 		});
-
 		model = {};
 	};
 }
