@@ -9,7 +9,8 @@
                 <div class="form-group row pb-0 mb-0">
                     <div class="offset-xl-1 col-form-label col-sm-3 font-14">No. Order</div>
                     <div class="offset-xl-1 col-sm-3 "><a
-                            class="badge badge-success text-light font-16">{{padLeft(order.idorder,5)}}</a></div>
+                            class="badge badge-success text-light font-16">{{kodefikasi.order(order.idorder,order.tgl_order)}}</a>
+                    </div>
                 </div>
                 <div class="form-group row pb-0 mb-0 mt-0 pt-0">
                     <div class="offset-xl-1 col-form-label col-sm-3 font-14">Atas Nama</div>
@@ -42,7 +43,8 @@
                 </div>
                 <div class="form-group row pb-0 mb-0 mt-0 pt-0">
                     <div class="offset-xl-1 col-sm-3 mb-3 font-14">Jumlah Bayar</div>
-                    <div class="offset-xl-1 col-sm-3 font-16 text-primary">Rp. {{total(order)|number}}</div>
+                    <div class="offset-xl-1 col-sm-3 font-16 text-primary">Rp. {{orderService.total(order.data)|number}}
+                    </div>
                 </div>
                 <div class="form-group row pb-3 mb-0 mt-0 pt-0 border-bottom">
                     <div class="offset-xl-1 col-sm-3 font-14">Status Pegantaran</div>
@@ -93,7 +95,9 @@
                 </div>
             </div>
             <div class="card-footer text-center">
-                <button class="btn btn-outline-success font-16" ng-click="save(model)">Konfirmasi Pembayaran</button>
+                <button class="btn btn-outline-success font-16" ng-click="save(model)">
+                    <i class="fa fa-spinner fa-spin" ng-show="helper.IsBusy"></i>
+                    Konfirmasi Pembayaran</button>
             </div>
         </div>
     </div>

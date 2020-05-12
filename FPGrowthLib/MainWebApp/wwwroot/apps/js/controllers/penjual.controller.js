@@ -231,7 +231,7 @@ function penjualdaftarorderController($scope, AuthService, kodefikasiService, Or
 						no_tlp: item.no_tlp,
 						alamat: item.alamat,
 						bukti_pengiriman: item.bukti_pengiriman,
-						jumlah_barang: item.jumlah_barang,
+						jumlah_barang: jumlahBarang(values),
 						status_pengantaran: item.status_pengantaran,
 						alamatpengiriman: item.alamatpengiriman,
 						bts_jumlah_pengiriman: item.bts_jumlah_pengiriman
@@ -253,11 +253,20 @@ function penjualdaftarorderController($scope, AuthService, kodefikasiService, Or
 
 					model.total = OrderService.total(model.data);
 					model.diantar =
-						model.total >= item.bts_jumlah_pengiriman ? (item.idpengiriman ? 'Sudah ' : 'Belum') : 'Tidak';
-					$scope.orders.push(model);
+						model.jumlah_barang >= item.bts_jumlah_pengiriman
+							? item.idpengiriman ? 'Sudah' : 'Belum'
+							: 'Tidak Diantar';
+
+					if (model.idpembayaran) $scope.orders.push(model);
 				}
 			});
 		});
+
+		function jumlahBarang(data) {
+			return data.reduce((total, item) => {
+				return total + item.jumlah;
+			}, 0);
+		}
 	});
 
 	$scope.selectModel = (item) => {
@@ -287,6 +296,7 @@ function penjualdaftarorderController($scope, AuthService, kodefikasiService, Or
 			model.idpengiriman = x.idpengiriman;
 			model.bukti_pengiriman = x.bukti_pengiriman;
 			model.kodepengiriman = kodefikasiService.pengiriman(x.idpengiriman, x.tgl_pengiriman);
+			model.diantar = 'Sudah';
 		});
 		$scope.model = null;
 	};

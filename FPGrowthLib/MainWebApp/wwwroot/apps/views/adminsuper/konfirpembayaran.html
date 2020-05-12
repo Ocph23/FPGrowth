@@ -27,15 +27,15 @@
                                 <table class="table">
                                     <thead class="bg-light">
                                         <tr>
-                                            <th>No</th>
-                                            <th>Kode Bayar</th>
-                                            <th>No Order</th>
-                                            <th>Nama Pembeli </th>
-                                            <th>Total Bayar</th>
-                                            <th>Diantar</th>
-                                            <th>Bukti Bayar</th>
-                                            <th>Status Bayar</th>
-                                            <th class="text-right">Aksi</th>
+                                            <th style="width: 3%;">No</th>
+                                            <th style="width: auto;">Kode Bayar</th>
+                                            <th style="width: auto">No Order</th>
+                                            <th style="width: 20%;">Nama Pembeli </th>
+                                            <th style="width: 20%;">Total Bayar</th>
+                                            <th style="width: 10%;">Diantar</th>
+                                            <th style="width: 10%;">Bukti Bayar</th>
+                                            <th style="width: 10%;">Status Bayar</th>
+                                            <th style="width: auto;" class="text-right">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -54,8 +54,9 @@
                                             <td class="font-16"><span>Rp.{{orderService.total(item.data)|number}}</span>
                                             </td>
 
-                                            <td class="font-16">
-                                                {{item.diantar}}</td>
+                                            <td class="font-16"><span class="badge"
+                                                    ng-class="item.diantar=='Sudah' ? 'badge-success' : (item.diantar=='Belum' ? 'badge-warning':'badge-default')">{{item.diantar}}</span>
+                                            </td>
                                             <td class="font-16">
                                                 {{item.pembayaran ? 'Ada':'Tidak Ada'}}</td>
                                             <td class="font-16"><span class="badge"
@@ -68,11 +69,10 @@
                                                         aria-expanded="false" aria-controls="collapseExample"
                                                         ng-click="setBarang(item)"
                                                         class="btn btn-sm btn-outline-light"><i
-                                                            class="far fa-list"></i></button>
+                                                            class="fa fa-list"></i></button>
                                                     <button ng-click="showBukti(item)" data-toggle="modal"
                                                         data-target="#exampleModalCenter"
-                                                        class="btn btn-sm btn-outline-light"> <i
-                                                            class="far fa-edit"></i>
+                                                        class="btn btn-sm btn-outline-light"> <i class="fa fa-edit"></i>
                                                     </button>
                                                 </div>
                                             </td>

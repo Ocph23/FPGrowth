@@ -22,15 +22,17 @@ namespace MainWebApp.Controllers {
                 using (var db = new OcphDbContext (_setting)) {
                     try {
                     var orders = from a in db.Order.Select ()
-                    join b in db.Transaksi.Select () on a.idorder equals b.idorder into gg
                     join m in db.Pembeli.Select () on a.idpembeli equals m.idpembeli
+                    join man in db.ManagementTransaksi.Select () on a.idmanajemen equals man.idmanajemen
                     join p in db.Pembayaran.Select () on a.idorder equals p.idorder into pp
-                    from p in pp.DefaultIfEmpty ()
+                    join pe in db.Pengiriman.Select () on a.idorder equals pe.idorder into gPe
 
+                    join b in db.Transaksi.Select () on a.idorder equals b.idorder into gg
                     select new Order {
                     idmanajemen = a.idmanajemen, alamatpengiriman = a.alamatpengiriman,
-                    idorder = a.idorder, idpembeli = a.idpembeli, tgl_order = a.tgl_order, Data = gg.ToList (),
-                    wkt_exp_order = a.wkt_exp_order, pembayaran = pp.FirstOrDefault (), pembeli = m
+                    idorder = a.idorder, idpembeli = a.idpembeli, tgl_order = a.tgl_order, pembeli = m,
+                    pengiriman = gPe.FirstOrDefault (), management = man,
+                    wkt_exp_order = a.wkt_exp_order, pembayaran = pp.FirstOrDefault (), Data = gg.ToList ()
                         };
 
                         return Ok (orders.OrderByDescending (x => x.tgl_order).ToList ());
@@ -49,18 +51,22 @@ namespace MainWebApp.Controllers {
         public IActionResult GetOrderByIdPembeli (int idpembeli) {
             using (var db = new OcphDbContext (_setting)) {
                 try {
+
                 var orders = from a in db.Order.Where (x => x.idpembeli == idpembeli)
+                join m in db.Pembeli.Select () on a.idpembeli equals m.idpembeli
+                join man in db.ManagementTransaksi.Select () on a.idmanajemen equals man.idmanajemen
                 join p in db.Pembayaran.Select () on a.idorder equals p.idorder into pp
-                from p in pp.DefaultIfEmpty ()
+                join pe in db.Pengiriman.Select () on a.idorder equals pe.idorder into gPe
+
                 join b in db.Transaksi.Select () on a.idorder equals b.idorder into gg
-                from b in gg.DefaultIfEmpty ()
                 select new Order {
                 idmanajemen = a.idmanajemen, alamatpengiriman = a.alamatpengiriman,
-                idorder = a.idorder, idpembeli = a.idpembeli, tgl_order = a.tgl_order,
-                wkt_exp_order = a.wkt_exp_order, pembayaran = p, Data = gg.ToList ()
+                idorder = a.idorder, idpembeli = a.idpembeli, tgl_order = a.tgl_order, pembeli = m,
+                pengiriman = gPe.FirstOrDefault (), management = man,
+                wkt_exp_order = a.wkt_exp_order, pembayaran = pp.FirstOrDefault (), Data = gg.ToList ()
                     };
 
-                    return Ok (orders);
+                    return Ok (orders.OrderByDescending (x => x.tgl_order).ToList ());
                 } catch (System.Exception ex) {
                     return BadRequest (ex.Message);
                 }

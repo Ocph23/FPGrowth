@@ -6,17 +6,24 @@ angular
 	.controller('confirmEmailController', confirmEmailController)
 	.controller('LoginController', LoginController);
 
-function LoginController($scope, $state, AuthService) {
+function LoginController($scope, $state, AuthService, helperServices) {
+	$scope.helper = helperServices;
 	$scope.login = function(user) {
+		$scope.helper.IsBusy = true;
 		AuthService.login(user).then((x) => {
+			$scope.helper.IsBusy = false;
 			$state.go(x.role + '-home');
 		});
 	};
 }
 
-function RegisterPembeliController($scope, $state, AuthService) {
+function RegisterPembeliController($scope, helperServices, AuthService) {
+	$scope.helper = helperServices;
 	$scope.register = function(user) {
-		AuthService.registerPembeli(user).then((x) => {});
+		$scope.helper.IsBusy = true;
+		AuthService.registerPembeli(user).then((x) => {
+			$scope.helper.IsBusy = false;
+		});
 	};
 }
 

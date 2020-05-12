@@ -44,7 +44,7 @@
                                         <td class="font-16"><span class="badge"
                                                 ng-class="item.expire?'badge-danger':'badge-warning'">{{item.status}}</span>
                                         </td>
-                                        <td class="font-16"><span>Rp.{{total(item)|number}}</span>
+                                        <td class="font-16"><span>Rp.{{orderService.total(item.data)|number}}</span>
                                         </td>
                                         <td class="font-16"><span><button type="button" data-toggle="collapse"
                                                     data-target="#collapseExample{{item.idorder}}" aria-expanded="false"
@@ -67,7 +67,7 @@
                                                 ui-sref="pembeli-detailproduk({id:data.idbarang})">
                                                 <td class="font-16"><a
                                                         ui-sref="pembeli-detailproduk({id:data.idbarang})"
-                                                        class="badge badge-warning">{{kodefikasi.barang(data.idbarang, data.tgl_publish)}}</a>
+                                                        class="badge badge-warning">{{kodefikasi.barang(data.idbarang, data.barang.tgl_publish)}}</a>
                                                 </td>
                                                 <td class="font-16">
                                                     <span>{{data.barang.nama_barang}}</span>
@@ -112,6 +112,7 @@
                                         <th>Tgl Order</th>
                                         <th>Waktu Expire</th>
                                         <th>Status</th>
+                                        <th>Status Pengiriman</th>
                                         <th>Total</th>
                                         <th>Detail</th>
                                     </tr>
@@ -123,15 +124,26 @@
                                         </td>
                                         <td class="font-16"><span>{{item.wkt_exp_order|date:'dd-MM-yyyy hh:mm'}}</span>
                                         </td>
-                                        <td class="font-16"><span class="badge badge-warning">{{item.status}}</span>
+                                        <td class="font-16"><span class="badge"
+                                                ng-class="item.status=='Lunas'?'badge-success':'badge-warning'">{{item.status}}</span>
                                         </td>
-                                        <td class="font-16"><span>Rp. {{total(item)|number}}</span>
+                                        <td class="font-16">
+                                            <span class="badge"
+                                                ng-class="item.pengiriman?'badge-success':'badge-warning'">
+                                                <span ng-if="item.pengiriman && item.diantar=='Ya'">Sudah</span>
+                                                <span ng-if="item.pengiriman && !item.diantar=='Ya'">Belum</span>
+                                                <span ng-if="item.diantar !='Ya'">Tidak Diantar</span>
+                                            </span>
+                                        </td>
+                                        <td class="font-16"><span>Rp. {{orderService.total(item.data)|number}}</span>
                                         </td>
                                         <td class="font-16"><span><button type="button" data-toggle="collapse"
                                                     data-target="#collapseExample{{item.idorder}}" aria-expanded="false"
                                                     aria-controls="collapseExample" ng-click="setBarang(item)"
                                                     class="btn btn-outline-dark">Detail</button></span>
                                         </td>
+
+
                                     </tr>
                                 </table>
                                 <div class="collapse" id="collapseExample{{item.idorder}}">
@@ -148,7 +160,7 @@
                                                 ui-sref="pembeli-detailproduk({id:data.idbarang})">
                                                 <td class="font-16"><a
                                                         ui-sref="pembeli-detailproduk({id:data.idbarang})"
-                                                        class="badge badge-warning">{{kodefikasi.barang(data.idbarang, item.tgl_order)}}</a>
+                                                        class="badge badge-warning">{{kodefikasi.barang(data.idbarang, data.barang.tgl_publish)}}</a>
                                                 </td>
                                                 <td class="font-16">
                                                     <span>{{data.barang.nama_barang}}</span>

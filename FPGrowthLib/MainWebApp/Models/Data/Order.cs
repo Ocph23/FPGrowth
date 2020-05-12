@@ -55,6 +55,8 @@ namespace MainWebApp.Models.Data {
 
           public List<Transaksi> Data { get; set; }
           public Pembayaran pembayaran { get; set; }
+          public Pengiriman pengiriman { get; set; }
+          public Manajemen_Transaksi management { get; set; }
           public Pembeli pembeli { get; set; }
      }
 }

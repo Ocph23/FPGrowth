@@ -66,8 +66,10 @@
                                                             aria-hidden="true"></i>
                                                     </button>
 
-                                                    <button ng-show="item.diantar!='Tidak'" ng-click="selectModel(item)"
-                                                        data-toggle="modal" data-target="#pengirimanModalCenter"
+                                                    <button
+                                                        ng-show="item.diantar!='Tidak Diantar' && item.status_pembayaran=='Lunas'"
+                                                        ng-click="selectModel(item)" data-toggle="modal"
+                                                        data-target="#pengirimanModalCenter"
                                                         class="btn btn-sm btn-outline-light"><i class="fa fa-truck"
                                                             aria-hidden="true"></i>
                                                     </button>
@@ -137,14 +139,14 @@
             </div>
             <form ng-submit="save(model)">
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label>Kode Order</label>
-                        <input ng-model="model.kodeorder" readonly type="text" class="form-control form-control-lg"
+                    <div class="form-group" ng-show="model.kodepengiriman">
+                        <label>Kode Pengiriman</label>
+                        <input ng-model="model.kodepengiriman" readonly type="text" class="form-control form-control-lg"
                             autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label>Kode Pengiriman</label>
-                        <input ng-model="model.kodepengiriman" readonly type="text" class="form-control form-control-lg"
+                        <label>Kode Order</label>
+                        <input ng-model="model.kodeorder" readonly type="text" class="form-control form-control-lg"
                             autocomplete="off">
                     </div>
                     <div class="form-group">

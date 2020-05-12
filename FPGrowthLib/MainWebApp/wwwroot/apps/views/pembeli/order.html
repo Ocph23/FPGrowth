@@ -44,7 +44,8 @@
                     <div class="form-group row border-bottom">
                         <label class="col-12 col-sm-3 col-form-label text-left"></label>
                         <div class="col-12 col-sm-8 col-lg-2">
-                            <span class="badge badge-success">{{model.diantar}}</span>
+                            <span class="badge"
+                                ng-class="model.diantar=='Diantar'?'badge-danger':'badge-warning'">{{model.diantar}}</span>
                         </div>
 
                     </div>

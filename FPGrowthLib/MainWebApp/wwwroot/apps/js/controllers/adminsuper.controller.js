@@ -85,11 +85,13 @@ function adminsuperManagemenTransaksiController($scope, ManagemenTransaksiServic
 			ManagemenTransaksiService.post(param).then((res) => {
 				$scope.model = {};
 				$('#modelId').modal('hide');
+				message.info('Data Berhasil Ditambah');
 			});
 		} else {
 			ManagemenTransaksiService.put(param).then((res) => {
 				$scope.model = {};
 				$('#modelId').modal('hide');
+				message.info('Data Berhasil Diubah');
 			});
 		}
 	};
@@ -202,6 +204,11 @@ function adminsuperKonfirPembayaranController($scope, OrderService, kodefikasiSe
 		$scope.source.forEach((element) => {
 			OrderService.setBarang(element);
 			OrderService.diantar(element);
+			if (element.diantar == 'Ya') {
+				element.diantar = element.pengiriman ? 'Sudah' : 'Belum';
+			} else {
+				element.diantar = 'Tidak Diantar';
+			}
 		});
 	});
 

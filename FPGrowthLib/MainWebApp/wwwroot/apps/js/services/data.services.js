@@ -159,7 +159,7 @@ function ManagemenTransaksiService($http, $q, message, helperServices, AuthServi
 		var def = $q.defer();
 		service.get().then(
 			(resultData) => {
-				var result = resultData.find((x) => (x.status = 'Aktif'));
+				var result = resultData.find((x) => x.status == 'true');
 				def.resolve(result);
 			},
 			(err) => {
@@ -175,18 +175,13 @@ function ManagemenTransaksiService($http, $q, message, helperServices, AuthServi
 			var data = service.Items.find((x) => x.idmanajemen == id);
 			def.resolve(data);
 		} else {
-			$http({
-				method: 'Get',
-				url: url + '/' + id,
-				headers: AuthService.getHeader()
-			}).then(
-				(response) => {
-					service.Items.push(response.data);
-					def.resolve(response.data);
+			service.get().then(
+				(resultData) => {
+					var result = resultData.find((x) => x.idmanajemen == id);
+					def.resolve(result);
 				},
 				(err) => {
-					message.error(err.data);
-					def.reject(err);
+					def.resolve(null);
 				}
 			);
 		}
@@ -266,6 +261,8 @@ function ManagemenTransaksiService($http, $q, message, helperServices, AuthServi
 		);
 		return def.promise;
 	};
+
+	service.get();
 
 	return service;
 }
@@ -540,9 +537,10 @@ function OrderService($http, $q, message, helperServices, AuthService, BarangSer
 	};
 
 	service.diantar = async (source) => {
-		if (!source.diantar) {
+		if (source && !source.diantar) {
 			var jumlah = service.jumlah(source);
-			var man = await ManagemenTransaksiService.getById(source.idmanajemen);
+			var man = source.management;
+			if (!man) await ManagemenTransaksiService.getById(source.idmanajemen);
 			if (jumlah >= man.bts_jumlah_pengiriman) {
 				source.diantar = 'Ya';
 			} else {

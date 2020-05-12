@@ -15,7 +15,8 @@ angular
 	.controller('pembeliProfilePenjualController', pembeliProfilePenjualController)
 	.controller('pembelihomemenuController', pembelihomemenuController);
 
-function pembeliController($scope, kodefikasiService, AuthService, ChatService, PembeliCartService) {
+function pembeliController($scope, helperServices, kodefikasiService, AuthService, ChatService, PembeliCartService) {
+	$scope.helper = helperServices;
 	$scope.kodefikasi = kodefikasiService;
 
 	if (AuthService.userIsLogin()) {
@@ -27,13 +28,15 @@ function pembeliController($scope, kodefikasiService, AuthService, ChatService, 
 	$scope.chartStatus = () => PembeliCartService.chartStatus();
 }
 
-function pembeliProfileController($scope, AuthService, $http, helperServices, StorageService, message) {
+function pembeliProfileController($scope, helperServices, AuthService, $http, helperServices, StorageService, message) {
+	$scope.helper = helperServices;
 	AuthService.profile().then((profile) => {
 		$scope.profile = profile;
 		$scope.profile.tgl_lahir = new Date(profile.tgl_lahir);
 	});
 
 	$scope.update = (data) => {
+		$scope.helper.IsBusy = true;
 		$http({
 			url: helperServices.url + '/api/pembeli',
 			method: 'Put',
@@ -45,15 +48,18 @@ function pembeliProfileController($scope, AuthService, $http, helperServices, St
 				result.data.tgl_lahir = new Date(result.data.tgl_lahir);
 				$scope.profile = result.data;
 				message.info('Profile berhasil Diubah');
+				$scope.helper.IsBusy = false;
 			},
 			(err) => {
 				message.error(err);
+				$scope.helper.IsBusy = false;
 			}
 		);
 	};
 }
 
-function pembeliHomeController($scope, BarangService, KategoriService, $rootScope) {
+function pembeliHomeController($scope, helperServices, BarangService, KategoriService, $rootScope) {
+	$scope.helper = helperServices;
 	$scope.Source = null;
 	$scope.selectedKategori = null;
 	BarangService.get().then((barangs) => {
@@ -181,7 +187,8 @@ function pembeliorderController(
 				};
 
 				model.total = OrderService.total(model.data);
-				model.diantar = model.total >= man.bts_jumlah_pengiriman ? 'Diantar' : 'Tidak Diantar';
+				model.jumlah = OrderService.jumlah(model);
+				model.diantar = model.jumlah >= man.bts_jumlah_pengiriman ? 'Diantar' : 'Tidak Diantar';
 				$scope.model = model;
 			});
 		});
@@ -198,10 +205,23 @@ function pembeliorderController(
 
 function pembelitagihanController() {}
 
-function pembelidaftartagihanController($scope, PembeliService, AuthService, BarangService, kodefikasiService) {
+function pembelidaftartagihanController(
+	$scope,
+	helperServices,
+	PembeliService,
+	AuthService,
+	BarangService,
+	kodefikasiService,
+	OrderService
+) {
+	$scope.orderService = OrderService;
+	$scope.helper = helperServices;
 	$scope.kodefikasi = kodefikasiService;
 	AuthService.profile().then((profile) => {
 		PembeliService.getOrders(profile.idpembeli).then((data) => {
+			data.forEach((element) => {
+				OrderService.diantar(element);
+			});
 			$scope.Source = data;
 		});
 	});
@@ -214,16 +234,6 @@ function pembelidaftartagihanController($scope, PembeliService, AuthService, Bar
 				}
 			});
 		});
-	};
-
-	$scope.total = (source) => {
-		return source.data.reduce((total, item) => {
-			return total + item.jumlah * item.harga;
-		}, 0);
-	};
-
-	$scope.padLeft = (number, length) => {
-		return number.padLeft(length);
 	};
 
 	$scope.FilterPembayaran = function(item) {
@@ -240,34 +250,29 @@ function pembelikonfirbayarController(
 	$state,
 	AuthService,
 	PembeliService,
-	ManagemenTransaksiService
+	ManagemenTransaksiService,
+	helperServices,
+	kodefikasiService,
+	OrderService
 ) {
+	$scope.orderService = OrderService;
+	$scope.kodefikasi = kodefikasiService;
+	$scope.helper = helperServices;
+
 	if (!$stateParams.data) {
 		$state.go('pembeli-daftartagihan');
 	} else {
 		AuthService.profile().then((x) => {
 			$scope.profile = x;
-			ManagemenTransaksiService.getActive().then((x) => {
-				$scope.manajemen = x;
-				$scope.order = $stateParams.data;
-			});
+			$scope.order = $stateParams.data;
 		});
 	}
 
-	$scope.padLeft = (number, length) => {
-		return number.padLeft(length);
-	};
-
-	$scope.total = (source) => {
-		return source.data.reduce((total, item) => {
-			return total + item.jumlah * item.harga;
-		}, 0);
-	};
-
 	$scope.save = (model) => {
+		$scope.helper.IsBusy = true;
 		var pembayaran = {
 			tgl_pembayaran: new Date(),
-			potongan: $scope.manajemen.potongan,
+			potongan: $scope.order.manajemen.potongan,
 			bank: model.bank,
 			idorder: $scope.order.idorder,
 			status_pembayaran: 'Menunggu Verifikasi',
@@ -279,8 +284,10 @@ function pembelikonfirbayarController(
 		}
 
 		PembeliService.createPembayaran(pembayaran).then((result) => {
-			order.pembayaran = result;
-			order.status = 'Menunggu Verifikasi Pembayaran';
+			$scope.order.pembayaran = result;
+			$scope.order.status = 'Menunggu Verifikasi Pembayaran';
+			$scope.helper.IsBusy = false;
+			$state.go('pembeli-daftartagihan');
 		});
 	};
 }
