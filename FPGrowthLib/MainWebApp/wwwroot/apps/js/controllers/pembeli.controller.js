@@ -272,7 +272,7 @@ function pembelikonfirbayarController(
 		$scope.helper.IsBusy = true;
 		var pembayaran = {
 			tgl_pembayaran: new Date(),
-			potongan: $scope.order.manajemen.potongan,
+			potongan: $scope.order.management.potongan,
 			bank: model.bank,
 			idorder: $scope.order.idorder,
 			status_pembayaran: 'Menunggu Verifikasi',

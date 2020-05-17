@@ -11,14 +11,15 @@ angular.module('app.chat.conponent', []).component('chating', {
 						var channel = $scope.channels.find((x) => x.channelId == data.idpengirim);
 						if (channel) {
 							channel.chats.push(data);
+							channel.isOpened = true;
 						} else {
 							ChatService.getchatwith(data.idpengirim).then((chats) => {
 								channel = { isOpened: true, channelId: data.idpengirim, chats: chats };
 								channel.chats.push(data);
 								$scope.channels.push(channel);
+								channel.isOpened = true;
 							});
 						}
-						channel.isOpened = true;
 					});
 				});
 
@@ -45,7 +46,7 @@ angular.module('app.chat.conponent', []).component('chating', {
 		}, 5000);
 
 		$rootScope.$on('openChat', (e, value) => {
-			var channel = $scope.channels.find((x) => x.channelId == channelId);
+			var channel = $scope.channels.find((x) => x.channelId == value);
 			if (!channel) {
 				ChatService.getchatwith(value).then((chats) => {
 					channel = { isOpened: true, channelId: value, chats: chats };
