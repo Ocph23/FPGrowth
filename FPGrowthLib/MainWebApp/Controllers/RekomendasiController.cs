@@ -168,7 +168,8 @@ namespace MainWebApp.Controllers {
                     kategori = k, idkategori = k.idkategori
                     };
 
-                    return Ok (resss.Where (x => x.idbarang != barangSearch.idbarang && x.idpenjual == barangSearch.idpenjual));
+                    return Ok (resss.Where (x => x.idbarang != barangSearch.idbarang && x.idpenjual == barangSearch.idpenjual)
+                        .GroupBy (x => x.idbarang, (key, g) => g.OrderBy (e => e.idbarang).First ()));
                 } catch (System.Exception ex) {
                     return BadRequest (ex.Message);
                 }
