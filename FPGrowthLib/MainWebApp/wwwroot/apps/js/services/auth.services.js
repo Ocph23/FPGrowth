@@ -18,8 +18,36 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 		registerPembeli: registerPembeli,
 		registerPenjual: registerPenjual,
 		getToken: getToken,
-		updatePhotoProfile: updatePhotoProfile
+		updatePhotoProfile: updatePhotoProfile,
+		getUsers: getUsers
 	};
+
+	function getUsers() {
+		var def = $q.defer();
+		$http({
+			method: 'get',
+			url: helperServices.url + controller + '/getusers',
+			headers: getHeader()
+		}).then(
+			(res) => {
+				var result = res.data.map((x) => {
+					x.nama =
+						!x.nama_pembeli && !x.nama_penjual
+							? (x.nama = 'admin')
+							: x.nama_pembeli ? x.nama_pembeli : x.nama_penjual;
+					return x;
+				});
+				def.resolve(result);
+			},
+			(err) => {
+				helperServices.IsBusy = false;
+				message.error(err);
+				def.reject();
+			}
+		);
+
+		return def.promise;
+	}
 
 	function updatePhotoProfile(userid, data) {
 		var def = $q.defer();

@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 noprint">
+        <div class="page-header">
+            <h2 class="pageheader-title"><i class="fa fa-fw fa-home"></i> Laporan </h2>
+            <div class="page-breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">WPKS</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Laporan</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- end pageheader  -->
+
+    <!-- Sales -->
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-body noprint">
+                <h3 class="text-muted">Transaksi</h3>
+            </div>
+            <div class="card col-12">
+                <div class="card-header noprint">
+                    <div class="left">
+                        <input class="form-control" type="date" ng-model="from" />
+                        <input class="form-control" type="date" ng-model="to" />
+                        <button class="btn" ng-click="filter(from,to)">Cari</button>
+                    </div>
+                    <div class="right">
+                        <button class="btn btn-info" ng-click="print()"><i class="fa fa-print"></i></button>
+                    </div>
+
+                </div>
+
+                <div class="print-header">
+                    <h3>LAPORAN TRANSAKSI</h3>
+                    <h4><span>{{from|date:'dd MMM yyyy'}} - {{to|date:'dd MMM yyyy'}}</span></h4>
+                </div>
+
+                <div class="card-body p-0 border-3 border-top border-top-primary">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="bg-light">
+                                <tr class="border-0">
+                                    <th>#</th>
+                                    <th>No Order</th>
+                                    <th>Tgl Order</th>
+                                    <th>Pembeli </th>
+                                    <th> Barang</th>
+                                    <th>Harga </th>
+                                    <th>Jumlah</th>
+                                    <th>Total</th>
+                                    <th>Toko</th>
+                                    <th>Potongan</th>
+                                    <th>Fee Admin</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in source">
+                                    <td><span>{{$index+1}}</span>
+                                    </td>
+                                    <td>{{kodefikasi.order(item.idorder,item.tgl_order)}}
+                                    </td>
+                                    <td><span>{{item.tgl_order|date:'dd/MM/yyyy'}}</span>
+                                    </td>
+                                    <td><span>{{item.nama_pembeli}}</span>
+                                    </td>
+                                    <td><span>{{item.nama_barang}}</span>
+                                    </td>
+                                    <td><span>Rp. {{item.harga|number}}</span>
+                                    </td>
+                                    <td><span>{{item.jumlah}}</span>
+                                    </td>
+                                    <td><span>Rp.
+                                            {{item.harga*item.jumlah |number}}</span>
+                                    </td>
+                                    <td><span>{{item.nama_toko}}</span>
+                                    </td>
+
+                                    <td><span>{{item.potongan}} %</span>
+                                    </td>
+                                    <td><span>Rp.
+                                            {{((item.harga*item.jumlah)*(item.potongan/100)) | number}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="7">Total</th>
+                                    <th>Rp. {{totalBayar(source)| number}}</th>
+                                    <th colspan="2"></th>
+                                    <th>Rp. {{adminFee(source) |number}}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .left {
+        display: flex;
+
+    }
+
+    .left>input,
+    button {
+        margin-right: 5px;
+    }
+</style>

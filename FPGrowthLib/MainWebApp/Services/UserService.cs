@@ -20,6 +20,7 @@ namespace MainWebApp.Services {
         Task<Pembeli> RegisterPembeli (Pembeli pembeli);
         Task<Penjual> RegisterPenjual (Penjual pembeli);
         Task<User> UpdatePhotoProfile (int id, byte[] model);
+        Task<IEnumerable<dynamic>> GetUsers ();
         Task<bool> changeStatusPembeli (int userId);
         Task<bool> changeStatusPenjual (int userId);
     }
@@ -252,6 +253,24 @@ namespace MainWebApp.Services {
                 transaction.Rollback ();
                 throw new SystemException (ex.Message);
             }
+        }
+
+        public Task<IEnumerable<dynamic>> GetUsers () {
+            var sql = @"SELECT
+  user.iduser,
+  user.username,
+  user.email,
+  penjual.nama_penjual,
+  pembeli.nama_pembeli,
+  user.photo,
+  user.status,
+  user.role
+FROM
+  user
+  LEFT JOIN penjual ON user.iduser = penjual.iduser
+  LEFT JOIN pembeli ON user.iduser = pembeli.iduser
+where user.status='true'";
+            return Task.FromResult (db.SelectDynamic (sql));
         }
     }
 

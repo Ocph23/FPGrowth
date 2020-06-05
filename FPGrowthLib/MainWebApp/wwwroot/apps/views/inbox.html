@@ -23,18 +23,32 @@
                 <h3>User</h3>
             </div>
             <div class="card-body" style=" height: 65vh; overflow-y: scroll;">
-                <div class="border-bottom" ng-repeat="user in channels">
-                    <div>
-                        <img class="direct-chat-img" src="assets/images/avatar-1.jpg"
-                            ng-src="images/avatar/{{user.avatar}}" alt="message user image">
+                <div class="card" ng-repeat="role in users">
+                    <div class="card-header user-role">
+                        <h5> {{role.key}}</h5>
+                        <a class="btn" data-toggle="collapse" data-target="#{{role.key}}" role="button"
+                            aria-expanded="false" aria-controls="multiCollapseExample1"><i
+                                class="fa fa-angle-down"></i></a>
+
                     </div>
-                    <div>
-                        <a href="" ng-click="selectChannel(user)">
-                            <h5>{{user.userName}}</h5>
-                        </a>
-                        <p>{{user.role}}</p>
+                    <div class="card-body multi-collapse" id="{{role.key}}">
+                        <div class="user-message" ng-repeat="user in role.values">
+                            <div>
+                                <img class="direct-chat-img" src="assets/images/avatar-1.jpg"
+                                    ng-src="images/avatar/{{user.avatar}}" alt="user">
+                            </div>
+                            <div>
+                                <a href="" ng-click="selectChannel(user)">
+                                    <h5>{{user.userName}}</h5>
+                                </a>
+                                <p>{{user.email}}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+
+
             </div>
         </div>
     </div>
@@ -53,7 +67,7 @@
                     </div>
                     <!-- /.direct-chat-infos -->
                     <img class="direct-chat-img" src="assets/images/avatar-1.jpg" ng-src="images/avatar/{{item.avatar}}"
-                        alt="message user image">
+                        alt="user">
                     <!-- /.direct-chat-img -->
                     <div class="direct-chat-text">
                         {{item.isi_pesan}}
@@ -87,5 +101,18 @@
 
     .left {
         margin-right: 20%;
+    }
+
+    .user-message {
+        padding: 5px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid silver;
+    }
+
+    .user-role {
+        display: flex;
+        justify-content: space-between;
+        text-transform: uppercase;
+        font-size: 15px;
     }
 </style>

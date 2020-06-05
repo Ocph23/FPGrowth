@@ -80,5 +80,11 @@ angular.module('penjual.router', []).config(function($stateProvider, $urlRouterP
 			parent: 'penjual',
 			controller: 'inboxController',
 			templateUrl: 'apps/views/inbox.html'
+		})
+		.state('penjual-laporan', {
+			url: '/laporan',
+			parent: 'penjual',
+			controller: 'penjualLaporanController',
+			templateUrl: 'apps/views/penjual/laporan.html'
 		});
 });

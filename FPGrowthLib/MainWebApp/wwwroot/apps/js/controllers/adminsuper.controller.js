@@ -13,6 +13,7 @@ angular
 	.controller('adminsuperDataPembeliController', adminsuperDataPembeliController)
 	.controller('adminsuperDataOrderController', adminsuperDataOrderController)
 	.controller('adminsuperKonfirPembayaranController', adminsuperKonfirPembayaranController)
+	.controller('adminsuperLaporanController', adminsuperLaporanController)
 	.controller('adminsuperKonfirPengirimanController', adminsuperKonfirPengirimanController);
 
 function adminsuperController($scope, AuthService) {
@@ -229,6 +230,35 @@ function adminsuperKonfirPengirimanController($scope, OrderService, kodefikasiSe
 	OrderService.get().then((result) => {
 		$scope.source = result.filter((x) => x.pembayaran);
 	});
+}
+
+function adminsuperLaporanController($scope, kodefikasiService, OrderService) {
+	$scope.kodefikasi = kodefikasiService;
+	$scope.orderService = OrderService;
+	$scope.source = [];
+	OrderService.laporan().then((result) => {
+		$scope.data = result;
+	});
+
+	$scope.filter = (from, to) => {
+		$scope.source = $scope.data.filter((x) => new Date(x.tgl_order) >= from && new Date(x.tgl_order) <= to);
+	};
+
+	$scope.print = () => {
+		window.print();
+	};
+
+	$scope.totalBayar = (source) => {
+		return source.reduce((total, item) => {
+			return (total += item.harga * item.jumlah);
+		}, 0);
+	};
+
+	$scope.adminFee = (source) => {
+		return source.reduce((total, item) => {
+			return (total += item.harga * item.jumlah * (item.potongan / 100));
+		}, 0);
+	};
 }
 
 function adminsuperMenuUtamaController() {}

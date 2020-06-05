@@ -81,6 +81,12 @@ angular.module('pembeli.router', []).config(function($stateProvider, $urlRouterP
 			parent: 'pembeli',
 			templateUrl: 'apps/views/pembeli/diskusi.html'
 		})
+		.state('pembeli-inbox', {
+			url: '/inbox',
+			parent: 'pembeli',
+			controller: 'inboxController',
+			templateUrl: 'apps/views/inbox.html'
+		})
 		.state('pembeli-profile-penjual', {
 			url: '/penjual/:id',
 			parent: 'pembeli',

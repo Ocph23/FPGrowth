@@ -530,6 +530,25 @@ function OrderService($http, $q, message, helperServices, AuthService, BarangSer
 		}, 0);
 	};
 
+	service.laporan = () => {
+		var def = $q.defer();
+		$http({
+			method: 'GET',
+			url: helperServices.url + '/api/laporan',
+			headers: AuthService.getHeader()
+		}).then(
+			(response) => {
+				def.resolve(response.data);
+			},
+			(err) => {
+				message.error(err);
+				def.reject(err);
+			}
+		);
+
+		return def.promise;
+	};
+
 	service.jumlah = (source) => {
 		return source.data.reduce((total, item) => {
 			return total + item.jumlah;

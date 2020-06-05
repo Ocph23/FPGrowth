@@ -88,5 +88,11 @@ angular.module('adminsuper.router', []).config(function($stateProvider, $urlRout
 			parent: 'adminsuper',
 			controller: 'inboxController',
 			templateUrl: 'apps/views/inbox.html'
+		})
+		.state('adminsuper-laporan', {
+			url: '/laporan',
+			parent: 'adminsuper',
+			controller: 'adminsuperLaporanController',
+			templateUrl: 'apps/views/adminsuper/laporan.html'
 		});
 });

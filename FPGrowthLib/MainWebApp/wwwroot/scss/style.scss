@@ -141,3 +141,51 @@ body {
     }
   }
 }
+
+.print-only {
+  display: none !important;
+}
+@media print {
+  @page {
+    size: A4 landscape;
+    max-height: 100%;
+    max-width: 100%;
+    margin: 0.5cm;
+    scale: 0.6, 0.6;
+  }
+  .dashboard-wrapper {
+    position: relative;
+    left: 0;
+    margin-left: 0px;
+    min-height: 870px !important;
+  }
+
+  .noprint {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .print-header {
+    display: flex !important;
+    margin: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: -80px;
+  }
+  th {
+    width: auto;
+  }
+  td,
+  th {
+    font-size: 12px;
+  }
+}
+
+.print-header {
+  display: none;
+}

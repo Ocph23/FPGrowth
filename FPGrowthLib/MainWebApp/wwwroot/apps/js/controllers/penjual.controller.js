@@ -9,6 +9,7 @@ angular
 	.controller('penjualtambahbarangController', penjualtambahbarangController)
 	.controller('penjualeditbarangController', penjualeditbarangController)
 	.controller('penjualdaftarorderController', penjualdaftarorderController)
+	.controller('penjualLaporanController', penjualLaporanController)
 	.controller('penjualdaftarpesananController', penjualdaftarpesananController);
 
 function penjualController($scope, AuthService, $state, ChatService) {
@@ -303,3 +304,36 @@ function penjualdaftarorderController($scope, AuthService, kodefikasiService, Or
 }
 
 function penjualdaftarpesananController() {}
+
+function penjualLaporanController($scope, AuthService, kodefikasiService, OrderService) {
+	$scope.kodefikasi = kodefikasiService;
+	$scope.orderService = OrderService;
+	$scope.source = [];
+
+	AuthService.profile().then((x) => {
+		$scope.profile = x;
+		OrderService.laporan().then((result) => {
+			$scope.data = result.filter((z) => (z.idpenjual = $scope.profile.idpenjual));
+		});
+	});
+
+	$scope.filter = (from, to) => {
+		$scope.source = $scope.data.filter((x) => new Date(x.tgl_order) >= from && new Date(x.tgl_order) <= to);
+	};
+
+	$scope.print = () => {
+		window.print();
+	};
+
+	$scope.totalBayar = (source) => {
+		return source.reduce((total, item) => {
+			return (total += item.harga * item.jumlah);
+		}, 0);
+	};
+
+	$scope.adminFee = (source) => {
+		return source.reduce((total, item) => {
+			return (total += item.harga * item.jumlah * (item.potongan / 100));
+		}, 0);
+	};
+}

@@ -21,6 +21,17 @@ namespace MainWebApp.Controllers {
             _service = service;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> getusers () {
+            try {
+
+                return Ok (await _service.GetUsers ());
+
+            } catch (System.Exception ex) {
+                return BadRequest (ex.Message);
+            }
+        }
+
         [HttpPost]
         public IActionResult login (UserLogin model) {
             try {

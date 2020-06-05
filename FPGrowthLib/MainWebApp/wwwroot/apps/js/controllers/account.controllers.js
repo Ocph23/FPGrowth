@@ -37,20 +37,46 @@ function inboxController($scope, AuthService, ChatService, helperServices) {
 	AuthService.profile().then((profile) => {
 		$scope.profile = profile;
 		$scope.channels = [];
+		AuthService.getUsers().then((users) => {
+			if (profile.role == 'pembeli') {
+				users.filter((p) => p.iduser != profile.iduser && p.role != 'pembeli').forEach((user) => {
+					var channel = {
+						channelId: user.iduser,
+						role: user.role,
+						userName: user.nama,
+						email: user.email,
+						avatar: user.photo
+					};
+					$scope.channels.push(channel);
+				});
+			} else
+				users.filter((p) => p.iduser != profile.iduser).forEach((user) => {
+					var channel = {
+						channelId: user.iduser,
+						role: user.role,
+						userName: user.nama,
+						email: user.email,
+						avatar: user.photo
+					};
+					$scope.channels.push(channel);
+				});
 
-		ChatService.get().then((result) => {
-			var users = helperServices.groupBy(
-				result.filter((p) => p.idpengirim != profile.iduser),
-				(x) => x.idpengirim
-			);
-			users.forEach((values, key) => {
-				var item = values[0];
-				var channel = { channelId: key, role: item.role, userName: item.pengirim, avatar: item.avatar };
-				$scope.channels.push(channel);
-			});
+			ChatService.get().then((result) => {
+				$scope.channels.forEach((item) => {
+					item.chats = result.filter((x) => x.idpenerima == item.channelId || x.idpengirim == item.channelId);
+				});
 
-			$scope.channels.forEach((item) => {
-				item.chats = result.filter((x) => x.idpenerima == item.channelId || x.idpengirim == item.channelId);
+				$scope.users = [];
+
+				var datas = helperServices.groupBy(
+					$scope.channels.sort(function(x, y) {
+						return x.channelId - y.channelId;
+					}),
+					(x) => x.role
+				);
+				datas.forEach((values, key) => {
+					$scope.users.push({ key: key, values: values });
+				});
 			});
 		});
 	});
