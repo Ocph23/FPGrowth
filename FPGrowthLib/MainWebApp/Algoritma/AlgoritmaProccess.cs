@@ -26,7 +26,7 @@ namespace MainWebApp.Algoritma {
             }
 
             Frekuensi = result;
-            var resultX = result.OrderBy (x => x.Suport).ToList ();
+            var resultX = result.OrderByDescending (x => x.Suport).ThenBy (x => x.Name).ToList ();
 
             foreach (var itemRemove in frRemoveItem) {
                 foreach (var data in datas) {
@@ -41,7 +41,7 @@ namespace MainWebApp.Algoritma {
             foreach (var data in datas) {
                 data.SortData = new List<string> ();
 
-                foreach (var item in result.OrderByDescending (x => x.Count)) {
+                foreach (var item in result.OrderByDescending (x => x.Count).ThenBy (x => x.Name)) {
                     var res = data.Items.Where (x => x == item.Name).FirstOrDefault ();
                     if (res != null) {
                         data.SortData.Add (res);
@@ -176,7 +176,7 @@ namespace MainWebApp.Algoritma {
 
             FrekuensiItemSet = frekuensiToItemSet;
 
-            ResultX = resultX;
+            ResultX = resultX.OrderByDescending (x => x.Suport).ThenBy (x => x.Name).ToList ();
 
             //Console.WriteLin("");
             //Console.WriteLin("NILAI Confidance");
