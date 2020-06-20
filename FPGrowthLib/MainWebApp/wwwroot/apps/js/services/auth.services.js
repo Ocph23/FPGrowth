@@ -115,13 +115,21 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 			data: user
 		}).then(
 			(res) => {
-				StorageService.addObject('user', res.data);
-				def.resolve(res.data);
+				if (!res.data.status) {
+					$state.go('confirmemail', { user: res.data });
+				} else {
+					StorageService.addObject('user', res.data);
+					def.resolve(res.data);
+				}
 			},
 			(err) => {
 				helperServices.IsBusy = false;
-				message.error(err);
-				def.reject();
+				if ((err.status = 401 && err.data)) {
+					$state.go('confirmemail');
+				} else {
+					message.error(err);
+					def.reject();
+				}
 			}
 		);
 		return def.promise;
@@ -136,7 +144,7 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 			data: data
 		}).then(
 			(res) => {
-				message.info('Registrasi Berhasil, Periksa Email Anda Untuk Konfirmasi Email');
+				message.info('Registrasi Berhasil, Periksa Handphone Anda Untuk Verifikasi Akun');
 				def.resolve(res.data);
 			},
 			(err) => {
@@ -157,7 +165,7 @@ function AuthService($http, $q, StorageService, $state, helperServices, message)
 			data: data
 		}).then(
 			(res) => {
-				message.info('Registrasi Berhasil, Periksa Email Anda Untuk Konfirmasi Email');
+				message.info('Registrasi Berhasil, Periksa Handphone Anda Untuk Verifikasi Akun');
 				def.resolve(res.data);
 			},
 			(err) => {

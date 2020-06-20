@@ -6,44 +6,47 @@
                     <h1>WPKS</h1>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form ng-submit="register(model)">
                         <h3 class="mb-3">Registrasi</h3>
                         <div class="form-group">
+                            <label for="">Nama</label>
                             <input ng-model="model.nama_pembeli" class="form-control form-control-lg" type="text"
-                                name="nama" required="" placeholder="Nama" autocomplete="off">
+                                name="nama" required placeholder="Nama" autocomplete="off">
                         </div>
 
                         <div class="form-group">
+                            <label for="">User Name</label>
+                            <input ng-model="model.username" class="form-control form-control-lg" type="text"
+                                name="userName" required placeholder="User Name" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Email</label>
                             <input ng-model="model.email_pembeli" class="form-control form-control-lg" type="email"
-                                name="email" required="" placeholder="E-mail" autocomplete="off">
-                        </div>
-
-
-                        <div class="form-group">
-                            <input ng-model="model.jenis_kelamin" class="form-control form-control-lg" type="text"
-                                name="jk" required="" placeholder="Jenis Kelamin" autocomplete="off">
+                                name="email" required placeholder="E-mail" autocomplete="off">
                         </div>
                         <div class="form-group">
-                            <input ng-model="model.tgl_lahir" type="date" class="form-control form-control-lg"
-                                type="text" name="tgl_lahir" required="" placeholder="Tanggal Lahir" autocomplete="off">
-                        </div>
-                        <div class="form-group">
+                            <label for="">No Telepin</label>
                             <input ng-model="model.no_tlp" class="form-control form-control-lg" type="text"
-                                name="telepon" required="" placeholder="Telepon" autocomplete="off">
+                                title="No Telepon Harus Dimulai 08 : Contoh : 08114810000"
+                                pattern="[0]{1}[8]{1}?[0-9]{9,11}$" name="telepon" required placeholder="Telepon"
+                                autocomplete="off">
                         </div>
 
                         <div class="form-group">
+                            <label for="">Password</label>
                             <input ng-model="model.Password" class="form-control form-control-lg" id="pass1"
-                                type="password" required="" placeholder="Password" autocomplete="off">
+                                type="password" required placeholder="Password" autocomplete="off">
                         </div>
                         <div class="form-group">
-                            <input ng-model="model.ConfirmPassword" class="form-control form-control-lg" required=""
+                            <label for="">Ulangi Password</label>
+                            <input ng-model="model.ConfirmPassword" class="form-control form-control-lg" required
                                 placeholder="Konfirmasi Password" autocomplete="off">
                         </div>
                         <div class="form-group pt-2">
-                            <button ng-click="register(model)" class="btn btn-block btn-primary" type="button">
-                                <i class="fa fa-spinner fa-spin" ng-show="helper.IsBusy"></i>
-                                Register Akun</button>
+                            <input class="btn btn-block btn-primary" type="submit">
+                            <i class="fa fa-spinner fa-spin" ng-show="helper.IsBusy"></i>
+                            Register Akun</input>
                         </div>
                     </form>
                 </div>

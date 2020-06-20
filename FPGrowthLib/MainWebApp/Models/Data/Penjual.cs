@@ -50,6 +50,7 @@ namespace MainWebApp.Models.Data {
 
           [DbColumn ("iduser")]
           public int iduser { get; set; }
+          public string username;
           public string Password { get; set; }
           public string email { get; set; }
 

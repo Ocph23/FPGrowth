@@ -111,22 +111,62 @@ function inboxController($scope, AuthService, ChatService, helperServices) {
 	};
 }
 
-function confirmEmailController($scope, $stateParams, $http, AuthService, helperServices) {
-	var code = $stateParams.code;
-	var id = $stateParams.id;
+function confirmEmailController(
+	$scope,
+	$stateParams,
+	$state,
+	$http,
+	AuthService,
+	helperServices,
+	StorageService,
+	message
+) {
+	$scope.model = {};
+	var user = $stateParams.user;
+	$scope.isBusy = false;
+	$scope.isSended = false;
 
-	$scope.isSuccess = false;
+	if (!user) {
+		$state.go('login');
+	}
 
-	$http({
-		method: 'get',
-		url: helperServices.url + '/user/verifyemail?userid=' + id + '&token=' + code,
-		headers: AuthService.getHeader()
-	}).then(
-		(result) => {
-			$scope.isSuccess = true;
-		},
-		(err) => {
-			$scope.isError = true;
-		}
-	);
+	$scope.resendCode = () => {
+		$scope.model = {};
+		$scope.isSended = true;
+
+		$http({
+			method: 'get',
+			url: helperServices.url + '/user/resendverify?userid=' + user.iduser,
+			headers: AuthService.getHeader()
+		}).then(
+			(result) => {
+				$scope.isSended = false;
+				message.info('Periksa Handphone Anda');
+			},
+			(err) => {
+				$scope.isSended = false;
+				message.error(err.data);
+			}
+		);
+	};
+
+	$scope.verifikasi = (model) => {
+		$scope.isBusy = true;
+		$http({
+			method: 'get',
+			url: helperServices.url + '/user/verifyemail?userid=' + user.iduser + '&token=' + model.kode,
+			headers: AuthService.getHeader()
+		}).then(
+			(res) => {
+				$scope.isBusy = false;
+				user.status = true;
+				StorageService.addObject('user', user);
+				$state.go(user.role + '-home');
+			},
+			(err) => {
+				$scope.isBusy = false;
+				message.error(err.data);
+			}
+		);
+	};
 }

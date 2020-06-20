@@ -35,6 +35,7 @@ namespace MainWebApp {
         public IRepository<Pesan> Chat { get { return new Repository<Pesan> (this); } }
         public IRepository<Pengiriman> Pengiriman { get { return new Repository<Pengiriman> (this); } }
         public IRepository<Parameter> Parameters { get { return new Repository<Parameter> (this); } }
+        public IRepository<OutBox> OutBoxes { get { return new Repository<OutBox> (this); } }
 
         public IEnumerable<dynamic> SelectDynamic (string sql) {
 
@@ -52,6 +53,15 @@ namespace MainWebApp {
                 }
             }
 
+        }
+
+        public bool SendMessage (string number, string message) {
+            var outbox = new OutBox { UDH = "", TextDecoded = message, DestinationNumber = number, CreatorID = "WPKS" };
+            if (message.Length > 120) {
+                outbox.MultiPart = true;
+            }
+
+            return this.OutBoxes.Insert (outbox);
         }
 
     }

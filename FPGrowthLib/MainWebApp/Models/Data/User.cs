@@ -27,8 +27,8 @@ namespace MainWebApp.Models.Data {
           [DbColumn ("no_tlp")]
           public string no_tlp { get; set; }
 
-          [DbColumn ("emailconfirm")]
-          public int emailconfirm { get; set; }
+          [DbColumn ("kodeverifikasi")]
+          public string kodeverifikasi { get; set; }
 
           [DbColumn ("photo")]
           public string photo { get; set; }

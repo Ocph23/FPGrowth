@@ -8,6 +8,7 @@ using Ocph.DAL;
 namespace MainWebApp.Models.Data {
      [TableName ("Pembeli")]
      public class Pembeli : IPembeli {
+
           [PrimaryKey ("idpembeli")]
           [DbColumn ("idpembeli")]
           public int idpembeli { get; set; }
@@ -19,7 +20,7 @@ namespace MainWebApp.Models.Data {
           public string email_pembeli { get; set; }
 
           [DbColumn ("jenis_kelamin")]
-          public string jenis_kelamin { get; set; }
+          public string jenis_kelamin { get; set; } = "L";
 
           [DbColumn ("alamat")]
           public string alamat { get; set; }
@@ -44,6 +45,7 @@ namespace MainWebApp.Models.Data {
 
           [DbColumn ("iduser")]
           public int iduser { get; set; }
+          public string username;
 
           public string Password { get; set; }
           public string nama { get; set; }

@@ -67,6 +67,16 @@ namespace MainWebApp.Controllers {
             }
         }
 
+        [HttpGet]
+        public IActionResult resendverify (int userid) {
+            try {
+                return Ok (_service.resendverify (userid));
+            } catch (System.Exception ex) {
+
+                return Unauthorized (ex.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> RegisterPembeli (Pembeli model) {
             try {

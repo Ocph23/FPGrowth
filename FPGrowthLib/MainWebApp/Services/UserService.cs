@@ -15,7 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace MainWebApp.Services {
     public interface IUserService {
         User Authenticate (string username, string password);
-        bool verifyemail (int userid, string token);
+        //  bool verifyemail (int userid, string token);
         object profile (int userid);
         Task<Pembeli> RegisterPembeli (Pembeli pembeli);
         Task<Penjual> RegisterPenjual (Penjual pembeli);
@@ -23,6 +23,8 @@ namespace MainWebApp.Services {
         Task<IEnumerable<dynamic>> GetUsers ();
         Task<bool> changeStatusPembeli (int userId);
         Task<bool> changeStatusPenjual (int userId);
+        bool verifyemail (int userid, string kode);
+        bool resendverify (int userid);
     }
 
     public class UserService : IUserService {
@@ -49,13 +51,11 @@ namespace MainWebApp.Services {
                     throw new SystemException ("Anda Tidak Memiliki Akses");
                 }
 
-                if (user.emailconfirm == 0)
-                    throw new SystemException ("Menunggu Verifikasi Account");
-
                 if (!Helper.VerifyMd5Hash (password, user.password))
                     throw new SystemException ("Anda Tidak Memiliki Akses");
 
                 user.Token = user.GenerateToken (_appSettings.Secret);
+                user.kodeverifikasi = "";
                 return user;
             } catch (System.Exception ex) {
 
@@ -68,18 +68,38 @@ namespace MainWebApp.Services {
             return user.profile (db);
         }
 
-        public bool verifyemail (int userid, string token) {
+        public bool verifyemail (int userid, string kode) {
             try {
                 var user = db.Users.Where (x => x.iduser == userid).FirstOrDefault ();
                 if (user == null)
                     throw new SystemException ("Anda Tidak Memiliki Akses");
 
-                if (user.emailconfirm == 1)
-                    throw new SystemException ("Email telah diverifikasi");
+                if (user.status)
+                    throw new SystemException ("Akun anda  telah diverifikasi");
 
-                var aktif = db.Users.Update (x => new { x.emailconfirm }, new User { emailconfirm = 1, iduser = userid }, x => x.iduser == userid);
+                if (user.kodeverifikasi != kode)
+                    throw new SystemException ("Kode Verifikasi Salah, Silahkan Kirim Ulang Kode Verfikasi");
+
+                var aktif = db.Users.Update (x => new { x.kodeverifikasi, x.status }, new User { kodeverifikasi = "", status = true, iduser = userid }, x => x.iduser == userid);
                 if (!aktif)
                     throw new SystemException ("Terjadi Kesalahan, Silahkan Riset ");
+                return true;
+
+            } catch (System.Exception) {
+
+                throw;
+            }
+        }
+
+        public bool resendverify (int userid) {
+            try {
+                var user = db.Users.Where (x => x.iduser == userid).FirstOrDefault ();
+                var code = new Random ().Next (10000, 99999).ToString ();
+                var aktif = db.Users.Update (x => new { x.kodeverifikasi, x.status }, new User { kodeverifikasi = code, status = false, iduser = userid }, x => x.iduser == userid);
+                if (!aktif)
+                    throw new SystemException ("Terjadi Kesalahan, Silahkan Ulangi Beberapa Saat ");
+
+                db.SendMessage (user.no_tlp, getSMSMessage (code));
                 return true;
 
             } catch (System.Exception) {
@@ -94,12 +114,14 @@ namespace MainWebApp.Services {
 
                 var users = db.Users.Select ();
                 if (users.Count () <= 0) {
-                    var user = new User { username = "admin", password = Helper.GetMd5Hash ("admin"), role = "adminsuper", email = "admin@gmail.com" };
+                    var code = new Random ().Next (10000, 99999).ToString ();
+                    var user = new User { kodeverifikasi = code, username = "admin", password = Helper.GetMd5Hash ("admin"), role = "adminsuper", email = "admin@gmail.com" };
                     user = user.CreateUser (db);
                     var token = user.GenerateToken (_appSettings.Secret);
-                    var emailService = new EmailService ();
+                    // var emailService = new EmailService ();
+                    // emailService.SendEmail ("ocph23@gmail.com", getEmailMessage (user.iduser, token));
 
-                    emailService.SendEmail ("ocph23@gmail.com", getEmailMessage (user.iduser, token));
+                    db.SendMessage (user.no_tlp, getSMSMessage (code));
                     transaction.Commit ();
                 }
                 return Task.CompletedTask;
@@ -110,14 +132,24 @@ namespace MainWebApp.Services {
             }
         }
 
+        private string getSMSMessage (string code) {
+            return @"WPKS - Verifikasi Akun 
+Kode Verifikasi : " + code;
+        }
+
         public Task<Pembeli> RegisterPembeli (Pembeli pembeli) {
             var transaction = db.BeginTransaction ();
             try {
-                var user = new User { username = pembeli.email_pembeli, password = Helper.GetMd5Hash (pembeli.Password), role = "pembeli", email = pembeli.email_pembeli };
+                var code = new Random ().Next (10000, 99999).ToString ();
+                var user = new User {
+                    no_tlp = pembeli.no_tlp,
+                    kodeverifikasi = code, username = pembeli.username,
+                    password = Helper.GetMd5Hash (pembeli.Password), role = "pembeli", email = pembeli.email_pembeli
+                };
                 user = user.CreateUser (db);
                 pembeli.iduser = user.iduser;
                 pembeli.tgl_daftar = DateTime.Now;
-                pembeli.status = true;
+                pembeli.status = false;
                 pembeli.idpembeli = db.Pembeli.InsertAndGetLastID (pembeli);
                 if (pembeli.idpembeli <= 0)
                     throw new SystemException ("Registrasi Gagal");
@@ -130,8 +162,11 @@ namespace MainWebApp.Services {
                 }
 
                 var token = user.GenerateToken (_appSettings.Secret);
-                var emailService = new EmailService ();
-                emailService.SendEmail (pembeli.email_pembeli, getEmailMessage (user.iduser, token));
+                // var emailService = new EmailService ();
+                // emailService.SendEmail (pembeli.email_pembeli, getEmailMessage (user.iduser, token));
+
+                db.SendMessage (pembeli.no_tlp, getSMSMessage (code));
+
                 transaction.Commit ();
                 return Task.FromResult (pembeli);
 
@@ -144,7 +179,9 @@ namespace MainWebApp.Services {
         public Task<Penjual> RegisterPenjual (Penjual penjual) {
             var transaction = db.BeginTransaction ();
             try {
+                var code = new Random ().Next (10000, 99999).ToString ();
                 var user = new User {
+                    kodeverifikasi = code,
                     username = penjual.email, password = Helper.GetMd5Hash (penjual.Password),
                     role = "penjual", email = penjual.email
                 };
@@ -160,12 +197,9 @@ namespace MainWebApp.Services {
                 if (admin != null) {
                     Pesan pesan = new Pesan { tgl_pesan = DateTime.Now, pengirim = admin.username, idpenerima = user.iduser, idpengirim = admin.iduser, isi_pesan = "Selamat Datang" };
                     db.Chat.Insert (pesan);
-
                 }
-
                 var token = user.GenerateToken (_appSettings.Secret);
-                var emailService = new EmailService ();
-                emailService.SendEmail (penjual.email, getEmailMessage (user.iduser, token));
+                db.SendMessage (penjual.no_tlp, getSMSMessage (code));
                 transaction.Commit ();
                 return Task.FromResult (penjual);
 
@@ -175,19 +209,19 @@ namespace MainWebApp.Services {
             }
         }
 
-        private string getEmailMessage (int iduser, string token) {
-            string baseUrl = AppDomain.CurrentDomain.GetData ("BaseUrl").ToString ();
-            return $@"<h1><span style='color: #00ccff;'><strong>WPKS - VERIFIKASI EMAIL</strong></span></h1>
-                                            <p><strong>Selamat Datang</strong></p>
-                                            <p><strong>untuk mengaktifkan akun anda Silhakan click&nbsp;</strong></p>
-                                            <div style='text-align: center; margin : 50px'>
-                                                <h1>
-                                                    <a style='color:white ;border-radius: 5px; border: 1px rgb(0, 225, 255); background-color: #00ccff; padding: 20px 60px; text-decoration:none'
-                                                    href='{baseUrl}/#!/account/confirmemail/{iduser}/{token}''>Disini</a>
-                                                </h1>
-                                            </div>
-                                            <p>&nbsp;</p>";
-        }
+        // private string getEmailMessage (int iduser, string token) {
+        //     string baseUrl = AppDomain.CurrentDomain.GetData ("BaseUrl").ToString ();
+        //     return $@"<h1><span style='color: #00ccff;'><strong>WPKS - VERIFIKASI EMAIL</strong></span></h1>
+        //                                     <p><strong>Selamat Datang</strong></p>
+        //                                     <p><strong>untuk mengaktifkan akun anda Silhakan click&nbsp;</strong></p>
+        //                                     <div style='text-align: center; margin : 50px'>
+        //                                         <h1>
+        //                                             <a style='color:white ;border-radius: 5px; border: 1px rgb(0, 225, 255); background-color: #00ccff; padding: 20px 60px; text-decoration:none'
+        //                                             href='{baseUrl}/#!/account/confirmemail/{iduser}/{token}''>Disini</a>
+        //                                         </h1>
+        //                                     </div>
+        //                                     <p>&nbsp;</p>";
+        // }
 
         public Task<User> UpdatePhotoProfile (int id, byte[] model) {
 

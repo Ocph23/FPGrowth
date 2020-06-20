@@ -15,7 +15,7 @@ namespace MainWebApp.Models.Data {
 
           string no_tlp { get; set; }
 
-          int emailconfirm { get; set; }
+          string kodeverifikasi { get; set; }
           bool status { get; set; }
 
      }

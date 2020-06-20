@@ -103,9 +103,7 @@ namespace MainWebApp.Controllers {
         public IActionResult ByPenjualId (int id) {
             using (var db = new OcphDbContext (_setting)) {
                 try {
-
                     var barangSearch = (from b in db.Barang.Where (x => x.idbarang == id) join k in db.Kategori.Select () on b.idkategori equals k.idkategori select new Barang { idpenjual = b.idpenjual, idbarang = b.idbarang, panjang = b.panjang, lebar = b.lebar, tinggi = b.tinggi, kategori = k, idkategori = k.idkategori }).FirstOrDefault ();
-
                     var orders = from a in db.Transaksi.Select ()
                     join o in db.Order.Select () on a.idorder equals o.idorder
                     join p in db.Pembeli.Select () on o.idpembeli equals p.idpembeli

@@ -34,8 +34,11 @@ angular.module('account.router', [ 'ui.router' ]).config(function($stateProvider
 			templateUrl: '../apps/views/account/sign-up-penjual.html'
 		})
 		.state('confirmemail', {
-			url: '/confirmemail/:id/:code',
+			url: '/confirmemail',
 			parent: 'account',
+			params: {
+				user: null
+			},
 			controller: 'confirmEmailController',
 			templateUrl: '../apps/views/account/confirmemail.html'
 		});

@@ -1,33 +1,32 @@
 <div class="email-confirm">
     <div class="email-body">
-        <div class="card" ng-show="isSuccess">
+        <div class="card">
             <div class="card-header">
-                <h2>Confirm Email Success</h2>
+                <h2>Konfirmasi Akun</h2>
             </div>
             <div class="card-body">
-                <h4>Email Anda Berhasil Di Konfirmasi</h4>
-                <h4>Silahkan Login</h4>
-                <div class="confirm-login">
-                    <a ui-sref="login" class="btn btn-success">Login</a>
-                </div>
+                <form ng-submit="verifikasi(model)">
+                    <div class="form-group">
+                        <label for="">Input Kode Verifikasi</label>
+                        <input ng-model="model.kode" class="form-control form-control-lg" type="text" required
+                            placeholder="Kode" autocomplete="off">
+                        <h6 style="color: steelblue; font-size: 10; margin-top: 10px;">Periksa SMS yang dikirim ke Nomor
+                            HP
+                            Anda</h6>
+                    </div>
+                    <a ng-click="resendCode()" href="">Kirim Ulang Kode <i ng-show="isSended"
+                            class="fa fa-spinner fa-spin  text-info"></i></a>
+                    <div class="confirm-login">
+                        <button type="submit" ng-disabled="!model.kode" style="width: 100%; margin-top: 10px;"
+                            class="btn btn-primary">
+                            <i ng-show="isBusy" class="fa fa-spinner fa-spin  text-white"></i> Verifikasi </button>
+                    </div>
+                </form>
             </div>
         </div>
 
 
-        <div class="card" ng-show="isError">
-            <div class="card-header">
-                <h2>Info</h2>
-            </div>
-            <div class="card-body">
-                <h4>Email Anda Telah Di Konfirmasi</h4>
-                <h4>Silahkan Login</h4>
-                <div class="confirm-login">
-                    <a ui-sref="login" class="btn btn-warning">Login</a>
-                </div>
-            </div>
-        </div>
 
-        <i ng-show="!isSuccess && !isError" class="fa fa-spinner fa-spin fa-4x text-white"></i>
 
     </div>
 </div>
