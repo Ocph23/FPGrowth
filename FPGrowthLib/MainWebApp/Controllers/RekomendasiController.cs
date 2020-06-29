@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata;
 using FPGrowthLib;
 using MainWebApp.Models.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -141,7 +142,9 @@ namespace MainWebApp.Controllers {
                         index++;
                     }
 
-                    var algoritma = new Algoritma.AlgoritmaProccess (15, 0.3, listData);
+                    var param = db.Parameters.Where (x => x.status == true).FirstOrDefault ();
+
+                    var algoritma = new Algoritma.AlgoritmaProccess (param == null ? 15 : param.nilai_minimum_support, param == null? 0.3 : param.nilai_minimum_confidancce, listData);
 
                     var brg = new TransaksiBarang { idbarang = id };
 

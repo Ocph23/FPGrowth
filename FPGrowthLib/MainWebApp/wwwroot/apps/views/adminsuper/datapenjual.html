@@ -78,7 +78,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form ng-submit="register(model)">
                     <h3 class="mb-3">Registrasi</h3>
                     <div class="form-group">
                         <input ng-model="model.nama_penjual" class="form-control form-control-lg" type="text"
@@ -107,8 +107,10 @@
                     </div>
 
                     <div class="form-group">
-                        <input ng-model="model.no_tlp" class="form-control form-control-lg" type="text" name="telepon"
-                            required="" placeholder="Telepon" autocomplete="off">
+                        <input ng-model="model.no_tlp" class="form-control form-control-lg" type="text"
+                            title="No Telepon Harus Dimulai 08 : Contoh : 08114810000"
+                            pattern="[0]{1}[8]{1}?[0-9]{9,11}$" name="telepon" required placeholder="Telepon"
+                            autocomplete="off">
                     </div>
                     <div class="form-group">
                         <textarea ng-model="model.alamat" class="form-control form-control-lg" type="text" name="alamat"
@@ -125,7 +127,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" ng-click="register(model)" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
             </div>

@@ -181,7 +181,7 @@ Kode Verifikasi : " + code;
             try {
                 var code = new Random ().Next (10000, 99999).ToString ();
                 var user = new User {
-                    kodeverifikasi = code,
+                    kodeverifikasi = code, no_tlp = penjual.no_tlp,
                     username = penjual.email, password = Helper.GetMd5Hash (penjual.Password),
                     role = "penjual", email = penjual.email
                 };

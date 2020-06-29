@@ -159,11 +159,14 @@ namespace MainWebApp.Algoritma {
 
             ////Console.WriteLin("FREKUENS 2 ITEMSET");
 
-            resultX.Reverse ();
+            //  resultX.Reverse ();
+
+            var resultXFrekuensi = resultX.ToArray ();
+            resultXFrekuensi.Reverse ();
             var frekuensiToItemSet = new List<List<double>> ();
-            foreach (var r in resultX) {
+            foreach (var r in resultXFrekuensi) {
                 var resItems = new List<double> ();
-                foreach (var c in resultX) {
+                foreach (var c in resultXFrekuensi) {
                     var res = listItemSet.Where (x => x.Row == r.Name && x.Column == c.Name).FirstOrDefault ();
                     if (res != null) {
                         resItems.Add (res.Value);
@@ -198,7 +201,7 @@ namespace MainWebApp.Algoritma {
                         var minSup = Convert.ToDouble (res.Value) / datas.Count;
                         var conf = Convert.ToDouble (res.Value) / r.Count;
                         var rrr = (MinSupport / 100);
-                        if (minSup <= 0.1 || conf <= Confidance || conf == 1) {
+                        if (minSup < rrr || conf < Confidance || conf == 1) {
 
                         } else {
                             res.MinSuport = minSup;
@@ -207,9 +210,7 @@ namespace MainWebApp.Algoritma {
                         }
                     }
                 }
-
             }
-
             ListItemSetResult = listItemSetResult.OrderByDescending (x => x.Value).ToList ();
         }
 
@@ -287,7 +288,6 @@ namespace MainWebApp.Algoritma {
                 }
             }
             return Tuple.Create (StateItems, edges);
-
         }
 
     }
