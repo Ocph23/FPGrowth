@@ -12,6 +12,18 @@ function AlgoritmaController($scope, $state, message, AlgoritmaService, Paramete
 
 		AlgoritmaService.get(dataparam).then((result) => {
 			$scope.model = result;
+
+			$scope.confidances = [];
+			var index = 0;
+			result.frekuensiItemSet.forEach((elements) => {
+				var items = [];
+				elements.forEach((element) => {
+					items.push(element / result.resultX[index].count);
+				});
+				index++;
+				$scope.confidances.push(items);
+			});
+
 			var vertices = [];
 			var edgesData = [];
 			vertices.push({ id: 0, label: 'null', level: 0 });

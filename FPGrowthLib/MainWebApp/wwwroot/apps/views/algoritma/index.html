@@ -243,9 +243,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="items in model.frekuensiItemSet">
+                        <tr ng-repeat="items in confidances">
                             <td>{{model.resultX[$index].name}}</td>
-                            <td ng-repeat="xx in items  track by $index">{{xx/model.resultX[$index].count |number:2}}
+                            <td ng-repeat="xx in items  track by $index">{{xx |number:2}}
                             </td>
                             <td></td>
                         </tr>
