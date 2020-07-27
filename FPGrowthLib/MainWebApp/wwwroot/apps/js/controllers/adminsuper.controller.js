@@ -86,12 +86,16 @@ function adminsuperManagemenTransaksiController($scope, ManagemenTransaksiServic
 			ManagemenTransaksiService.post(param).then((res) => {
 				$scope.model = {};
 				$('#modelId').modal('hide');
+				$('body').removeClass('modal-open');
+				$('.modal-backdrop').remove();
 				message.info('Data Berhasil Ditambah');
 			});
 		} else {
 			ManagemenTransaksiService.put(param).then((res) => {
 				$scope.model = {};
 				$('#modelId').modal('hide');
+				$('body').removeClass('modal-open');
+				$('.modal-backdrop').remove();
 				message.info('Data Berhasil Diubah');
 			});
 		}
@@ -221,6 +225,11 @@ function adminsuperKonfirPembayaranController($scope, OrderService, kodefikasiSe
 		OrderService.verifikasiPembayaran(item.pembayaran.idpembayaran).then((x) => {
 			item.pembayaran.status_pembayaran = 'Lunas';
 		});
+	};
+	$scope.showBuktiPengiriman = (item, tglorder) => {
+		$scope.pengiriman = item;
+		$scope.pengiriman.tgl_pengiriman = new Date(item.tgl_pengiriman);
+		$scope.pengiriman.tgl_order = new Date(tglorder);
 	};
 }
 function adminsuperKonfirPengirimanController($scope, OrderService, kodefikasiService) {

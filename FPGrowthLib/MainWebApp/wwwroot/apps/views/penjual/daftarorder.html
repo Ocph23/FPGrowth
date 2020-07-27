@@ -192,9 +192,35 @@
             <div class="modal-header">
                 <div class="modal-title" id="datasModalLongTitle">
                     <h5>Detail Order</h5>
-                    <h5 class="modal-title" id="datasModalLongTitle">Kode Order : <span
-                            class="badge badge-success">{{model.idorder}}</span>
-                    </h5>
+                    <div class="labelMain">
+                        <div class="form-row">
+                            <label class="labelField">Kode Order</label>
+                            <label> : {{model.kodeorder}}</label>
+                        </div>
+                        <div class="form-row">
+                            <label class="labelField">Nama Pembeli</label>
+                            <label> : {{model.nama_pembeli}}</label>
+                        </div>
+                        <div class="form-row" ng-show="model.diantar!='Tidak Diantar'">
+                            <label class="labelField">Alamat Pengiriman</label>
+                            <label> : {{model.alamatpengiriman}}</label>
+                        </div>
+                        <div class="form-row" ng-show="model.diantar!='Tidak Diantar'">
+                            <label class="labelField">No Telepon</label>
+                            <label> : {{model.no_tlp}}</label>
+                        </div>
+                    </div>
+                    <style>
+                        .labelMain {
+                            margin: 10px;
+                        }
+
+                        .labelField {
+                            width: 150px;
+                        }
+                    </style>
+
+
                 </div>
                 <button type="button" ng-click="emptyModel()" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

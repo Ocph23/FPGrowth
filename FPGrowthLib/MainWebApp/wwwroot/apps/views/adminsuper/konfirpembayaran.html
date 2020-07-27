@@ -74,6 +74,12 @@
                                                         data-target="#exampleModalCenter"
                                                         class="btn btn-sm btn-outline-light"> <i class="fa fa-edit"></i>
                                                     </button>
+                                                    <button ng-show="item.pengiriman" data-toggle="modal"
+                                                        data-target="#pengirimanModalCenter"
+                                                        ng-click="showBuktiPengiriman(item.pengiriman, item.tgl_order)"
+                                                        class="btn btn-sm btn-outline-light"> <i
+                                                            class="fa fa-truck"></i>
+                                                    </button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -139,6 +145,63 @@
                 <button ng-if="model.pembayaran.status_pembayaran!='Lunas'" type="button" class="btn btn-primary"
                     ng-click="verifikasiPembayaran(model)">Verifikasi</button>
             </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="pengirimanModalCenter" tabindex="-1" role="dialog"
+    aria-labelledby="pengirimanModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="pengirimanModalLongTitle">
+                    <h5>Info Pengiriman</h5>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Kode Pengiriman</label>
+                        <input value="{{kodefikasi.pengiriman(pengiriman.idpengiriman,pengiriman.tgl_pengiriman)}}"
+                            type="text" class="form-control form-control-lg" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>Kode Order</label>
+                        <input value="{{kodefikasi.order(pengiriman.idorder,pengiriman.tgl_order)}}" type="text"
+                            class="form-control form-control-lg" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Pengiriman</label>
+                        <input ng-model="pengiriman.tgl_pengiriman" type="date" class="form-control form-control-lg"
+                            placeholder="Tanggal Pengiriman" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>Jumlah Barang</label>
+                        <input ng-model="pengiriman.jumlah_barang" type="number" class="form-control form-control-lg"
+                            placeholder="Jumlah" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>Keterangan</label>
+                        <textarea ng-model="pengiriman.keterangan" class="form-control form-control-lg"
+                            placeholder="Keterangan" autocomplete="off"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Bukti Pengiriman</label>
+                        <div style="height: 200px;">
+                            <fileinput model="pengiriman.data_bukti_pengiriman" idname="'gambar'" height="200"
+                                src="'images/bukti/'+pengiriman.bukti_pengiriman" showview="true"></fileinput>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

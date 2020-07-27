@@ -189,6 +189,7 @@ function pembeliorderController(
 				model.total = OrderService.total(model.data);
 				model.jumlah = OrderService.jumlah(model);
 				model.diantar = model.jumlah >= man.bts_jumlah_pengiriman ? 'Diantar' : 'Tidak Diantar';
+				model.batasAntar = man.bts_jumlah_pengiriman;
 				$scope.model = model;
 			});
 		});
@@ -265,6 +266,9 @@ function pembelikonfirbayarController(
 		AuthService.profile().then((x) => {
 			$scope.profile = x;
 			$scope.order = $stateParams.data;
+			ManagemenTransaksiService.get().then((x) => {
+				$scope.management = x.find((data) => data.status == 'true');
+			});
 		});
 	}
 

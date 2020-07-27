@@ -93,7 +93,10 @@ namespace MainWebApp.Controllers {
                         System.IO.File.WriteAllBytes (Path.Combine (Directory.GetCurrentDirectory (), "wwwroot/images/avatar/") + data.foto_pembeli, data.data_pembeli);
                     }
 
-                    var updated = db.Pembeli.Update (x => new { x.alamat, x.email_pembeli, x.foto_pembeli, x.foto_ktp, x.jenis_kelamin, x.nama_pembeli, x.no_tlp, x.tgl_daftar, x.tgl_lahir, x.status },
+                    var updated = db.Pembeli.Update (x => new {
+                            x.alamat, x.email_pembeli, x.foto_pembeli, x.foto_ktp, x.jenis_kelamin,
+                                x.nama_pembeli, x.no_tlp, x.tgl_daftar, x.tgl_lahir, x.status
+                        },
                         data, x => x.idpembeli == data.idpembeli);
 
                     db.Users.Update (x => new { x.photo }, new Models.Data.User { photo = data.foto_pembeli }, x => x.iduser == data.iduser);

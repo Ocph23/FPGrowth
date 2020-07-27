@@ -27,8 +27,11 @@
 
                 <div class="form-group row pb-0 mb-0 mt-0 pt-0">
                     <div class="offset-xl-1 col-form-label col-sm-3 font-14">Jenis Kelamin </div>
-                    <div class="col-md-6 font-16"><input type="text" ng-model="profile.jenis_kelamin"
-                            class="form-control">
+                    <div class="col-md-6 font-16">
+                        <select class="form-control" name="ngvalueselect" ng-model="profile.jenis_kelamin">
+                            <option ng-repeat="option in helper.genders" ng-value="option.value">{{option.name}}
+                            </option>
+                        </select>
                     </div>
                 </div>
 

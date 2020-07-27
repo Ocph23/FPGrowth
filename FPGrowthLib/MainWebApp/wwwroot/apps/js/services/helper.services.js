@@ -26,7 +26,7 @@ function helperServices($location) {
 		return map;
 	};
 
-	service.genders = [ 'L', 'P' ];
+	service.genders = [ { name: 'Laki-Laki', value: 'L' }, { name: 'Perempuan', value: 'P' } ];
 
 	service.IsBusy = false;
 

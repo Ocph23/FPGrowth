@@ -37,7 +37,7 @@ function penjualpHomeController($scope, AuthService, BarangService, PenjualOrder
 }
 
 function penjualprofilpController($scope, $http, helperServices, AuthService, message, $state, StorageService) {
-	$scope.genders = helperServices.genders;
+	$scope.helper = helperServices;
 	AuthService.profile().then((x) => {
 		$scope.profile = x;
 	});
@@ -214,7 +214,7 @@ function penjualdaftarorderController($scope, AuthService, kodefikasiService, Or
 		$scope.profile = x;
 		OrderService.getOrderByIdPenjual($scope.profile.idpenjual).then((orders) => {
 			var entries = helperServices.groupBy(orders, (x) => x.idorder);
-			$scope.orders = [];
+			var orders = [];
 			entries.forEach((values, key) => {
 				var item = values[0];
 				if (item) {
@@ -258,8 +258,12 @@ function penjualdaftarorderController($scope, AuthService, kodefikasiService, Or
 							? item.idpengiriman ? 'Sudah' : 'Belum'
 							: 'Tidak Diantar';
 
-					if (model.idpembayaran) $scope.orders.push(model);
+					if (model.idpembayaran) orders.push(model);
 				}
+			});
+
+			$scope.orders = orders.sort((x, y) => {
+				return y.idorder - x.idorder;
 			});
 		});
 
@@ -271,7 +275,11 @@ function penjualdaftarorderController($scope, AuthService, kodefikasiService, Or
 	});
 
 	$scope.selectModel = (item) => {
-		item.tgl_pengiriman = new Date(item.tgl_pengiriman);
+		if (!item.tgl_pengiriman) {
+			item.tgl_pengiriman = new Date();
+		} else {
+			item.tgl_pengiriman = new Date(item.tgl_pengiriman);
+		}
 		$scope.model = item;
 	};
 
@@ -298,6 +306,9 @@ function penjualdaftarorderController($scope, AuthService, kodefikasiService, Or
 			model.bukti_pengiriman = x.bukti_pengiriman;
 			model.kodepengiriman = kodefikasiService.pengiriman(x.idpengiriman, x.tgl_pengiriman);
 			model.diantar = 'Sudah';
+			$('#pengirimanModalCenter').modal('hide');
+			$('body').removeClass('modal-open');
+			$('.modal-backdrop').remove();
 		});
 		$scope.model = null;
 	};

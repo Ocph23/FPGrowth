@@ -43,10 +43,16 @@
                     <h3 class="text-left pt-3">Status Pengiriman</h3>
                     <div class="form-group row border-bottom">
                         <label class="col-12 col-sm-3 col-form-label text-left"></label>
-                        <div class="col-12 col-sm-8 col-lg-2">
-                            <span class="badge"
-                                ng-class="model.diantar=='Diantar'?'badge-danger':'badge-warning'">{{model.diantar}}</span>
+                        <div class="col-12 col-sm-8 col-lg-8" style="display: flex;">
+                            <div class="col-md-4">
+                                <span class="badge"
+                                    ng-class="model.diantar=='Diantar'?'badge-danger':'badge-warning'">{{model.diantar}}</span>
+                            </div>
+                            <div class="col-md-8" style="margin-left: 20px;">
+                                <h5>*Barang Akan Diatar Jika Pembelian Lebih {{model.batasAntar}}</h5>
+                            </div>
                         </div>
+
 
                     </div>
                     <h3 class="text-left m-b-0 pt-3">Detail Belanja</h3>
